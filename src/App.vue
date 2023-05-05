@@ -4,7 +4,7 @@ import TestApi from './components/TestApi.vue'
 
 <template>
   <div class="hero route bg-image" >
-    <TestApi/>
+    <TestApi></TestApi>
   </div>
 </template>
 
