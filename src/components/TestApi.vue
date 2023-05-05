@@ -94,7 +94,7 @@ export default {
     methods: {
         indexes :function(params) {
             console.log("indexes");
-            this.title = "Welcome Vue 2 Demo"
+            this.title = "Welcome Vue 2 Demo 22"
 
             // axios.post(this.apiUrl+ 'auth', {   
             //     username: "test001",
