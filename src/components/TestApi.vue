@@ -72,8 +72,8 @@ export default {
             console.log("indexes");
             
             axios.post('https://flut.jcmmweb.com/api/v1/auth', {   
-                username: "test001",
-                password: '123qwe',
+                username: "",
+                password: '',
             }
             )
             .then(response => {
