@@ -1,7 +1,9 @@
 <template>
 
     <Header :title="title"/>
-
+    <div>
+        <p>{{ $t("home.created_by" , {company : "Lokalise" }) }}</p>
+    </div>
      <!-- Section-->
      <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -17,6 +19,7 @@
                                     <h5 class="fw-bolder">{{ item.ProductName    }}</h5>
                                      <!-- Product price-->
                                      $40.00 - $80.00
+                                     
                                 </div>
                             </div>
                             <!-- Product actions-->
