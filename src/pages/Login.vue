@@ -10,7 +10,7 @@
         Password
         <input type="password" v-model="password" />
       </label>
-      <button type="button" @click="getToken">Log in</button>
+      <button type="submit" @click="getToken">Log in</button>
     </form>
 
 
@@ -31,15 +31,6 @@
             <p>Profile Detail :{{ memProfile }}</p>
         </div>
 
-        <div>
-            <button @click="GetProductListByCategory">Click get GameList</button>
-            <div class="row">
-            <div class="column" v-for="(item,index) of gameCasino" :key="index">
-                <h4 class="title">{{ item.ProductName }}</h4>
-                <span><img :style="imagaSize" :src="item.Image2 "/></span>
-            </div>
-            </div>
-        </div>
     </div>
     <div v-else>
         <p>{{ errorMsg }}</p> 
@@ -65,7 +56,7 @@ export default {
             username:"",
             password:"",
             tokenRes : false,
-            title:"",
+            title:"Welcome Vue 2 Demo 22",
             errorMsg : "",
             gameCasino:[],
             memDetail:{},
@@ -87,31 +78,9 @@ export default {
             fun1
         }
     },
-    created(){
-        //  console.log(this.apiUrl);
-            this.indexes();
-    },
+    created(){},
     methods: {
-        indexes :function(params) {
-            console.log("indexes");
-            this.title = "Welcome Vue 2 Demo 22"
-
-            // axios.post(this.apiUrl+ 'auth', {   
-            //     username: "test001",
-            //     password: '123qwe',
-            // }
-            // )
-            // .then(response => {
-            //   console.log(response.data);
-            //   this.data = response.data;
-            //   this.token = response.data.AccessToken;
-            // })
-            // .catch(error => {
-            //   console.error(error);
-            // });
-        },
         getToken() {
-         
             axios.post( this.apiUrl +'auth ', {   
                 username: this.username,
                 password: this.password,
@@ -136,24 +105,6 @@ export default {
                 this.errorMsg = error;
             });
         },
-        
-        GetProductListByCategory(){
-            console.log(this.token)
-            axios.post(this.apiUrl+ 'GetProductListByCategory', {   
-                  "CategoryType": "SL",
-                  "IsLaunchGame": false
-                }
-            )
-            .then(response => {
-            
-              this.gameCasino = response.data.ProductTypeContent;
-              console.log(response.data.ProductTypeContent);
-            })
-            .catch(error => {
-              console.error(error);
-            });
-        },
-
         GetUserProfile(){
           
             var memDetail2 = JSON.stringify(toRaw(this.memDetail));
@@ -192,31 +143,6 @@ export default {
 
 
 <style>
- .classReadData{
-    width: 796px;
- }
-
- .title{
-    color :yellow
- }
-
- * {
-  box-sizing: border-box;
-}
-
-.hero{
-    height: 100% !important;
-}
-
-.row {
-  display: flex;
-}
-
-/* Create three equal columns that sits next to each other */
-.column {
-  flex: 33.33%;
-  padding: 5px;
-}
 
 .active{
     display: block;

@@ -3,7 +3,4 @@
 </template>
 
 <style>
-.fontColour{
-  color: white;
-}
 </style>

@@ -13,22 +13,22 @@
      <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5">
+                <div class="col mb-5" v-for="(item,index) of gameCasino" :key="index">
                         <div class="card h-100">
                             <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <img class="card-img-top" :src="item.Image2 " alt="{{ item.ProductName }}" />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
+                                    <h5 class="fw-bolder">{{ item.ProductName    }}</h5>
+                                     <!-- Product price-->
+                                     $40.00 - $80.00
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View Game</a></div>
                             </div>
                         </div>
                 </div>
@@ -38,6 +38,40 @@
     
 </template>
 
-<style>
+<script>
+    import axios from 'axios';
 
+    export default{
+        data(){
+           return{
+            gameCasino:[],
+           }
+        },
+        created(){
+            this.gameCategory();
+        },
+        methods:{
+            gameCategory : function(params){
+                axios.post(this.apiUrl+ 'GetProductListByCategory', {   
+                  "CategoryType": "FH",
+                  "IsLaunchGame": false
+                }
+                )
+                .then(response => {
+                  this.gameCasino = response.data.ProductTypeContent;
+                  //console.log(response.data.ProductTypeContent);
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+            }
+        }
+    }
+</script>
+
+<style>
+.card-img-top{
+    max-height: 160px;
+    min-height: 160px;
+}
 </style>
