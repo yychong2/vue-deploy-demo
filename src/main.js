@@ -4,6 +4,7 @@ import router from './router'
 
 
 import './assets/css/styles.css'
+import './assets/css/style-login.css'
 
 const app = createApp(App)
 app.config.globalProperties = {
