@@ -1,9 +1,7 @@
 <template>
 
     <Header :title="title"/>
-    <div>
-        <p>{{ $t("home.created_by" , {company : "Lokalise" }) }}</p>
-    </div>
+    
      <!-- Section-->
      <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -37,7 +35,7 @@
 <script>
     import axios from 'axios';
     import Header from '../components/header.vue'
-
+  
     export default{
         data(){
            return{
