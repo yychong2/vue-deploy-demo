@@ -3,12 +3,27 @@
 
     <section class="form-01-main">
       <div class="form-cover">
-      <div class="container">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <Transition>
+              <div v-if="tokenSwitch" style="margin-top: 80px;">
 
-        <div class="row">
-          <div class="col-md-12">
+                <div style="overflow-wrap: break-word ; color: white;" >
+                <p>Token : {{ token }}</p>
+                </div>
 
-            <form @submit.prevent="loginWithPassword" v-show="reg_form">
+                <div style="overflow-wrap: break-word ; color: white;">
+                    <!-- <p>{{ indexes }}</p> -->
+                    <div class="btn_uy">
+                        <button type="button" @click="GetUserProfile">Click Profile Detail</button>
+                    </div>
+                    <p >Profile Detail :{{ memProfile }}</p>
+                </div>
+
+              </div>
+              <div v-else>
+                <form @submit.prevent="loginWithPassword">
                 <div class="form-sub-main">
                   <div class="_main_head_as">
                     <a href="#">
@@ -37,43 +52,15 @@
                     </div>
                   </div>
                 </div>
-            </form>
-
-            <Transition>
-            <div v-if="tokenRes" style="margin-top: 80px;">
-
-                <div style="overflow-wrap: break-word ; color: white;" >
-                <p>Token : {{ token }}</p>
-                </div>
-
-                <div style="overflow-wrap: break-word ; color: white;">
-                    <!-- <p>{{ indexes }}</p> -->
-                    <div class="btn_uy">
-                        <button type="button" @click="GetUserProfile">Click Profile Detail</button>
-                    </div>
-                    <p >Profile Detail :{{ memProfile }}</p>
-                </div>
-
+                </form>
+              </div>
+              </Transition>
             </div>
-            <div v-else>
-                <p>{{ errorMsg }}</p> 
-            
-            </div>
-            </Transition>
-
-
           </div>
         </div>
-
-   
-      </div>
       </div>
     </section>
-
     
-
-
-  
 </template>
 
 <script>
@@ -86,70 +73,50 @@ axios.defaults.withCredentials = true;
 
 export default {
     data(){
-        const { t } = useI18n()
-
         return{
-            title : t("title.login"),
-            description : t("title.login_description"),
-            data :"",
-            token:"",
+            title : "",
+            description : "",
+            token: "",
             username:"",
             password:"",
-            tokenRes : false,
-            reg_form : true,
-            errorMsg : "",
-            gameCasino:[],
+            tokenSwitch : false,
             memDetail:{},
-            imagaSize:{
-                width:"100px"
-            },
-            classReadData:{
-                width: "796px",
-            },
             memProfile:{}
         }
     },
-    setup(){
-        const fun1 = () =>{
-            console.log("fun1");
-        }
-        
-        return{
-            fun1
-        }
+    setup(){},
+    created(){
+      const { t } = useI18n()
+      this.title = t("title.login")
+      this.description = t("title.login_description")
     },
-    created(){},
     methods: {
         getToken() {
-            axios.post( this.apiUrl +'auth ', {   
-                username: this.username,
-                password: this.password,
+            axios.post( this.apiUrl +'auth', {   
+                username: this.username, password: this.password,
             },
-            {  
-                'X-Requested-With': 'XMLHttpRequest',
-                withCredentials: true,
-                credentials: 'include'
-            }
+            {  'X-Requested-With': 'XMLHttpRequest',  withCredentials: true,    credentials: 'include'}
             )
             .then(response => {
-              this.data = response.data;
-              this.token = response.data.AccessToken;
-              this.memDetail = response.data.MemberDetail;
 
-              //console.log(toRaw(this.memDetail));
-              this.tokenRes = true;
-              this.reg_form = false
+              this.memDetail = response.data.MemberDetail;
+              //console.log(JSON.stringify(toRaw(this.memDetail)));
+
+              sessionStorage.setItem("tokenLogin", response.data.AccessToken)
+              this.token = response.data.AccessToken
+
+              this.tokenSwitch = true;
             })
             .catch(error => {
                 console.error(error);
-                this.errorMsg = error;
             });
         },
         GetUserProfile(){
              
             axios.defaults.headers.common['Content-Type'] = "application/json";
+            //axios.defaults.headers.common['X-Member-Details'] = JSON.stringify(toRaw(this.memDetail)) ;
             axios.defaults.headers.common['X-Member-Details'] = '{"UserId": "'+ this.memDetail.UserId +'"}';
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.token;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' +  sessionStorage.getItem("tokenLogin");
 
             const headers = { 
                 "Content-Type": "application/json",

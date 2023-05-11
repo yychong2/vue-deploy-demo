@@ -49,12 +49,15 @@
             afterLogin: false,
            }
         },
+        setup(){
+        
+        },
         created(){
             const { t } = useI18n()
             this.title = t("title.home")
             this.description = t("title.home_description")
 
-            const token = localStorage.getItem("token")
+            const token = sessionStorage.getItem("tokenLogin")
             if(token != null){
                 this.afterLogin= true
                 console.log(this.afterLogin)
