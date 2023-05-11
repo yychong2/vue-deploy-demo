@@ -1,5 +1,5 @@
 <template>
-    <Header :title="title"/>
+    <Header :title="title" :description="description"/>
     <div>
         <p>{{ $t("home.created_by" , {company : "Lokalise" }) }}</p>
         <p>{{ $t("home.num_visits", 30) }}</p>
@@ -11,12 +11,18 @@
 <script>
 
     import Header from '../components/header.vue'
+    import { useI18n } from 'vue-i18n'
 
     export default{
         data(){
+           const { t } = useI18n()
+
            return{
-            title :"Language Testing",
+            title : t("title.language"),
+            description : t("title.language_description"),
            }
+        },
+        setup() {
         },
         methods:{
         },

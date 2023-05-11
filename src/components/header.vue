@@ -4,7 +4,7 @@
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">{{ title }}</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this Homepage template</p>
+                <p class="lead fw-normal text-white-50 mb-0">{{description}}</p>
             </div>
         </div>
     </header>
@@ -19,13 +19,9 @@ export default{
                 //必选项
                 required:true
             },
-            age:{
-                type:Number,
-                default: 0
-            },
-            names:{
-                type:Array,
-                default :["ken","Kong"]
+            description:{
+                type: [String,Number,Array,Object],
+                default : "template"
             }
     },
 

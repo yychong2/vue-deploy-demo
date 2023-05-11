@@ -1,5 +1,5 @@
 <template>
-    <Header :title="title"/>
+    <Header :title="title" :description="description"/>
 
     <section class="form-01-main">
       <div class="form-cover">
@@ -80,13 +80,17 @@
 import axios from 'axios';
 import { isProxy, toRaw } from 'vue';
 import Header from '../components/header.vue'
+import { useI18n } from 'vue-i18n'
 
 axios.defaults.withCredentials = true;
 
 export default {
     data(){
+        const { t } = useI18n()
+
         return{
-            title:"Login Testing",
+            title : t("title.login"),
+            description : t("title.login_description"),
             data :"",
             token:"",
             username:"",

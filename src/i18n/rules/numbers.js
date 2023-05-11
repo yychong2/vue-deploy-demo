@@ -5,6 +5,12 @@ export default {
             currency: "USD"
         }
     },
+    cn: {
+        currencyFormat: {
+            style: "currency",
+            currency: "RUB"
+        }
+    },
     ru: {
         currencyFormat: {
             style: "currency",

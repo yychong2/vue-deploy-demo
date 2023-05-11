@@ -1,0 +1,34 @@
+{
+    "locale": {
+        "en": "英语",
+        "ru": "俄语",
+        "cn": "华语"
+    },
+    "nav": {
+        "home": "主页",
+        "about": "关于",
+        "login": "登录",
+        "loginTest": "语言测试",
+        "shop": "商店"
+    },
+    "home": {
+        "header": "欢迎来到 Vue 3 I18n 教程！",
+        "created_by": "本教程由{company} 提供给您。",
+        "num_visits": "此页面未被访问 :( | 此页面已被访问 {n} 次 | 此页面已被访问 {n} 次"
+    },
+    "about": {
+        "header": "关于我们",
+        "donations": "筹集的捐款：{donations}"
+    },
+    "title": {
+        "app_name": "开始演示",
+        "home": "主页",
+        "home_description": "欢迎来到主页",
+        "about": "关于我们",
+        "about_description": "欢迎来到关于页面",
+        "login": "登录",
+        "login_description": "欢迎来到登录页面",
+        "language": "语言测试",
+        "language_description": "欢迎来到语言测试页面"
+    }
+}

@@ -1,13 +1,14 @@
 {
     "locale": {
         "en": "English",
-        "ru": "Russian"
+        "ru": "Russian",
+        "cn": "Chinese"
     },
     "nav": {
         "home": "Home",
         "about": "About",
         "login": "Login",
-        "loginTest": "Login Testing",
+        "loginTest": "Language Testing",
         "shop": "Shop"
     },
     "home": {
@@ -18,5 +19,16 @@
     "about": {
         "header": "About us",
         "donations": "Donations raised: {donations}"
+    },
+    "title": {
+        "app_name": "Start Demo",
+        "home": "Home",
+        "home_description": "Welcome to Home page",
+        "about": "About Us",
+        "about_description": "Welcome to About page",
+        "login": "Login",
+        "login_description": "Welcome to Login page",
+        "language": "Language Testing",
+        "language_description": "Welcome to Language Testing page"
     }
 }

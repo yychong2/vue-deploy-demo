@@ -1,6 +1,6 @@
 <template>
 
-    <Header :title="title"/>
+    <Header :title="title" :description="description"/>
     
      <!-- Section-->
      <section class="py-5">
@@ -35,11 +35,14 @@
 <script>
     import axios from 'axios';
     import Header from '../components/header.vue'
+    import { useI18n } from 'vue-i18n'
   
     export default{
         data(){
+            const { t } = useI18n()
            return{
-            title :"Home",
+            title : t("title.home"),
+            description : t("title.home_description"),
             gameCasino:[],
            }
         },

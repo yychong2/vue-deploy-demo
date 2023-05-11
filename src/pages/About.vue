@@ -1,5 +1,5 @@
 <template>
-  <Header :title="title"/>
+  <Header :title="title" :description="description"/>
    <!-- Section-->
    <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
@@ -33,11 +33,15 @@
 <script>
 
     import Header from '../components/header.vue'
+    import { useI18n } from 'vue-i18n'
 
     export default{
         data(){
+           const { t } = useI18n()
+
            return{
-            title :"About",
+            title : t("title.about"),
+            description : t("title.about_description"),
            }
         },
         methods:{
