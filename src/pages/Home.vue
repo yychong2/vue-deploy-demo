@@ -2,71 +2,68 @@
 
     <Header :title="title" :description="description"/>
     
-     <!-- Section-->
-     <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5" v-for="(item,index) of gameCasino" :key="index">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" :src="item.Image2 " alt="{{ item.ProductName }}" />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">{{ item.ProductName    }}</h5>
-                                     <!-- Product price-->
-                                     $40.00 - $80.00
-                                     
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View Game</a></div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-     </section>
     
+    <div v-if="afterLogin">
+        <gameCategory/>
+    </div>
+    <div v-else>
+        <section class="form-01-main">
+          <div class="form-cover">
+          <div class="container">
+
+            <div class="row youtube-border">
+              <div class="col-md-12 ">
+                <vue-plyr>
+                  <div class="plyr__video-embed">
+                    <iframe
+                      src="https://www.youtube.com/embed/8Fkb5ZTu07c?amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                      allowfullscreen
+                      allowtransparency
+                      allow="autoplay"
+                    ></iframe>
+                  </div>
+                </vue-plyr>
+              </div>
+            </div>
+          </div>
+          </div>
+        </section>
+    </div>
+
+
+
+   
+
 </template>
 
 <script>
-    import axios from 'axios';
     import Header from '../components/header.vue'
     import { useI18n } from 'vue-i18n'
-  
+    import gameCategory from '../services/getGameCategory.vue';
+
     export default{
         data(){
-            const { t } = useI18n()
            return{
-            title : t("title.home"),
-            description : t("title.home_description"),
-            gameCasino:[],
+            title : "",
+            description : "",
+            afterLogin: false,
            }
         },
         created(){
-            this.gameCategory();
-        },
-        methods:{
-            gameCategory : function(params){
-                axios.post(this.apiUrl+ 'GetProductListByCategory', {   
-                  "CategoryType": "FH",
-                  "IsLaunchGame": false
-                }
-                )
-                .then(response => {
-                  this.gameCasino = response.data.ProductTypeContent;
-                  //console.log(response.data.ProductTypeContent);
-                })
-                .catch(error => {
-                  console.error(error);
-                });
+            const { t } = useI18n()
+            this.title = t("title.home")
+            this.description = t("title.home_description")
+
+            const token = localStorage.getItem("token")
+            if(token != null){
+                this.afterLogin= true
+                console.log(this.afterLogin)
             }
+
         },
+        methods:{},
         components:{
-            Header
+            Header , gameCategory
         }
     }
 </script>
@@ -76,4 +73,30 @@
     max-height: 160px;
     min-height: 160px;
 }
+
+.form-01-main{
+   height: 804px !important;
+}
+
+.btn_uy button{
+    padding: 10px 20px;
+    background: #37a000;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: normal;
+    border-radius: 5px;
+    color: #fff;
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.youtube-border{
+    margin-top: 60px !important;
+}
+
 </style>

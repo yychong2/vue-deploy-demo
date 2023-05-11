@@ -1,9 +1,11 @@
 <template>
   <Header :title="title" :description="description"/>
-   <!-- Section-->
-   <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+    <section class="form-01-main">
+      <div class="form-cover">
+      <div class="container">
+
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
               
               <p>In the very, very deep seabed, there is a majestic castle, in which live six mermaid princesses, they are all very beautiful, especially the youngest princess, she has long golden hair and is more beautiful than her sisters, she is the most beautiful She likes to listen to her sisters talking about many new things on the sea, so the little princess often thinks that one day she can go to the sea to see by herself.
               The little princess waited and waited, and on her fifteenth birthday, she quietly swam to the surface of the sea. There was a big boat on the sea, and many people on board were holding a grand birthday party. The prince was majestic, handsome, and the mermaid princess was also fascinated by him.
@@ -25,8 +27,9 @@
               
 
             </div>
-        </div>
-     </section>
+      </div>
+      </div>
+    </section>
 
 </template>
 
@@ -53,4 +56,9 @@
 </script>
 
 <style>
+
+.justify-content-center{
+    margin-top: 38px;
+    color: white;
+}
 </style>
