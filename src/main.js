@@ -12,7 +12,7 @@ const app = createApp(App)
 
 app.config.globalProperties = {
     apiUrl: "https://flut.jcmmweb.com/api/v1/",
-
+    aesKey: "6699"
 };
 
 app.use(router)

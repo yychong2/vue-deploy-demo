@@ -29,6 +29,8 @@
         "login": "登录",
         "login_description": "欢迎来到登录页面",
         "language": "语言测试",
-        "language_description": "欢迎来到语言测试页面"
+        "language_description": "欢迎来到语言测试页面",
+        "profile": "简介",
+        "profile_description": "欢迎来到简介页面"
     }
 }

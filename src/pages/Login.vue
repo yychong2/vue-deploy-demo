@@ -13,14 +13,6 @@
                 <p>Token : {{ token }}</p>
                 </div>
 
-                <div style="overflow-wrap: break-word ; color: white;">
-                    <!-- <p>{{ indexes }}</p> -->
-                    <div class="btn_uy">
-                        <button type="button" @click="GetUserProfile">Click Profile Detail</button>
-                    </div>
-                    <p >Profile Detail :{{ memProfile }}</p>
-                </div>
-
               </div>
               <div v-else>
                 <form @submit.prevent="loginWithPassword">
@@ -68,6 +60,7 @@ import axios from 'axios';
 import { isProxy, toRaw } from 'vue';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
+import CryptoJS from 'crypto-js'
 
 axios.defaults.withCredentials = true;
 
@@ -80,8 +73,6 @@ export default {
             username:"",
             password:"",
             tokenSwitch : false,
-            memDetail:{},
-            memProfile:{}
         }
     },
     setup(){},
@@ -99,9 +90,8 @@ export default {
             )
             .then(response => {
 
-              this.memDetail = response.data.MemberDetail;
-              //console.log(JSON.stringify(toRaw(this.memDetail)));
-
+              const userId = "{'UserId': '"+ response.data.MemberDetail.UserId +"'}";
+              sessionStorage.setItem("memDetail", CryptoJS.AES.encrypt(userId, this.aesKey))
               sessionStorage.setItem("tokenLogin", response.data.AccessToken)
               this.token = response.data.AccessToken
 
@@ -109,29 +99,6 @@ export default {
             })
             .catch(error => {
                 console.error(error);
-            });
-        },
-        GetUserProfile(){
-             
-            axios.defaults.headers.common['Content-Type'] = "application/json";
-            //axios.defaults.headers.common['X-Member-Details'] = JSON.stringify(toRaw(this.memDetail)) ;
-            axios.defaults.headers.common['X-Member-Details'] = '{"UserId": "'+ this.memDetail.UserId +'"}';
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' +  sessionStorage.getItem("tokenLogin");
-
-            const headers = { 
-                "Content-Type": "application/json",
-                "Language":"en-US",
-                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                "Authorization" : axios.defaults.headers.common['Authorization']
-            };
-
-            axios.get('https://flut.jcmmweb.com/api/v1/GetUserProfile', {  } , {headers}
-            ).then(response => {
-              //console.log( response.data);
-              this.memProfile = response.data.UserDetail
-            })
-            .catch(error => {
-              console.error(error);
             });
         }
     },

@@ -77,6 +77,10 @@
     min-height: 160px;
 }
 
+.card-body{
+  color:black
+}
+
 .form-01-main{
    height: 804px !important;
 }
@@ -101,5 +105,6 @@
 .youtube-border{
     margin-top: 60px !important;
 }
+
 
 </style>

@@ -29,6 +29,8 @@
         "login": "Login",
         "login_description": "Welcome to Login page",
         "language": "Language Testing",
-        "language_description": "Welcome to Language Testing page"
+        "language_description": "Welcome to Language Testing page",
+        "profile": "Profile",
+        "profile_description": "Welcome to Profile page"
     }
 }
