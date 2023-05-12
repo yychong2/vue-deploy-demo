@@ -9,7 +9,8 @@
         "about": "关于",
         "login": "登录",
         "loginTest": "语言测试",
-        "shop": "商店"
+        "shop": "商店",
+        "profile": "简介"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",

@@ -9,7 +9,8 @@
         "about": "About",
         "login": "Login",
         "loginTest": "Language Testing",
-        "shop": "Shop"
+        "shop": "Shop",
+        "profile": "Profile"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
