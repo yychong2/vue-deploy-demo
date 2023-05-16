@@ -51,6 +51,11 @@ const router = createRouter({
                 name: 'promotion',
                 component: () =>
                     import ('../pages/Promotion.vue')
+            }, {
+                path: 'bank',
+                name: 'bank',
+                component: () =>
+                    import ('../pages/Bank.vue')
             },
             {
                 path: '/:pathMatch(.*)',

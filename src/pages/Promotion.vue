@@ -101,7 +101,7 @@
 
                     axios.get(this.apiUrl+ 'GetPromotionCategoryList', {}, {headers}
                     ).then(response => {
-                        console.log(response.data)
+                        //console.log(response.data)
                         this.promotionCategory = response.data.PromotionCategoryList
                         //console.log(this.promotionList)
                     })

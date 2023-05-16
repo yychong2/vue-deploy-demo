@@ -16,7 +16,8 @@
         "receive": "Receive",
         "transfer": "Transfer",
         "all_menu": "All Menu",
-        "promotion": "Breaking News"
+        "promotion": "Breaking News",
+        "bank": "Bank"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -40,6 +41,8 @@
         "profile": "Profile",
         "profile_description": "Welcome to Profile page",
         "promotion": "Promotion",
-        "promotion_description": "Welcome to Promotion page"
+        "promotion_description": "Welcome to Promotion page",
+        "bank": "Bank",
+        "bank_description": "Welcome to Bank page"
     }
 }
