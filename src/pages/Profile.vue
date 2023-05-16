@@ -56,7 +56,7 @@ export default {
                 axios.defaults.headers.common['Content-Type'] = "application/json";
                 //axios.defaults.headers.common['X-Member-Details'] = JSON.stringify(toRaw(this.memDetail)) ;
                 axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] = 'Bearer ' +  sessionStorage.getItem("tokenLogin");
+                axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("tokenLogin");
 
                 const headers = { 
                 "Content-Type": "application/json",

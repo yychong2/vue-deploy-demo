@@ -12,16 +12,18 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item"><a><RouterLink class="nav-link active" aria-current="page" :to="Tr.i18nRoute({name:'home'})">{{$t("nav.home")}}</RouterLink></a></li>
             <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'about'})">{{$t("nav.about")}}</RouterLink></a></li>
-            <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'login'})">{{$t("nav.login")}}</RouterLink></a></li>
-            <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'profile'})">{{$t("nav.profile")}}</RouterLink></a></li>
+            <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'login'})">{{$t("nav.login")}}</RouterLink></a></li>
+            <li class="nav-item" v-if="afterLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'profile'})">{{$t("nav.profile")}}</RouterLink></a></li>
             <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'language'})">{{$t("nav.loginTest")}}</RouterLink></a></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{$t("nav.shop")}}</a>
+            <li class="nav-item dropdown" v-if="afterLogin">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{$t("nav.menu")}}</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">All Products</a></li>
+                    <li><a class="dropdown-item" href="#!">{{ $t("nav.all_menu")  }}</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                    <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                    <li><a class="dropdown-item" href="#!"><RouterLink :to="Tr.i18nRoute({name:'home'})">{{ $t("nav.pay")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">{{ $t("nav.receive")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item" href="#!"><RouterLink :to="Tr.i18nRoute({name:'home'})">{{ $t("nav.transfer")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'promotion'})">{{ $t("nav.promotion")  }}</RouterLink></a></li>
                 </ul>
             </li>
         </ul>
@@ -47,8 +49,17 @@ import Tr from "./i18n/translation"
 export default{
   setup(){
     return{
-      Tr
+      Tr,
+      beforeLogin: true,
+      afterLogin: false,
     }
+  },
+  created(){
+      const token = sessionStorage.getItem("tokenLogin")
+      if(token != null){
+          this.afterLogin= true
+          this.beforeLogin=false
+      }
   },
   components:{
     Footer, LanguageSwitcher

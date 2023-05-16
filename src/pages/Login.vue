@@ -92,10 +92,11 @@ export default {
 
               const userId = "{'UserId': '"+ response.data.MemberDetail.UserId +"'}";
               sessionStorage.setItem("memDetail", CryptoJS.AES.encrypt(userId, this.aesKey))
-              sessionStorage.setItem("tokenLogin", response.data.AccessToken)
+              sessionStorage.setItem("tokenLogin", 'Bearer ' + response.data.AccessToken)
               this.token = response.data.AccessToken
 
               this.tokenSwitch = true;
+              location.reload();
             })
             .catch(error => {
                 console.error(error);

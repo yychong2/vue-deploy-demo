@@ -60,7 +60,6 @@
             const token = sessionStorage.getItem("tokenLogin")
             if(token != null){
                 this.afterLogin= true
-                console.log(this.afterLogin)
             }
 
         },

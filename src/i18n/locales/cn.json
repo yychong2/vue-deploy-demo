@@ -10,7 +10,13 @@
         "login": "登录",
         "loginTest": "语言测试",
         "shop": "商店",
-        "profile": "简介"
+        "profile": "简介",
+        "menu": "菜单",
+        "pay": "收钱做善事",
+        "receive": "出钱收人心",
+        "transfer": "转钱看心情",
+        "all_menu": "全部菜单",
+        "promotion": "学校假期"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",
@@ -32,6 +38,8 @@
         "language": "语言测试",
         "language_description": "欢迎来到语言测试页面",
         "profile": "简介",
-        "profile_description": "欢迎来到简介页面"
+        "profile_description": "欢迎来到简介页面",
+        "promotion": "学校假期",
+        "promotion_description": "欢迎来到学校假期的生活"
     }
 }

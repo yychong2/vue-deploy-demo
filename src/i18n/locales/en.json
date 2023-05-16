@@ -10,7 +10,13 @@
         "login": "Login",
         "loginTest": "Language Testing",
         "shop": "Shop",
-        "profile": "Profile"
+        "profile": "Profile",
+        "menu": "Menu",
+        "pay": "Pay",
+        "receive": "Receive",
+        "transfer": "Transfer",
+        "all_menu": "All Menu",
+        "promotion": "Breaking News"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -32,6 +38,8 @@
         "language": "Language Testing",
         "language_description": "Welcome to Language Testing page",
         "profile": "Profile",
-        "profile_description": "Welcome to Profile page"
+        "profile_description": "Welcome to Profile page",
+        "promotion": "Promotion",
+        "promotion_description": "Welcome to Promotion page"
     }
 }

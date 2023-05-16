@@ -41,13 +41,61 @@ const router = createRouter({
                     import ('../pages/Profile.vue')
             },
             {
+                path: 'withdrawal',
+                name: 'withdrawal',
+                component: () =>
+                    import ('../pages/Withdrawal.vue')
+            },
+            {
+                path: 'promotion',
+                name: 'promotion',
+                component: () =>
+                    import ('../pages/Promotion.vue')
+            },
+            {
                 path: '/:pathMatch(.*)',
                 name: 'not-found',
                 component: () =>
                     import ('../pages/NotFound.vue')
+            },
+            {
+                path: '*',
+                name: 'notFound',
+                component: () =>
+                    import ('../pages/NotFound.vue'),
+                meta: {
+                    breadCrumb: 'Not Found'
+                }
             }
         ]
     }]
 })
+
+// router.beforeEach((to, from, next) => {
+//     console.log(from)
+//     console.log(to)
+//     console.log(next())
+//     if (to.matched.some(record => record.meta.requiresAuth)) {
+//         // this route requires auth, check if logged in
+//         // if not, redirect to login page.
+//         if (!store.getters.isLoggedIn) {
+//             next({
+//                 name: 'login'
+//             })
+//         } else {
+//             next({
+//                 name: 'home'
+//             })
+//         }
+//     } else {
+//         next()
+//     }
+// })
+
+// router.afterEach((to, from) => {
+//     Vue.nextTick(() => {
+//         document.title = to.pageTitle || 'Test App';
+//     });
+// });
 
 export default router
