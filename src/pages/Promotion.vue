@@ -84,7 +84,7 @@
                     .catch(error => {
                       console.error(error);
                     });
-                },//GET /api/v1/GetPromotionCategoryList
+                },
                 getPromotionCategoryList : function(params){
                     axios.defaults.headers.common['Content-Type'] = "application/json";
                     axios.defaults.headers.common['Language'] = "en-US";

@@ -4,13 +4,12 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-                <div class="col mb-5" v-for="(item,index) of memberBankList" :key="index">
+                <div class="col mb-5" v-for="(item,index) of balanceList" :key="index">
                         <div class="card h-100">
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    <h3 class="fw-bolder">{{ item.BankName    }}</h3>
-                                    <h5 class="fw-bolder">{{ item.BankAccountName    }}</h5>
-                                    <h5 class="fw-bolder">{{ item.BankAccountNo    }}</h5>
+                                    <h3 class="fw-bolder">{{ item.ProductName    }}</h3>
+                                    <h5 class="fw-bolder">{{ item.ProductWalletBalance    }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -34,17 +33,17 @@ export default {
         return{
             title : "",
             description : "",
-            memberBankList:{},
+            balanceList:{},
         }
     }, 
     created(){
        const { t } = useI18n()
-       this.title = t("title.bank")
-       this.description = t("title.bank_description")
-       this.getMemberBank()
+       this.title = t("title.balance")
+       this.description = t("title.balance_description")
+       this.GetProductWalletDetails()
     },
     methods:{
-            getMemberBank : function(params){
+            GetProductWalletDetails : function(params){
                 axios.defaults.headers.common['Content-Type'] = "application/json";
                 axios.defaults.headers.common['Language'] = "en-US";
                 axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
@@ -57,10 +56,10 @@ export default {
                     "Authorization" : axios.defaults.headers.common['Authorization']
                 };
 
-                axios.get(this.apiUrl+ 'GetMemberBankAccountList', {}, {headers}
+                axios.get(this.apiUrl+ 'GetProductWalletDetails', {}, {headers}
                 ).then(response => {
-                    //console.log(response.data)
-                    this.memberBankList = response.data.MemberBankDetails
+                    console.log(response.data)
+                    this.balanceList = response.data.ProductList
                    
                 })
                 .catch(error => {

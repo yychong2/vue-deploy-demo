@@ -17,7 +17,8 @@
         "transfer": "Transfer",
         "all_menu": "All Menu",
         "promotion": "Breaking News",
-        "bank": "Bank"
+        "bank": "Bank",
+        "balance": "Balance"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -43,6 +44,8 @@
         "promotion": "Promotion",
         "promotion_description": "Welcome to Promotion page",
         "bank": "Bank",
-        "bank_description": "Welcome to Bank page"
+        "bank_description": "Welcome to Bank page",
+        "balance": "Balance",
+        "balance_description": "Welcome to Balance page"
     }
 }
