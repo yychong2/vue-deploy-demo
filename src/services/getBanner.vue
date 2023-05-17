@@ -1,5 +1,5 @@
 <template>
-    <vueper-slides fade lazy autoplay duration="3000" >
+    <vueper-slides fade lazy autoplay >
       <vueper-slide
         v-for="(slide, i) in bannerList"
         :key="i"
