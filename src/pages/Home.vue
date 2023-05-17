@@ -1,10 +1,7 @@
 <template>
-
-
-    
-    
     <div v-if="afterLogin">
         <getBanner/>
+        <getAnnounce/>
         <gameCategory/>
     </div>
     <div v-else>
@@ -43,6 +40,7 @@
     import { useI18n } from 'vue-i18n'
     import gameCategory from '../services/getGameCategory.vue';
     import getBanner from '../services/getBanner.vue'
+    import getAnnounce from '../services/getAnnounce.vue'
 
     export default{
         data(){
@@ -68,7 +66,7 @@
         },
         methods:{},
         components:{
-            Header , gameCategory,getBanner
+            Header , gameCategory,getBanner,getAnnounce
         }
     }
 </script>
