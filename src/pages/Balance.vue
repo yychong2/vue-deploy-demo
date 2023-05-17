@@ -43,7 +43,7 @@ export default {
        this.GetProductWalletDetails()
     },
     methods:{
-            GetProductWalletDetails : function(params){
+            GetProductWalletDetails(){
                 axios.defaults.headers.common['Content-Type'] = "application/json";
                 axios.defaults.headers.common['Language'] = "en-US";
                 axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
@@ -58,15 +58,46 @@ export default {
 
                 axios.get(this.apiUrl+ 'GetProductWalletDetails', {}, {headers}
                 ).then(response => {
-                    console.log(response.data)
                     this.balanceList = response.data.ProductList
-                   
+
+                    for( let i = 0 ; i < this.balanceList.length ; i++){
+                       // console.log(this.balanceList[i].Id)
+                       // this.balanceList[i].push()
+
+                        const balance = this.getProductBalance(this.balanceList[i].ProductCode , this.balanceList[i].IsSeamless , this.balanceList[i].IsMaintenance)
+                        balance.then(result =>{ 
+                                //console.log("top - " + result)
+                                this.balanceList[i].ProductWalletBalance = result
+                        })
+                    }
                 })
                 .catch(error => {
                   console.error(error);
                 });
+            },
+            async getProductBalance(productCode , isSeamless , isMaintenance){
+                axios.defaults.headers.common['Content-Type'] = "application/json";
+                axios.defaults.headers.common['Language'] = "en-US";
+                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
+
+                const headers = { 
+                        "Content-Type": "application/json",
+                        "Language":"en-US",
+                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
+                        "Authorization" : axios.defaults.headers.common['Authorization']
+                };
+
+                const response = await axios.post( this.apiUrl +'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
+                //console.log(response.data)
+                if(response.data == '9999' || response.data == 'null' ){
+                    return "Maintanence"
+                }
+                else{
+                    return response.data
+                }
             }
-    },
+    },  
     components:{
         Header
     }
