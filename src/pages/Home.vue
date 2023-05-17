@@ -1,12 +1,14 @@
 <template>
 
-    <Header :title="title" :description="description"/>
+
     
     
     <div v-if="afterLogin">
+        <getBanner/>
         <gameCategory/>
     </div>
     <div v-else>
+      <Header :title="title" :description="description"/>
         <section class="form-01-main">
           <div class="form-cover">
           <div class="container">
@@ -40,6 +42,7 @@
     import Header from '../components/header.vue'
     import { useI18n } from 'vue-i18n'
     import gameCategory from '../services/getGameCategory.vue';
+    import getBanner from '../services/getBanner.vue'
 
     export default{
         data(){
@@ -65,7 +68,7 @@
         },
         methods:{},
         components:{
-            Header , gameCategory
+            Header , gameCategory,getBanner
         }
     }
 </script>
