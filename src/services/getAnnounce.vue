@@ -46,8 +46,6 @@ export default{
                     text = text + this.AnnouncementList[i].Content + " , "
                  }
                  this.AnnouncementText = text
-                 console.log(text);
-
                })
                .catch(error => {
                  console.error(error);
