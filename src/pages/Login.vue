@@ -89,14 +89,14 @@ export default {
             {  'X-Requested-With': 'XMLHttpRequest',  withCredentials: true,    credentials: 'include'}
             )
             .then(response => {
+              const userId = "{'Username': '"+ response.data.MemberDetail.Username +"','UserId': '"+ response.data.MemberDetail.UserId +"'}";
 
-              const userId = "{'UserId': '"+ response.data.MemberDetail.UserId +"'}";
               sessionStorage.setItem("memDetail", CryptoJS.AES.encrypt(userId, this.aesKey))
               sessionStorage.setItem("tokenLogin", 'Bearer ' + response.data.AccessToken)
               this.token = response.data.AccessToken
-
+              //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               this.tokenSwitch = true;
-              location.reload();
+              //location.reload();
             })
             .catch(error => {
                 console.error(error);

@@ -4,6 +4,11 @@
         "ru": "Russian",
         "cn": "Chinese"
     },
+    "common": {
+        "submit": "Submit",
+        "add_bank": "Add Bank",
+        "back": "Back"
+    },
     "nav": {
         "home": "Home",
         "about": "About",

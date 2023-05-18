@@ -2,8 +2,12 @@ import { createApp } from 'vue/dist/vue.esm-bundler'
 import App from './App.vue'
 import router from './router'
 import i18n from "./i18n"
+
 import VuePlyr from 'vue-plyr'
 import 'vue-plyr/dist/vue-plyr.css'
+
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 
 import './assets/css/styles.css'
 import './assets/css/style-login.css'
@@ -17,6 +21,7 @@ app.config.globalProperties = {
 
 app.use(router)
 app.use(i18n)
+app.use(ElementPlus)
 app.use(VuePlyr, {
     plyr: {}
 })
