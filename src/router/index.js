@@ -71,6 +71,11 @@ const router = createRouter({
                 name: 'trsdetail',
                 component: () =>
                     import ('../pages/TransactionDetail.vue')
+            }, {
+                path: 'history',
+                name: 'history',
+                component: () =>
+                    import ('../pages/History.vue')
             },
             {
                 path: '/:pathMatch(.*)',

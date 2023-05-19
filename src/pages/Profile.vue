@@ -185,9 +185,6 @@ export default {
             backProfileList(){
                 this.afterResult = this.afterResult ? false : true;
                // this.afterResult = !this.enable;
-            },
-            dateChange(){
-              console.log(update_dob)
             }
     },
     components:{

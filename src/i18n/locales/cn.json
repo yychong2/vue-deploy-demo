@@ -26,7 +26,8 @@
         "bank": "零用钱区",
         "balance": "电影院票价",
         "password": "更换偷情密码",
-        "trs_detail": "交易明细"
+        "trs_detail": "交易明细",
+        "history": "看回以前"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",
@@ -62,7 +63,9 @@
         "password": "更换偷情密码",
         "password_description": "欢迎来到更换偷情密码区",
         "trs_detail": "交易明细",
-        "trs_detail_description": "欢迎来到交易明细区"
+        "trs_detail_description": "欢迎来到交易明细区",
+        "history": "看回以前",
+        "history_description": "看回以前的那个狗样子"
     },
     "profile": {
         "web_designer": "有钱人",

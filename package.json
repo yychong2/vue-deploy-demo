@@ -18,6 +18,7 @@
     "vue-marquee-text-component": "^2.0.1",
     "vue-plyr": "^7.0.0",
     "vue-router": "^4.1.6",
+    "vue3-easy-data-table": "^1.5.42",
     "vueperslides": "^3.5.1"
   },
   "devDependencies": {

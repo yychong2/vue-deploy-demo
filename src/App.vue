@@ -28,6 +28,7 @@
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>                   
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'password'})">{{ $t("nav.password")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'trsdetail'})">{{ $t("nav.trs_detail")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'history'})">{{ $t("nav.history")  }}</RouterLink></a></li>
                 </ul>
             </li>
         </ul>

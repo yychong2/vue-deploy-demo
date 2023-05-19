@@ -12,6 +12,9 @@ import 'element-plus/dist/index.css'
 import './assets/css/styles.css'
 import './assets/css/style-login.css'
 
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
+
 const app = createApp(App)
 
 app.config.globalProperties = {
@@ -25,4 +28,5 @@ app.use(ElementPlus)
 app.use(VuePlyr, {
     plyr: {}
 })
+app.component('EasyDataTable', Vue3EasyDataTable)
 app.mount('#app')

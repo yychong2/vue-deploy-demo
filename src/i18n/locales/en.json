@@ -26,7 +26,8 @@
         "bank": "Bank",
         "balance": "Balance",
         "password": "Password",
-        "trs_detail": "Transaction Detail"
+        "trs_detail": "Transaction Detail",
+        "history": "History"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
