@@ -23,7 +23,9 @@
         "all_menu": "All Menu",
         "promotion": "Breaking News",
         "bank": "Bank",
-        "balance": "Balance"
+        "balance": "Balance",
+        "password": "Password",
+        "trs_detail": "Transaction Detail"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -54,7 +56,11 @@
         "bank": "Bank",
         "bank_description": "Welcome to Bank page",
         "balance": "Balance",
-        "balance_description": "Welcome to Balance page"
+        "balance_description": "Welcome to Balance page",
+        "password": "Change Password",
+        "password_description": "Welcome to Change Password page",
+        "trs_detail": "Transaction Detail",
+        "trs_detail_description": "Welcome to Transaction Detail page"
     },
     "profile": {
         "web_designer": "Web Designer",
@@ -64,5 +70,16 @@
         "more_detail": "More Detail",
         "full_name": "Full Name",
         "date_created": "Date Created"
+    },
+    "transaction": {
+        "deposit_detail": "Deposit Detail",
+        "total_deposit": "Total Deposit",
+        "total_no_deposit": "Total Number Deposit",
+        "withdrawal_detail": "Withdrawal Detail",
+        "total_withdrawal": "Total Withdrawal",
+        "total_no_withdrawal": "Total Number Withdrawal",
+        "more_detail": "More Detail",
+        "total_rollover": "Total Rollover",
+        "total_turnover": "Total turnover"
     }
 }

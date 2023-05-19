@@ -61,6 +61,16 @@ const router = createRouter({
                 name: 'balance',
                 component: () =>
                     import ('../pages/Balance.vue')
+            }, {
+                path: 'password',
+                name: 'password',
+                component: () =>
+                    import ('../pages/ChangePassword.vue')
+            }, {
+                path: 'trsdetail',
+                name: 'trsdetail',
+                component: () =>
+                    import ('../pages/TransactionDetail.vue')
             },
             {
                 path: '/:pathMatch(.*)',

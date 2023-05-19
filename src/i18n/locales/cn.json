@@ -23,7 +23,9 @@
         "all_menu": "全部菜单",
         "promotion": "学校假期",
         "bank": "零用钱区",
-        "balance": "电影院票价"
+        "balance": "电影院票价",
+        "password": "更换偷情密码",
+        "trs_detail": "交易明细"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",
@@ -55,7 +57,11 @@
         "bank": "零用钱区",
         "bank_description": "欢迎来到零用钱区",
         "balance": "电影院票价",
-        "balance_description": "欢迎来到电影院票价区"
+        "balance_description": "欢迎来到电影院票价区",
+        "password": "更换偷情密码",
+        "password_description": "欢迎来到更换偷情密码区",
+        "trs_detail": "交易明细",
+        "trs_detail_description": "欢迎来到交易明细区"
     },
     "profile": {
         "web_designer": "有钱人",
@@ -65,5 +71,16 @@
         "more_detail": "更多隐私",
         "full_name": "被抓上报的名字",
         "date_created": "几时被抓"
+    },
+    "transaction": {
+        "deposit_detail": "存款明细",
+        "total_deposit": "存款总额",
+        "total_no_deposit": "存款总数",
+        "withdrawal_detail": "取款明细",
+        "total_withdrawal": "提款总额",
+        "total_no_withdrawal": "提款总数",
+        "more_detail": "更多细节",
+        "total_rollover": "总翻转",
+        "total_turnover": "总成交额"
     }
 }

@@ -25,7 +25,9 @@
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'bank'})">{{ $t("nav.bank")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item" href="#!"><RouterLink :to="Tr.i18nRoute({name:'home'})">{{ $t("nav.transfer")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'promotion'})">{{ $t("nav.promotion")  }}</RouterLink></a></li>
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>                   
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'password'})">{{ $t("nav.password")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'trsdetail'})">{{ $t("nav.trs_detail")  }}</RouterLink></a></li>
                 </ul>
             </li>
         </ul>
