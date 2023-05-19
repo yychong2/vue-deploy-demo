@@ -1,28 +1,32 @@
 <template>
     <Header :title="title" :description="description"/>
-    <form @submit.prevent="submitChangePassword">
-          <div class="form-sub-main">
-           
-            <div class="form-group">
-                <input class="form-control _ge_de_ol" v-model="old_password" type="password" placeholder="Enter Old Passowrd" required="" aria-required="true">
-            </div>
-            
-            <div class="form-group">
-                <input class="form-control _ge_de_ol" v-model="new_password" type="password" placeholder="Enter New Password" required="" aria-required="true">
-            </div>
+    <section class="form-01-main">
+        <div class="form-cover">
+            <form @submit.prevent="submitChangePassword">
+                  <div class="form-sub-main">
+                
+                    <div class="form-group">
+                        <input class="form-control _ge_de_ol" v-model="old_password" type="password" placeholder="Enter Old Passowrd" required="" aria-required="true">
+                    </div>
 
-            <div class="form-group">
-                <input class="form-control _ge_de_ol" v-model="confirm_password" type="password" placeholder="Enter Confirm Password" required="" aria-required="true">
-            </div>
-           
-            <div class="form-group">
-              <div class="btn_uy">
-                <button type="submit" @click="updatePassword" :disabled="new_password != confirm_password">{{$t("common.submit")}}</button>
-              </div>
-            </div>
-
-          </div>
-    </form>
+                    <div class="form-group">
+                        <input class="form-control _ge_de_ol" v-model="new_password" type="password" placeholder="Enter New Password" required="" aria-required="true">
+                    </div>
+                
+                    <div class="form-group">
+                        <input class="form-control _ge_de_ol" v-model="confirm_password" type="password" placeholder="Enter Confirm Password" required="" aria-required="true">
+                    </div>
+                
+                    <div class="form-group">
+                      <div class="btn_uy">
+                        <button type="submit" @click="updatePassword" :disabled="new_password != confirm_password">{{$t("common.submit")}}</button>
+                      </div>
+                    </div>
+                
+                  </div>
+            </form>
+        </div>
+    </section>
 </template>
 
 <script>

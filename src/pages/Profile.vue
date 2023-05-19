@@ -73,9 +73,7 @@
       <form @submit.prevent="submitupdateProfileDetail">
           <div class="form-sub-main">
            
-            <div class="form-group">
-                <input class="form-control _ge_de_ol" v-model="update_dob" type="text" placeholder="Update Date of Birth" required="" aria-required="true">
-            </div>
+            <VueDatePicker v-model="update_dob" :format="format" :start-date="startDate" :max-date="this.max_date" auto-apply placeholder="Update Date of Birth"  />
            
             <div class="form-group">
               <div class="btn_uy">
@@ -99,6 +97,8 @@ import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 axios.defaults.withCredentials = true;
 
@@ -109,7 +109,10 @@ export default {
             description : "",
             afterResult: true,
             memProfile:{},
-            update_dob:""
+            update_dob:null,
+            max_date:null,
+            startDate :null,
+            format:"yyyy-MM-dd"
         }
     }, 
     created(){
@@ -117,6 +120,16 @@ export default {
       this.title = t("title.profile")
       this.description = t("title.profile_description")
       this.getProfile()
+
+      const date = new Date();
+      this.startDate = new Date( (date.getFullYear() - 18) , (date.getMonth()  ));
+      this.max_date = new Date(date.setFullYear(date.getFullYear() - 18)) ;
+     
+    },
+    setup(){
+
+    
+
     },
     methods:{
             getProfile : function(params){
@@ -154,27 +167,31 @@ export default {
                         "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
                         "Authorization" : axios.defaults.headers.common['Authorization']
                 };
+                const dob = this.update_dob.getFullYear() + "-"   + ( this.update_dob.getMonth() + 1) + "-"  +  this.update_dob.getDate()
 
                 axios.post( this.apiUrl +'UpdateUserDetails', {
-                  BirthDate: this.update_dob
-                 
-                }, { headers }
-                ).then(response => {
-                    this.afterResult = true
-                    this.getProfile()
-                    console.log(response.data);
-               
-               }).catch(error => {
-                  console.error(error);
-               });
+                   BirthDate: dob
+                  
+                 }, { headers }
+                 ).then(response => {
+                     this.afterResult = true
+                     this.getProfile()
+                     //console.log(response.data);
+                
+                }).catch(error => {
+                   console.error(error);
+                });
             },
             backProfileList(){
                 this.afterResult = this.afterResult ? false : true;
                // this.afterResult = !this.enable;
+            },
+            dateChange(){
+              console.log(update_dob)
             }
     },
     components:{
-        Header
+        Header,VueDatePicker
     }
 }
 </script>

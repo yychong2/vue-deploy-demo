@@ -93,9 +93,9 @@ export default {
 
               sessionStorage.setItem("memDetail", CryptoJS.AES.encrypt(userId, this.aesKey))
               sessionStorage.setItem("tokenLogin", 'Bearer ' + response.data.AccessToken)
-              this.token = response.data.AccessToken
+              //this.token = response.data.AccessToken
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
-              this.tokenSwitch = true;
+              //this.tokenSwitch = true;
               location.reload();
             })
             .catch(error => {
