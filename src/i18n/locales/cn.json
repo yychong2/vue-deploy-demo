@@ -7,7 +7,8 @@
     "common": {
         "submit": "按罢了不要怕",
         "add_bank": "放多一个零有钱区",
-        "back": "回来吧"
+        "back": "回来吧",
+        "update_profile": "更改个人秘密"
     },
     "nav": {
         "home": "主页",

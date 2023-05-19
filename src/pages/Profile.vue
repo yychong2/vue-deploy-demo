@@ -1,8 +1,15 @@
 <template>
 <Header :title="title" :description="description"/>
+<Transition>
+  <div v-if="afterResult">
+   
+    <section class="form-01-main">
+      <div class="form-group">
+            <div class="btn_uy" style="margin-left: 27%; width: 29%;">
+              <button type="button" @click="backProfileList">{{$t("common.update_profile")}}</button>
+            </div>
+      </div>
 
-
-<section class="form-01-main">
       <div class="form-cover">
         <div class="container" style="margin-top: 80px;">
           <section class="vh-90">
@@ -42,7 +49,7 @@
                             </div>
                             <div class="col-6 mb-3">
                               <h6>{{$t("profile.date_created")}}</h6>
-                              <p class="text-muted">{{memProfile.DateCreatedLocal}}</p>
+                              <p class="text-muted">{{memProfile.BirthDate}}</p>
                             </div>
                           </div>
                         </div>
@@ -55,7 +62,34 @@
           </section>         
         </div>
       </div>
-</section>
+    </section>
+  </div>
+  <div v-else>
+        <div class="form-group">
+            <div class="btn_uy" style="margin-left: 27%; width: 21%;">
+              <button type="button" @click="backProfileList">{{$t("common.back")}}</button>
+            </div>
+        </div>
+      <form @submit.prevent="submitupdateProfileDetail">
+          <div class="form-sub-main">
+           
+            <div class="form-group">
+                <input class="form-control _ge_de_ol" v-model="update_dob" type="text" placeholder="Update Date of Birth" required="" aria-required="true">
+            </div>
+           
+            <div class="form-group">
+              <div class="btn_uy">
+                <button type="submit" @click="updateProfileDetail">{{$t("common.submit")}}</button>
+              </div>
+            </div>
+
+            </div>
+      </form>
+
+  </div>
+</Transition>
+
+
 
 
 </template>
@@ -73,7 +107,9 @@ export default {
         return{
             title : "",
             description : "",
-            memProfile:{}
+            afterResult: true,
+            memProfile:{},
+            update_dob:""
         }
     }, 
     created(){
@@ -104,6 +140,37 @@ export default {
                 .catch(error => {
                   console.error(error);
                 });
+            },
+            updateProfileDetail(){
+              //POST /api/v1/UpdateUserDetails
+                axios.defaults.headers.common['Content-Type'] = "application/json";
+                axios.defaults.headers.common['Language'] = "en-US";
+                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
+
+                const headers = { 
+                        "Content-Type": "application/json",
+                        "Language":"en-US",
+                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
+                        "Authorization" : axios.defaults.headers.common['Authorization']
+                };
+
+                axios.post( this.apiUrl +'UpdateUserDetails', {
+                  BirthDate: this.update_dob
+                 
+                }, { headers }
+                ).then(response => {
+                    this.afterResult = true
+                    this.getProfile()
+                    console.log(response.data);
+               
+               }).catch(error => {
+                  console.error(error);
+               });
+            },
+            backProfileList(){
+                this.afterResult = this.afterResult ? false : true;
+               // this.afterResult = !this.enable;
             }
     },
     components:{
@@ -122,5 +189,15 @@ background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgb
 
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
