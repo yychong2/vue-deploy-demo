@@ -76,6 +76,16 @@ const router = createRouter({
                 name: 'history',
                 component: () =>
                     import ('../pages/History.vue')
+            }, {
+                path: 'menu',
+                name: 'menu',
+                component: () =>
+                    import ('../pages/Menu.vue')
+            }, {
+                path: 'voucher',
+                name: 'voucher',
+                component: () =>
+                    import ('../pages/Voucher.vue')
             },
             {
                 path: '/:pathMatch(.*)',

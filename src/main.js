@@ -15,11 +15,14 @@ import './assets/css/style-login.css'
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
+import axios from 'axios';
+
 const app = createApp(App)
 
 app.config.globalProperties = {
     apiUrl: "https://flut.jcmmweb.com/api/v1/",
     aesKey: "6699"
+
 };
 
 app.use(router)

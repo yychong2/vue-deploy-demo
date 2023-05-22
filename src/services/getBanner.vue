@@ -1,9 +1,7 @@
 <template>
-    <vueper-slides fade autoplay >
-      <vueper-slide
-        v-for="(slide, i) in bannerList"
-        :key="i"
-        :image="slide.Image2"
+    <vueper-slides fade autoplay duration=5000>
+      <vueper-slide v-for="(slide, i) in bannerList" :key="i" 
+         :image="slide.Image2"
         >
       </vueper-slide>
     </vueper-slides>

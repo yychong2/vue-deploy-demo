@@ -14,7 +14,7 @@
         "home": "Home",
         "about": "About",
         "login": "Login",
-        "loginTest": "Language Testing",
+        "loginTest": "Testing",
         "shop": "Shop",
         "profile": "Profile",
         "menu": "Menu",
@@ -27,7 +27,8 @@
         "balance": "Balance",
         "password": "Password",
         "trs_detail": "Transaction Detail",
-        "history": "History"
+        "history": "History",
+        "voucher": "Voucher"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -62,7 +63,9 @@
         "password": "Change Password",
         "password_description": "Welcome to Change Password page",
         "trs_detail": "Transaction Detail",
-        "trs_detail_description": "Welcome to Transaction Detail page"
+        "trs_detail_description": "Welcome to Transaction Detail page",
+        "voucher": "Voucher",
+        "voucher_description": "Welcome to Voucher page"
     },
     "profile": {
         "web_designer": "Web Designer",

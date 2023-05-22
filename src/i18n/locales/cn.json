@@ -14,7 +14,7 @@
         "home": "主页",
         "about": "关于",
         "login": "登录",
-        "loginTest": "语言测试",
+        "loginTest": "测试",
         "shop": "商店",
         "profile": "简介",
         "menu": "菜单",
@@ -27,7 +27,8 @@
         "balance": "电影院票价",
         "password": "更换偷情密码",
         "trs_detail": "交易明细",
-        "history": "看回以前"
+        "history": "看回以前",
+        "voucher": "幽会倦"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",
@@ -65,7 +66,9 @@
         "trs_detail": "交易明细",
         "trs_detail_description": "欢迎来到交易明细区",
         "history": "看回以前",
-        "history_description": "看回以前的那个狗样子"
+        "history_description": "看回以前的那个狗样子",
+        "voucher": "幽会倦",
+        "voucher_description": "欢迎来到幽会倦区"
     },
     "profile": {
         "web_designer": "有钱人",

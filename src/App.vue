@@ -18,17 +18,11 @@
             <li class="nav-item dropdown" v-if="afterLogin">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{$t("nav.menu")}}</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">{{ $t("nav.all_menu")  }}</a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'menu'})">{{ $t("nav.all_menu")  }}</RouterLink></a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!"><RouterLink :to="Tr.i18nRoute({name:'home'})">{{ $t("nav.pay")  }}</RouterLink></a></li>
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">{{ $t("nav.receive")  }}</RouterLink></a></li>
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'bank'})">{{ $t("nav.bank")  }}</RouterLink></a></li>
-                    <li><a class="dropdown-item" href="#!"><RouterLink :to="Tr.i18nRoute({name:'home'})">{{ $t("nav.transfer")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'promotion'})">{{ $t("nav.promotion")  }}</RouterLink></a></li>
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>                   
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'password'})">{{ $t("nav.password")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'trsdetail'})">{{ $t("nav.trs_detail")  }}</RouterLink></a></li>
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'history'})">{{ $t("nav.history")  }}</RouterLink></a></li>
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>  
                 </ul>
             </li>
         </ul>
