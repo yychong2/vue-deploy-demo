@@ -90,7 +90,7 @@ export default {
             )
             .then(response => {
               const userId = "{'Username': '"+ response.data.MemberDetail.Username +"','UserId': '"+ response.data.MemberDetail.UserId +"', 'UserGroup': '" + response.data.MemberDetail.UserGroup +"', 'IpAddress': '" + response.data.MemberDetail.IpAddress + "'}";
-              console.log(response.data.MemberDetail);
+              //console.log(response.data.MemberDetail);
               sessionStorage.setItem("memDetail", CryptoJS.AES.encrypt(userId, this.aesKey))
               sessionStorage.setItem("tokenLogin", 'Bearer ' + response.data.AccessToken)
               //this.token = response.data.AccessToken
