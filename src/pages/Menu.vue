@@ -26,7 +26,7 @@
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'home'})">View</RouterLink></a>
+                                <RouterLink :to="Tr.i18nRoute({name:'transfer'})">View</RouterLink></a>
                             </div>
                         </div>
                     </div>

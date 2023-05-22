@@ -86,6 +86,11 @@ const router = createRouter({
                 name: 'voucher',
                 component: () =>
                     import ('../pages/Voucher.vue')
+            }, {
+                path: 'transfer',
+                name: 'transfer',
+                component: () =>
+                    import ('../pages/Transfer.vue')
             },
             {
                 path: '/:pathMatch(.*)',

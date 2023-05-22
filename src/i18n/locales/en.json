@@ -65,7 +65,9 @@
         "trs_detail": "Transaction Detail",
         "trs_detail_description": "Welcome to Transaction Detail page",
         "voucher": "Voucher",
-        "voucher_description": "Welcome to Voucher page"
+        "voucher_description": "Welcome to Voucher page",
+        "transfer": "Transfer",
+        "transfer_description": "Welcome to Transfer page"
     },
     "profile": {
         "web_designer": "Web Designer",

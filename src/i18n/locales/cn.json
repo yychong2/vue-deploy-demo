@@ -68,7 +68,9 @@
         "history": "看回以前",
         "history_description": "看回以前的那个狗样子",
         "voucher": "幽会倦",
-        "voucher_description": "欢迎来到幽会倦区"
+        "voucher_description": "欢迎来到幽会倦区",
+        "transfer": "转钱看心情",
+        "transfer_description": "欢迎来到转钱看心情区"
     },
     "profile": {
         "web_designer": "有钱人",
