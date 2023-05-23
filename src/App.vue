@@ -23,6 +23,7 @@
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'promotion'})">{{ $t("nav.promotion")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'trsdetail'})">{{ $t("nav.trs_detail")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>  
+                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'testing'})">Testing</RouterLink></a></li>  
                 </ul>
             </li>
         </ul>
