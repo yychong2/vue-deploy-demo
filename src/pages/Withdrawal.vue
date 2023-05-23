@@ -2,7 +2,40 @@
 <Header :title="title" :description="description"/>
     <section class="form-01-main">
         <div class="form-cover">
-            <div class="container"></div></div></section>
+            <div class="container">
+                {{ memberBankList }}
+                {{ memberBalance }}
+                <form @submit.prevent="submitaddBankAccount">
+                    <div class="form-sub-main">
+
+                          <div class="form-group">
+                            <el-select class="form-control _ge_de_ol" v-model="bank_selected" placeholder="Please select" aria-required="true">
+                                <el-option v-for="(item,index) in memberBankList" :label="item.BankName" :key="item.BankId" :value="item.BankId"></el-option>
+                            </el-select>                                              
+                          </div> 
+
+                          <div class="form-group">
+                              <input class="form-control _ge_de_ol" style="color: black" type="text" v-model="memberBalance" disabled>
+                          </div>
+
+                          <div class="form-group">
+                              <input class="form-control _ge_de_ol" v-model="amount_withdraw" type="text" placeholder="Enter Withdrawal Amount" required="" aria-required="true">
+                          </div>
+                      
+                          
+                      
+                          <div class="form-group">
+                            <div class="btn_uy">
+                              <button type="submit" @click="submitWithdraw">{{$t("common.submit")}}</button>
+                            </div>
+                          </div>
+                      
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -24,12 +57,52 @@
         return{
             title : "",
             description : "",
+            memberBankList : {},
+            memberBalance :"",
+            bank_selected:"",
+            amount_withdraw:""
         }
         }, 
         created(){
            const { t } = useI18n()
            this.title = t("title.withdrawal")
            this.description = t("title.withdrawal_description")
+           this.getMemberBankAccount()
+        },
+        methods:{
+            getMemberBankAccount : function(params){
+                axios.defaults.headers.common['Content-Type'] = "application/json";
+                axios.defaults.headers.common['Language'] = "en-US";
+                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
+                
+                axios.get(this.apiUrl+ 'GetWithdrawalDetails', {}, {headers}
+                ).then(response => {
+                    //console.log(response.data)
+                    this.memberBankList = response.data.MemberBankAcountDetails
+                    this.memberBalance= response.data.TotalBalance
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+            },
+            submitWithdraw(){
+                axios.defaults.headers.common['Content-Type'] = "application/json";
+                axios.defaults.headers.common['Language'] = "en-US";
+                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
+                axios.post( this.apiUrl +'Withdrawal', {
+                  BankAccountId: this.bank_selected,
+                  WithdrawAmount: this.amount_withdraw,
+                }, { headers }
+                ).then(response => {
+                    alert(response.data.ResponseMessage)
+                    //console.log(response.data);
+               
+                }).catch(error => {
+                   console.error(error);
+                });
+            }
         },
         components:{
             Header
