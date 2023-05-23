@@ -28,7 +28,8 @@
         "password": "Password",
         "trs_detail": "Transaction Detail",
         "history": "History",
-        "voucher": "Voucher"
+        "voucher": "Voucher",
+        "Withdrawal": "Withdrawal"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -67,7 +68,9 @@
         "voucher": "Voucher",
         "voucher_description": "Welcome to Voucher page",
         "transfer": "Transfer",
-        "transfer_description": "Welcome to Transfer page"
+        "transfer_description": "Welcome to Transfer page",
+        "withdrawal": "Withdrawal",
+        "withdrawal_description": "Welcome to Withdrawal page"
     },
     "profile": {
         "web_designer": "Web Designer",
