@@ -3,7 +3,32 @@
     <section class="form-01-main">
         <div class="form-cover">
             <div class="container">
-                
+                <form @submit.prevent="submitTransferAmount">
+                    <div class="form-sub-main">
+                      <div class="form-group">
+                        <el-select class="form-control _ge_de_ol" v-model="productFrom" @change="onChange" clearable placeholder="Please select" >
+                            <el-option v-for="(item,index) in productList" :label="item.name" :key="item.code" :value="item.code"></el-option>
+                        </el-select>                                              
+                      </div> 
+                  
+                      <div class="form-group">
+                        <el-select class="form-control _ge_de_ol" clearable filterable v-model="productTo"  placeholder="Please select" >
+                            <el-option v-for="(item,index) in productListTo" :label="item.name" :key="item.code" :value="item.code"></el-option>
+                        </el-select>                                              
+                      </div> 
+                  
+                      <div class="form-group">
+                           <input class="form-control _ge_de_ol" v-model="transferAmount" type="text" placeholder="Enter Transfer Amount" required="" >
+                      </div>
+
+                      <div class="form-group">
+                        <div class="btn_uy">
+                          <button type="submit" @click="submitTransfer">{{$t("common.submit")}}</button>
+                        </div>
+                      </div>
+
+                    </div>
+                </form>
             </div>
         </div>
     </section>
@@ -29,20 +54,21 @@ export default {
         return{
             title : "",
             description : "",
-            voucher : "",
-            afterResult: false,
-            detail:""
+            productFrom:"",
+            productTo:"",
+            productList:[],
+            productListTo:[],
+            transferAmount:""
         }
     }, 
     created(){
        const { t } = useI18n()
        this.title = t("title.transfer")
        this.description = t("title.transfer_description")
-       this.GetProductWalletDetails()
+       this.GetProductWalletFrom()
     },
     methods:{
-        GetProductWalletDetails(){
-                //GET /api/v1/GetAllBankList
+        GetProductWalletFrom(){
                 axios.defaults.headers.common['Content-Type'] = "application/json";
                 axios.defaults.headers.common['Language'] = "en-US";
                 axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
@@ -50,12 +76,46 @@ export default {
 
                 axios.get(this.apiUrl+ 'GetProductWalletDetails', {}, {headers}
                 ).then(response => {
-                    console.log(response.data)
-                   
+                    //console.log(response.data.ProductList.length)
+                    for( let i = 0 ; i < response.data.ProductList.length ; i++){
+                        if( response.data.ProductList[i].IsMaintenance == false || response.data.ProductList[i].IsDrop == false ){
+                            this.productList.push({ name: response.data.ProductList[i].ProductName , code: response.data.ProductList[i].ProductCode })           
+                        }
+                    }
+                    //this.productList = response.data.ProductList
+                    //console.log(this.productList)
                 })
                 .catch(error => {
                   console.error(error);
                 });
+        },
+        onChange(code) {
+            this.productListTo = []
+            for(let j = 0 ; j < this.productList.length ; j++ ){
+                if(code != this.productList[j].code){
+                    this.productListTo.push({ name: this.productList[j].name , code: this.productList[j].code })           
+                }
+            }
+            this.productTo = ""
+        },
+        submitTransfer(){
+            axios.defaults.headers.common['Content-Type'] = "application/json";
+            axios.defaults.headers.common['Language'] = "en-US";
+            axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+            axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
+            
+            axios.post(this.apiUrl+ 'Transfer', {
+                TransferFrom : this.productFrom ,
+                TransferTo : this.productTo ,
+                TransferAmount : this.transferAmount,
+                //ProductPromotionId : ""
+            }, {headers})
+            .then(response => {
+                alert(response.data.ResponseMessage);
+            }).catch(error => {
+                  console.error(error);
+            })
+
         }
     },
     components:{
