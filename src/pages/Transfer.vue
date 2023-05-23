@@ -79,7 +79,10 @@ export default {
                     //console.log(response.data.ProductList.length)
                     for( let i = 0 ; i < response.data.ProductList.length ; i++){
                         if( response.data.ProductList[i].IsMaintenance == false || response.data.ProductList[i].IsDrop == false ){
-                            this.productList.push({ name: response.data.ProductList[i].ProductName , code: response.data.ProductList[i].ProductCode })           
+                            const balance = this.getProductBalance( response.data.ProductList[i].ProductCode , response.data.ProductList[i].IsSeamless , response.data.ProductList[i].IsMaintenance)
+                            balance.then(result =>{ 
+                                this.productList.push({ name: response.data.ProductList[i].ProductName + " - " + result , code: response.data.ProductList[i].ProductCode })           
+                            })
                         }
                     }
                     //this.productList = response.data.ProductList
@@ -116,6 +119,27 @@ export default {
                   console.error(error);
             })
 
+        },
+        async getProductBalance(productCode , isSeamless , isMaintenance){
+                axios.defaults.headers.common['Content-Type'] = "application/json";
+                axios.defaults.headers.common['Language'] = "en-US";
+                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
+
+                const headers = { 
+                        "Content-Type": "application/json",
+                        "Language":"en-US",
+                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
+                        "Authorization" : axios.defaults.headers.common['Authorization']
+                };
+
+                const response = await axios.post( this.apiUrl +'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
+                if(response.data == '9999' || response.data == 'null' ){
+                    return "Maintanence"
+                }
+                else{
+                    return response.data
+                }
         }
     },
     components:{
