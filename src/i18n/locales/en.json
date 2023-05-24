@@ -29,7 +29,8 @@
         "trs_detail": "Transaction Detail",
         "history": "History",
         "voucher": "Voucher",
-        "Withdrawal": "Withdrawal"
+        "Withdrawal": "Withdrawal",
+        "register": "Register"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -70,7 +71,9 @@
         "transfer": "Transfer",
         "transfer_description": "Welcome to Transfer page",
         "withdrawal": "Withdrawal",
-        "withdrawal_description": "Welcome to Withdrawal page"
+        "withdrawal_description": "Welcome to Withdrawal page",
+        "register": "Register",
+        "register_description": "Welcome to Register page"
     },
     "profile": {
         "web_designer": "Web Designer",

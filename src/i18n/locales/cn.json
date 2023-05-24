@@ -28,7 +28,8 @@
         "password": "更换偷情密码",
         "trs_detail": "交易明细",
         "history": "看回以前",
-        "voucher": "幽会倦"
+        "voucher": "幽会倦",
+        "register": "加入我的战队"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",
@@ -72,7 +73,9 @@
         "transfer": "转钱看心情",
         "transfer_description": "欢迎来到转钱看心情区",
         "withdrawal": "出钱收人心",
-        "withdrawal_description": "欢迎来到出钱收人心区"
+        "withdrawal_description": "欢迎来到出钱收人心区",
+        "register": "加入我的战队",
+        "register_description": "欢迎加入我的战队"
     },
     "profile": {
         "web_designer": "有钱人",
