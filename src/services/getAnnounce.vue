@@ -16,6 +16,10 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js'
 import MarqueeText from 'vue-marquee-text-component'
 
+let headers = {
+     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+};
+
 export default{
        data(){
           return{
@@ -24,22 +28,12 @@ export default{
        },
        created(){
            this.getAnnounce();
+           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+
        },
        methods:{
         getAnnounce : function(params){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-    
-                const headers = { 
-                    "Content-Type": "application/json",
-                    "Language":"en-US",
-                    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                    "Authorization" : axios.defaults.headers.common['Authorization']
-                };
-
-               axios.get(this.apiUrl+ 'GetAnnouncement', { } , {headers} ).then(response => {
+               axios.get( 'GetAnnouncement', { } , {headers} ).then(response => {
                  this.AnnouncementList = response.data.AnnouncementList;
                  let text = ""
                  for(let i=0 ; i < this.AnnouncementList.length ; i++){

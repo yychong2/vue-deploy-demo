@@ -41,8 +41,11 @@
     import Header from '../components/header.vue'
     import CryptoJS from 'crypto-js'
     
-    axios.defaults.withCredentials = true;
     
+    let headers = { 
+       "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
+    };
+
     export default {
         data(){
             return{
@@ -59,23 +62,11 @@
            this.description = t("title.promotion_description")
            this.getPromotion()
            this.getPromotionCategoryList()
+           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
         },
         methods:{
                 getPromotion : function(params){
-                    axios.defaults.headers.common['Content-Type'] = "application/json";
-                    axios.defaults.headers.common['Language'] = "en-US";
-                    //axios.defaults.headers.common['X-Member-Details'] = JSON.stringify(toRaw(this.memDetail)) ;
-                    axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                    axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-    
-                    const headers = { 
-                        "Content-Type": "application/json",
-                        "Language":"en-US",
-                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                        "Authorization" : axios.defaults.headers.common['Authorization']
-                    };
-
-                    axios.get(this.apiUrl+ 'GetPromotionNews', {}, {headers}
+                    axios.get( 'GetPromotionNews', {}, {headers}
                     ).then(response => {
                        //console.log(response.data)
                         this.promotionList = response.data.PromotionNewsList
@@ -85,21 +76,8 @@
                       console.error(error);
                     });
                 },
-                getPromotionCategoryList : function(params){
-                    axios.defaults.headers.common['Content-Type'] = "application/json";
-                    axios.defaults.headers.common['Language'] = "en-US";
-                    //axios.defaults.headers.common['X-Member-Details'] = JSON.stringify(toRaw(this.memDetail)) ;
-                    axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                    axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-    
-                    const headers = { 
-                        "Content-Type": "application/json",
-                        "Language":"en-US",
-                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                        "Authorization" : axios.defaults.headers.common['Authorization']
-                    };
-
-                    axios.get(this.apiUrl+ 'GetPromotionCategoryList', {}, {headers}
+                getPromotionCategoryList : function(params){     
+                    axios.get( 'GetPromotionCategoryList', {}, {headers}
                     ).then(response => {
                         //console.log(response.data)
                         this.promotionCategory = response.data.PromotionCategoryList

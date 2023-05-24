@@ -35,7 +35,9 @@ import { useI18n } from 'vue-i18n'
 import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 
-axios.defaults.withCredentials = true;
+const headers = { 
+    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+};
 
 export default {
     data(){
@@ -51,24 +53,12 @@ export default {
        const { t } = useI18n()
        this.title = t("title.password")
        this.description = t("title.password_description")
+       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+
     },
     methods:{
             updatePassword(){
-                //POST /api/v1/AddBankAccount
-
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-
-                const headers = { 
-                        "Content-Type": "application/json",
-                        "Language":"en-US",
-                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                        "Authorization" : axios.defaults.headers.common['Authorization']
-                };
-
-                axios.post( this.apiUrl +'ChangeUserPassword', {
+                axios.post( 'ChangeUserPassword', {
                     OldPassword: this.old_password,
                     NewPassword: this.new_password,
                 }, { headers }

@@ -67,7 +67,9 @@ import { useI18n } from 'vue-i18n'
 import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 
-axios.defaults.withCredentials = true;
+let headers = { 
+    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+};
 
 export default {
     data(){
@@ -82,21 +84,12 @@ export default {
       this.title = t("title.trs_detail")
       this.description = t("title.trs_detail_description")
       this.GetTransactionDetail()
+      axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+
     },
     methods:{
         GetTransactionDetail : function(params){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("tokenLogin");
-
-                const headers = { 
-                "Content-Type": "application/json",
-                "Language":"en-US",
-                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                "Authorization" : axios.defaults.headers.common['Authorization']
-                };
-
-                axios.get(this.apiUrl+ 'GetTransactionDetail', {}, {headers}
+                axios.get('GetTransactionDetail', {}, {headers}
                 ).then(response => {
                     //console.log(response.data.UserTransactionDetail)
                     this.UserTransactionDetail = response.data.UserTransactionDetail

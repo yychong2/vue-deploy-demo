@@ -16,14 +16,20 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
 import axios from 'axios';
+import CryptoJS from 'crypto-js'
 
 const app = createApp(App)
 
 app.config.globalProperties = {
     apiUrl: "https://flut.jcmmweb.com/api/v1/",
     aesKey: "6699"
-
 };
+
+axios.defaults.baseURL = 'https://flut.jcmmweb.com/api/v1/';
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['Content-Type'] = "application/json";
+axios.defaults.headers.common['Language'] = "en-US";
+axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("tokenLogin");
 
 app.use(router)
 app.use(i18n)

@@ -39,14 +39,10 @@ import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
-axios.defaults.withCredentials = true;
 
 let headers = { 
-                "Content-Type": "application/json",
-                "Language":"en-US",
-                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                "Authorization" : axios.defaults.headers.common['Authorization']
-            };
+    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+};
 
 
 export default {
@@ -66,15 +62,11 @@ export default {
        this.title = t("title.transfer")
        this.description = t("title.transfer_description")
        this.GetProductWalletFrom()
+       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
     },
     methods:{
         GetProductWalletFrom(){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-
-                axios.get(this.apiUrl+ 'GetProductWalletDetails', {}, {headers}
+                axios.get('GetProductWalletDetails', {}, {headers}
                 ).then(response => {
                     //console.log(response.data.ProductList.length)
                     for( let i = 0 ; i < response.data.ProductList.length ; i++){
@@ -102,12 +94,7 @@ export default {
             this.productTo = ""
         },
         submitTransfer(){
-            axios.defaults.headers.common['Content-Type'] = "application/json";
-            axios.defaults.headers.common['Language'] = "en-US";
-            axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-            axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-            
-            axios.post(this.apiUrl+ 'Transfer', {
+            axios.post('Transfer', {
                 TransferFrom : this.productFrom ,
                 TransferTo : this.productTo ,
                 TransferAmount : this.transferAmount,
@@ -121,19 +108,8 @@ export default {
 
         },
         async getProductBalance(productCode , isSeamless , isMaintenance){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
 
-                const headers = { 
-                        "Content-Type": "application/json",
-                        "Language":"en-US",
-                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                        "Authorization" : axios.defaults.headers.common['Authorization']
-                };
-
-                const response = await axios.post( this.apiUrl +'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
+                const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
                 if(response.data == '9999' || response.data == 'null' ){
                     return "Maintanence"
                 }

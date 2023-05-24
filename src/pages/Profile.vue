@@ -100,7 +100,9 @@ import CryptoJS from 'crypto-js'
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
-axios.defaults.withCredentials = true;
+let headers = { 
+    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+};
 
 export default {
     data(){
@@ -124,7 +126,8 @@ export default {
       const date = new Date();
       this.startDate = new Date( (date.getFullYear() - 18) , (date.getMonth()  ));
       this.max_date = new Date(date.setFullYear(date.getFullYear() - 18)) ;
-     
+      axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+
     },
     setup(){
 
@@ -133,19 +136,7 @@ export default {
     },
     methods:{
             getProfile : function(params){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                //axios.defaults.headers.common['X-Member-Details'] = JSON.stringify(toRaw(this.memDetail)) ;
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("tokenLogin");
-
-                const headers = { 
-                "Content-Type": "application/json",
-                "Language":"en-US",
-                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                "Authorization" : axios.defaults.headers.common['Authorization']
-                };
-
-                axios.get(this.apiUrl+ 'GetUserProfile', {}, {headers}
+                axios.get( 'GetUserProfile', {}, {headers}
                 ).then(response => {
                     //console.log(response.data.UserDetail)
                     this.memProfile = response.data.UserDetail
@@ -155,23 +146,10 @@ export default {
                 });
             },
             updateProfileDetail(){
-              //POST /api/v1/UpdateUserDetails
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-
-                const headers = { 
-                        "Content-Type": "application/json",
-                        "Language":"en-US",
-                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                        "Authorization" : axios.defaults.headers.common['Authorization']
-                };
                 const dob = this.update_dob.getFullYear() + "-"   + ( this.update_dob.getMonth() + 1) + "-"  +  this.update_dob.getDate()
 
-                axios.post( this.apiUrl +'UpdateUserDetails', {
+                axios.post( 'UpdateUserDetails', {
                    BirthDate: dob
-                  
                  }, { headers }
                  ).then(response => {
                      this.afterResult = true

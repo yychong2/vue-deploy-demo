@@ -62,8 +62,6 @@ import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 
-axios.defaults.withCredentials = true;
-
 export default {
     data(){
         return{
@@ -83,7 +81,7 @@ export default {
     },
     methods: {
         getToken() {
-            axios.post( this.apiUrl +'auth', {   
+            axios.post( 'auth', {   
                 username: this.username, password: this.password,
             },
             {  'X-Requested-With': 'XMLHttpRequest',  withCredentials: true,    credentials: 'include'}
@@ -96,6 +94,7 @@ export default {
               //this.token = response.data.AccessToken
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               //this.tokenSwitch = true;
+
               location.reload();
             })
             .catch(error => {

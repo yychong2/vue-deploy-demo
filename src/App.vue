@@ -12,10 +12,10 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
             <li class="nav-item"><a><RouterLink class="nav-link active" aria-current="page" :to="Tr.i18nRoute({name:'home'})">{{$t("nav.home")}}</RouterLink></a></li>
             <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'about'})">{{$t("nav.about")}}</RouterLink></a></li>
-            <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'login'})">{{$t("nav.login")}}</RouterLink></a></li>
-            <li class="nav-item" v-if="afterLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'profile'})">{{$t("nav.profile")}}</RouterLink></a></li>
             <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'language'})">{{$t("nav.loginTest")}}</RouterLink></a></li>
-            <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'register'})">{{ $t("nav.register")  }}</RouterLink></a></li>  
+            <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'login'})">{{$t("nav.login")}}</RouterLink></a></li>
+            <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'register'})">{{ $t("nav.register")  }}</RouterLink></a></li>  
+            <li class="nav-item" v-if="afterLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'profile'})">{{$t("nav.profile")}}</RouterLink></a></li>
             <li class="nav-item dropdown" v-if="afterLogin">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{$t("nav.menu")}}</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

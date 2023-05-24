@@ -53,9 +53,6 @@
 import axios from 'axios';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
-import CryptoJS from 'crypto-js'
-
-axios.defaults.withCredentials = true;
 
 export default {
     data(){
@@ -77,13 +74,8 @@ export default {
     },
     methods: {
         submitRegister(){
-            console.log(this.username)
-            console.log(this.password)
-            console.log(this.email)
-            console.log(this.contact)
-            console.log(this.fullname)
 
-            axios.post( this.apiUrl +'register', {   
+            axios.post( 'register', {   
                 Username: this.username, 
                 Password: this.password,
                 Name: this.fullname,

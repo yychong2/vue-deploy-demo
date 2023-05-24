@@ -44,13 +44,9 @@
     import Header from '../components/header.vue'
     import CryptoJS from 'crypto-js'
     
-    axios.defaults.withCredentials = true;
     let headers = { 
-                "Content-Type": "application/json",
-                "Language":"en-US",
-                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                "Authorization" : axios.defaults.headers.common['Authorization']
-            };
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'], 
+    };
 
     export default {
         data(){
@@ -68,15 +64,11 @@
            this.title = t("title.withdrawal")
            this.description = t("title.withdrawal_description")
            this.getMemberBankAccount()
+           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
         },
         methods:{
             getMemberBankAccount : function(params){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-                
-                axios.get(this.apiUrl+ 'GetWithdrawalDetails', {}, {headers}
+                axios.get('GetWithdrawalDetails', {}, {headers}
                 ).then(response => {
                     //console.log(response.data)
                     this.memberBankList = response.data.MemberBankAcountDetails
@@ -87,11 +79,7 @@
                 });
             },
             submitWithdraw(){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-                axios.post( this.apiUrl +'Withdrawal', {
+                axios.post( 'Withdrawal', {
                   BankAccountId: this.bank_selected,
                   WithdrawAmount: this.amount_withdraw,
                 }, { headers }

@@ -15,6 +15,10 @@
  import { VueperSlides, VueperSlide } from 'vueperslides'
  import 'vueperslides/dist/vueperslides.css'
 
+  let headers = { 
+     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
+  };
+
  export default{
        data(){
           return{
@@ -23,29 +27,19 @@
        },
        created(){
            this.getBanner();
+           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), "6699").toString(CryptoJS.enc.Utf8);
+
        },
        methods:{
-        getBanner : function(params){
-                axios.defaults.headers.common['Content-Type'] = "application/json";
-                axios.defaults.headers.common['Language'] = "en-US";
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-                axios.defaults.headers.common['Authorization'] =   sessionStorage.getItem("tokenLogin");
-    
-                const headers = { 
-                    "Content-Type": "application/json",
-                    "Language":"en-US",
-                    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-                    "Authorization" : axios.defaults.headers.common['Authorization']
-                };
-
-               axios.get(this.apiUrl+ 'GetBanner', { } , {headers} ).then(response => {
-                 this.bannerList = response.data.BannerList;
-                 //console.log(this.bannerList);
-               })
-               .catch(error => {
-                 console.error(error);
-               });
-           }
+          getBanner : function(params){
+            axios.get(this.apiUrl+ 'GetBanner', { } , {headers} ).then(response => {
+              this.bannerList = response.data.BannerList;
+              //console.log(this.bannerList);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+          }
         }, 
         components: {
             VueperSlides, VueperSlide
