@@ -54,7 +54,6 @@ export default {
        this.title = t("title.password")
        this.description = t("title.password_description")
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
     },
     methods:{
             updatePassword(){
@@ -63,13 +62,12 @@ export default {
                     NewPassword: this.new_password,
                 }, { headers }
                 ).then(response => {
-                    //this.afterResult = true
-                    console.log(response.data);
-               
-               }).catch(error => {
-                  console.error(error);
-               });
-
+                    if(response.data.ResponseCode == "0"){
+                        alert(response.data.ResponseMessage)
+                    }
+                }).catch(error => {
+                   console.error(error);
+                });
             }
         },
     components:{

@@ -9,24 +9,22 @@
         </div>
         
         <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-                <div class="col mb-5" v-for="(item,index) of memberBankList" :key="index">
-                        <div class="card h-100">
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h3 class="fw-bolder">{{ item.BankName    }}</h3>
-                                    <h5 class="fw-bolder">{{ item.BankAccountName    }}</h5>
-                                    <h5 class="fw-bolder">{{ item.BankAccountNo    }}</h5>
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5" v-for="(item,index) of memberBankList" :key="index">
+                            <div class="card h-100">
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <h3 class="fw-bolder">{{ item.BankName    }}</h3>
+                                        <h5 class="fw-bolder">{{ item.BankAccountName    }}</h5>
+                                        <h5 class="fw-bolder">{{ item.BankAccountNo    }}</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                    </div>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
     </div>
     <div v-else>
         <div class="form-group">
@@ -101,21 +99,16 @@ export default {
     methods:{
             getMemberBank : function(params){
                 this.memberBankList = {}
-
-                axios.get('GetMemberBankAccountList', {}, {headers}
-                ).then(response => {
-                    //console.log(response.data)
-                    this.memberBankList = response.data.MemberBankAcountDetails
+                axios.get('GetMemberBankAccountList', {}, { headers } ).then(response => {
+                    this.memberBankList = response.data.MemberBankDetails
                 })
                 .catch(error => {
                   console.error(error);
                 });
             },
             getAllBankList(){
-                axios.get( 'GetAllBankList', {}, {headers}
-                ).then(response => {
+                axios.get( 'GetAllBankList', {}, { headers } ).then(response => {
                     this.allBankList = response.data.AllBankList
-                   
                 })
                 .catch(error => {
                   console.error(error);
@@ -129,16 +122,12 @@ export default {
                   //BankBranch: "123",
                   //IsVerified: true,
                   //allowDuplicate: true
-                }, { headers }
-                ).then(response => {
-                    this.afterResult = true
-                    this.getMemberBank()
-                    //console.log(response.data);
-               
-               }).catch(error => {
-                  console.error(error);
-               });
-
+                }, { headers }).then(response => {
+                    if(response.data.ResponseCode == "0"){
+                        this.afterResult = true
+                        this.getMemberBank()
+                    }
+                }).catch(error => { console.error(error) });
             },
             backBankList(){
                 this.afterResult = this.afterResult ? false : true;

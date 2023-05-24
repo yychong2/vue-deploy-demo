@@ -8,7 +8,8 @@
         "submit": "Submit",
         "add_bank": "Add Bank",
         "back": "Back",
-        "update_profile": "Update Profile"
+        "update_profile": "Update Profile",
+        "maintenance": "Maintenance"
     },
     "nav": {
         "home": "Home",

@@ -68,11 +68,11 @@
         },
         methods:{
             getMemberBankAccount : function(params){
-                axios.get('GetWithdrawalDetails', {}, {headers}
-                ).then(response => {
-                    //console.log(response.data)
-                    this.memberBankList = response.data.MemberBankAcountDetails
-                    this.memberBalance= response.data.TotalBalance
+                axios.get('GetWithdrawalDetails', {}, {headers} ).then(response => {
+                    if(response.data.ResponseCode == "0"){
+                        this.memberBankList = response.data.MemberBankAcountDetails
+                        this.memberBalance= response.data.TotalBalance
+                    }
                 })
                 .catch(error => {
                   console.error(error);
@@ -82,11 +82,10 @@
                 axios.post( 'Withdrawal', {
                   BankAccountId: this.bank_selected,
                   WithdrawAmount: this.amount_withdraw,
-                }, { headers }
-                ).then(response => {
-                    alert(response.data.ResponseMessage)
-                    //console.log(response.data);
-               
+                }, { headers } ).then(response => {
+                    if(response.data.ResponseCode == "0"){
+                        alert(response.data.ResponseMessage)
+                    }
                 }).catch(error => {
                    console.error(error);
                 });

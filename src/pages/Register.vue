@@ -89,8 +89,9 @@ export default {
             }
             )
             .then(response => {
-              console.log(response.data.ResponseMessage);
-              alert(response.data.ResponseMessage)
+              if(response.data.ResponseCode == "0"){
+                alert(response.data.ResponseMessage)
+              }
             })
             .catch(error => {
                 console.error(error);

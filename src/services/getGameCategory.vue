@@ -43,21 +43,15 @@
         methods:{
             gameCategory : function(params){
                 axios.post(this.apiUrl+ 'GetProductListByCategory', {   
-                  "CategoryType": "FH",
-                  "IsLaunchGame": false
-                }
+                  "CategoryType": "FH", "IsLaunchGame": false }
                 )
-                .then(response => {
-                  this.gameCasino = response.data.ProductTypeContent;
-                  //console.log(response.data);
-                })
-                .catch(error => {
-                  console.error(error);
-                });
+                .then(response => { this.gameCasino = response.data.ProductTypeContent; })
+                .catch(error => { console.error(error); });
             }
         }
     }
 </script>
+
 <style>
 .text-center{
     color: black;

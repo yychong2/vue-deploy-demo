@@ -2,36 +2,27 @@
 <Header :title="title" :description="description"/>
     <section class="form-01-main">
         <div class="form-cover">
-
-           
-
-
             <form @submit.prevent="searchHistoryData">
                 <div class="form-sub-main">
-                
-                  <div class="form-group">
-                    <div class="btn_uy">
-                      <button type="submit" @click="searchHistory">{{$t("common.submit")}}</button>
+                    <div class="form-group">
+                      <div class="btn_uy">
+                        <button type="submit" @click="searchHistory">{{$t("common.submit")}}</button>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="form-group">
-                    <el-select class="form-control _ge_de_ol" v-model="report_type" placeholder="Report Type" >
-                        <el-option v-for="(item,index) in options" :label="item.label" :key="item.value" :value="item.value"></el-option>
-                    </el-select>                                              
-                  </div>
+                    <div class="form-group">
+                      <el-select class="form-control _ge_de_ol" v-model="report_type" placeholder="Report Type" >
+                          <el-option v-for="(item,index) in options" :label="item.label" :key="item.value" :value="item.value"></el-option>
+                      </el-select>                                              
+                    </div>
 
-                  <div class="form-group">
-                      <VueDatePicker class="form-control _ge_de_ol" v-model="startDate" :format="format" auto-apply placeholder="Start Date"  />
-                  </div>
-                  
-                  <div class="form-group">
-                      <VueDatePicker class="form-control _ge_de_ol" v-model="endDate" :format="format" auto-apply placeholder="End Date"  />
-                  </div>
-                 
-                  
+                    <div class="form-group">
+                        <VueDatePicker class="form-control _ge_de_ol" v-model="startDate" :format="format" auto-apply placeholder="Start Date"  />
+                    </div>
 
-                  
+                    <div class="form-group">
+                        <VueDatePicker class="form-control _ge_de_ol" v-model="endDate" :format="format" auto-apply placeholder="End Date"  />
+                    </div>
                   </div>
             </form>
 
@@ -107,7 +98,6 @@ export default {
       this.title = t("title.history")
       this.description = t("title.history_description")
       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
     },
     methods:{
         searchHistory(){
@@ -115,15 +105,13 @@ export default {
                 HistoryFromDate: this.startDate,
                 HistoryToDate : this.endDate,
                 ReportType : this.report_type
-             }, { headers }
-             ).then(response => {
-                 //console.log(response.data.ReportDepositDetails);
-                 
+            }, { headers } ).then(response => {
+
+              if(response.data.ResponseCode == "0"){
                  this.data = response.data.ReportDepositDetails
                  this.show = true
-                 //console.log(this.items);
-
-
+              }
+              
             }).catch(error => {
                console.error(error);
             });

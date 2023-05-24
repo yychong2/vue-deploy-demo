@@ -121,13 +121,13 @@ export default {
       const { t } = useI18n()
       this.title = t("title.profile")
       this.description = t("title.profile_description")
-      this.getProfile()
+      
 
       const date = new Date();
       this.startDate = new Date( (date.getFullYear() - 18) , (date.getMonth()  ));
       this.max_date = new Date(date.setFullYear(date.getFullYear() - 18)) ;
       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
+      this.getProfile()
     },
     setup(){
 
@@ -138,8 +138,9 @@ export default {
             getProfile : function(params){
                 axios.get( 'GetUserProfile', {}, {headers}
                 ).then(response => {
-                    //console.log(response.data.UserDetail)
+                  if(response.data.ResponseCode == "0"){
                     this.memProfile = response.data.UserDetail
+                  }
                 })
                 .catch(error => {
                   console.error(error);
@@ -150,12 +151,11 @@ export default {
 
                 axios.post( 'UpdateUserDetails', {
                    BirthDate: dob
-                 }, { headers }
-                 ).then(response => {
-                     this.afterResult = true
-                     this.getProfile()
-                     //console.log(response.data);
-                
+                }, { headers } ).then(response => {
+                  if(response.data.ResponseCode == "0"){
+                    this.afterResult = true
+                    this.getProfile()
+                  }
                 }).catch(error => {
                    console.error(error);
                 });

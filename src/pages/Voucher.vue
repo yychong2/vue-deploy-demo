@@ -66,29 +66,27 @@ export default {
     },
     methods:{
         getVoucherDetail(){
-            axios.post('GetVoucherDetailByVoucherCode', {
-                VoucherCode : this.voucher
-            }, { headers }
-            ).then(response => {
-                this.detail= response.data.VoucherDetail.Content;
-                this.afterResult = true
+            axios.post('GetVoucherDetailByVoucherCode', { VoucherCode : this.voucher
+            }, { headers } ).then(response => {
+                if(response.data.ResponseCode == "0"){
+                    this.detail= response.data.VoucherDetail.Content;
+                    this.afterResult = true
+                }
             }).catch(error => {
                 console.error(error);
             });
 
         },
         submitVoucher(){
-            axios.post('ClaimVoucher', {
-                VoucherCode : this.voucher
-            }, { headers }
-            ).then(response => {
-                alert(response.data.ResponseMessage);
-                this.afterResult = false
-                //console.log(response.data.ResponseMessage)
+            axios.post('ClaimVoucher', { VoucherCode : this.voucher
+            }, { headers } ).then(response => {
+                if(response.data.ResponseCode == "0"){
+                    alert(response.data.ResponseMessage);
+                    this.afterResult = false
+                }
             }).catch(error => {
                 console.error(error);
             });
-
         }
     },
     components:{

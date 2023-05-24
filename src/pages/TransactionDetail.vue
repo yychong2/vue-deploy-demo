@@ -89,15 +89,16 @@ export default {
     },
     methods:{
         GetTransactionDetail : function(params){
-                axios.get('GetTransactionDetail', {}, {headers}
-                ).then(response => {
-                    //console.log(response.data.UserTransactionDetail)
-                    this.UserTransactionDetail = response.data.UserTransactionDetail
-                })
-                .catch(error => {
-                  console.error(error);
-                });
+          axios.get('GetTransactionDetail', {}, {headers}
+          ).then(response => {
+            if(response.data.ResponseCode == "0"){
+              this.UserTransactionDetail = response.data.UserTransactionDetail
             }
+          })
+          .catch(error => {
+            console.error(error);
+          });
+        }
     },
     components:{
         Header

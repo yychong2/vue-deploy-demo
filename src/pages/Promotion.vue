@@ -66,22 +66,20 @@
         },
         methods:{
                 getPromotion : function(params){
-                    axios.get( 'GetPromotionNews', {}, {headers}
-                    ).then(response => {
-                       //console.log(response.data)
-                        this.promotionList = response.data.PromotionNewsList
-                       //console.log(this.promotionList)
+                    axios.get( 'GetPromotionNews', {}, {headers} ).then(response => {
+                        if(response.data.ResponseCode == "0"){
+                            this.promotionList = response.data.PromotionNewsList
+                        }
                     })
                     .catch(error => {
                       console.error(error);
                     });
                 },
                 getPromotionCategoryList : function(params){     
-                    axios.get( 'GetPromotionCategoryList', {}, {headers}
-                    ).then(response => {
-                        //console.log(response.data)
-                        this.promotionCategory = response.data.PromotionCategoryList
-                        //console.log(this.promotionList)
+                    axios.get( 'GetPromotionCategoryList', {}, {headers}).then(response => {
+                        if(response.data.ResponseCode == "0"){
+                            this.promotionCategory = response.data.PromotionCategoryList
+                        }
                     })
                     .catch(error => {
                       console.error(error);

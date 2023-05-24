@@ -26,42 +26,43 @@ import { useI18n } from 'vue-i18n'
 import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 
-
 let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
 };
 
+
 export default {
     data(){
+        const { t } = useI18n()
         return{
+            
             title : "",
             description : "",
+            status: t("common.maintenance"),
             balanceList:{},
         }
     }, 
     created(){
-       const { t } = useI18n()
+        const { t } = useI18n()
        this.title = t("title.balance")
        this.description = t("title.balance_description")
        this.GetProductWalletDetails()
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
     },
     methods:{
             GetProductWalletDetails(){
                 axios.get( 'GetProductWalletDetails', {}, {headers}
                 ).then(response => {
-                    this.balanceList = response.data.ProductList
+                    if(response.data.ResponseCode == "0"){
+                        this.balanceList = response.data.ProductList
+                        for( let i = 0 ; i < this.balanceList.length ; i++){
 
-                    for( let i = 0 ; i < this.balanceList.length ; i++){
-                       // console.log(this.balanceList[i].Id)
-                       // this.balanceList[i].push()
+                            const balance = this.getProductBalance(this.balanceList[i].ProductCode , this.balanceList[i].IsSeamless , this.balanceList[i].IsMaintenance)
 
-                        const balance = this.getProductBalance(this.balanceList[i].ProductCode , this.balanceList[i].IsSeamless , this.balanceList[i].IsMaintenance)
-                        balance.then(result =>{ 
-                                //console.log("top - " + result)
-                                this.balanceList[i].ProductWalletBalance = result
-                        })
+                            balance.then(result =>{ 
+                                    this.balanceList[i].ProductWalletBalance = result
+                            })
+                        }
                     }
                 })
                 .catch(error => {
@@ -69,11 +70,10 @@ export default {
                 });
             },
             async getProductBalance(productCode , isSeamless , isMaintenance){
-               
                 const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
-                //console.log(response.data)
+                        
                 if(response.data == '9999' || response.data == 'null' ){
-                    return "Maintanence"
+                    return this.status
                 }
                 else{
                     return response.data

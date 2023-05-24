@@ -61,14 +61,13 @@ export default {
        const { t } = useI18n()
        this.title = t("title.transfer")
        this.description = t("title.transfer_description")
-       this.GetProductWalletFrom()
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+       this.GetProductWalletFrom()
     },
     methods:{
         GetProductWalletFrom(){
-                axios.get('GetProductWalletDetails', {}, {headers}
-                ).then(response => {
-                    //console.log(response.data.ProductList.length)
+            axios.get('GetProductWalletDetails', {}, {headers} ).then(response => {
+                if(response.data.ResponseCode == "0"){
                     for( let i = 0 ; i < response.data.ProductList.length ; i++){
                         if( response.data.ProductList[i].IsMaintenance == false || response.data.ProductList[i].IsDrop == false ){
                             const balance = this.getProductBalance( response.data.ProductList[i].ProductCode , response.data.ProductList[i].IsSeamless , response.data.ProductList[i].IsMaintenance)
@@ -77,12 +76,11 @@ export default {
                             })
                         }
                     }
-                    //this.productList = response.data.ProductList
-                    //console.log(this.productList)
-                })
-                .catch(error => {
-                  console.error(error);
-                });
+                }
+            })
+            .catch(error => {
+              console.error(error);
+            });
         },
         onChange(code) {
             this.productListTo = []
@@ -101,7 +99,9 @@ export default {
                 //ProductPromotionId : ""
             }, {headers})
             .then(response => {
-                alert(response.data.ResponseMessage);
+                if(response.data.ResponseCode == "0"){
+                    alert(response.data.ResponseMessage);
+                }
             }).catch(error => {
                   console.error(error);
             })

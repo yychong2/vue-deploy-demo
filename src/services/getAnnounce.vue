@@ -1,14 +1,6 @@
 <template>
-    <!-- simple marquee text -->
-    <!-- <marquee-text v-for="(slide, index ) in AnnouncementList" :key="index" :duration="1">
-        
-        asd
-    </marquee-text> -->
-    <MarqueeText :repeat="3">
-        <span>{{AnnouncementText}}</span>
-    </MarqueeText>
-   
-
+    <!-- <marquee-text v-for="(slide, index ) in AnnouncementList" :key="index" :duration="1"></marquee-text> -->
+    <MarqueeText :repeat="3"><span>{{ AnnouncementText }}</span></MarqueeText>
 </template>
 
 <script>
@@ -29,22 +21,18 @@ export default{
        created(){
            this.getAnnounce();
            axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
        },
        methods:{
-        getAnnounce : function(params){
-               axios.get( 'GetAnnouncement', { } , {headers} ).then(response => {
-                 this.AnnouncementList = response.data.AnnouncementList;
-                 let text = ""
-                 for(let i=0 ; i < this.AnnouncementList.length ; i++){
-                    text = text + this.AnnouncementList[i].Content + " , "
-                 }
-                 this.AnnouncementText = text
-               })
-               .catch(error => {
-                 console.error(error);
-               });
-           }
+          getAnnounce : function(params){
+            axios.get( 'GetAnnouncement', { } , {headers} ).then(response => {
+              for(let i=0 ; i < response.data.AnnouncementList.length ; i++){
+                 this.AnnouncementText = this.AnnouncementText + response.data.AnnouncementList[i].Content + " , "
+              }
+            })
+            .catch(error => {
+              console.error(error);
+            });
+          }
         }, 
         components: {
             MarqueeText
