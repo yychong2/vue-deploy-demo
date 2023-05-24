@@ -9,7 +9,10 @@
         "add_bank": "放多一个零有钱区",
         "back": "回来吧",
         "update_profile": "更改个人秘密",
-        "maintenance": "维修"
+        "maintenance": "维修",
+        "view": "查看",
+        "cancal": "取消",
+        "confirm": "确定"
     },
     "nav": {
         "home": "主页",

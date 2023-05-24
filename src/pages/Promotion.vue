@@ -7,9 +7,9 @@
 
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="centerDialogVisible = false">Cancel</el-button>
+          <el-button @click="centerDialogVisible = false">{{ $t("common.cancel")  }}</el-button>
           <el-button type="primary" @click="centerDialogVisible = false">
-            Confirm
+            {{ $t("common.confirm")  }}
           </el-button>
         </span>
       </template>
@@ -40,7 +40,7 @@
                           </div>
                       </div>
                       <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                          <div class="text-center"><a class="btn btn-outline-dark mt-auto" @click="viewDetail(item.ParentId)" >View Promotion</a></div>
+                          <div class="text-center"><a class="btn btn-outline-dark mt-auto" @click="viewDetail(item.ParentId)" >{{ $t("common.view")  }}</a></div>
                       </div>
                   </div>
               </div>

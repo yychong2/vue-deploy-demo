@@ -9,7 +9,10 @@
         "add_bank": "Add Bank",
         "back": "Back",
         "update_profile": "Update Profile",
-        "maintenance": "Maintenance"
+        "maintenance": "Maintenance",
+        "view": "View",
+        "cancal": "Cancel",
+        "confirm": "Confirm"
     },
     "nav": {
         "home": "Home",
