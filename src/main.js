@@ -16,8 +16,6 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
 import axios from 'axios';
-import CryptoJS from 'crypto-js'
-
 const app = createApp(App)
 
 app.config.globalProperties = {

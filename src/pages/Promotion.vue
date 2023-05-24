@@ -1,38 +1,53 @@
 <template>
     <Header :title="title" :description="description"/>
+
+    <el-dialog v-model="centerDialogVisible" :title="title" width="60%" center>
+      
+      <div v-html="detail" style="margin: auto;"></div>
+
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="centerDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="centerDialogVisible = false">
+            Confirm
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+
       <!-- Section-->
-      <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-                <div>
-                    <div class="card" @click="showAll(category)">
-                            <h5 class="fw-bolder btn btn-outline-dark mt-auto">Show All</h5>
-                    </div>
-                    <div v-for="(item,index) of promotionCategory" :key="index" @click="filterArticle(item.ParentId)">
-                        <div class="card">
-                            <h5 class="fw-bolder btn btn-outline-dark mt-auto">{{ item.CategoryName }}</h5>
-                        </div>
-                    </div>
-                </div>
+              <div>
+                  <div class="card" @click="showAll(category)">
+                          <h5 class="fw-bolder btn btn-outline-dark mt-auto">Show All</h5>
+                  </div>
+                  <div v-for="(item,index) of promotionCategory" :key="index" @click="filterArticle(item.ParentId)">
+                      <div class="card">
+                          <h5 class="fw-bolder btn btn-outline-dark mt-auto">{{ item.CategoryName }}</h5>
+                      </div>
+                  </div>
+              </div>
 
-                <div class="col mb-5" v-for="(item,index) of filteredArticles" :key="index">
-                        <div class="card h-100">
-                            <img class="card-img-top" :src="item.Image " alt="{{ item.Title }}" />
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <h5 class="fw-bolder">{{ item.Title }}</h5>
-                                </div>
-                            </div>
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View Promotion</a></div>
-                            </div>
-                        </div>
-                </div>
+              <div class="col mb-5" v-for="(item,index) of filteredArticles" :key="index">
+                  <div class="card h-100">
+                      <img class="card-img-top" :src="item.Image " alt="{{ item.Title }}" />
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                              <h5 class="fw-bolder">{{ item.Title }}</h5>
+                          </div>
+                      </div>
+                      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                          <div class="text-center"><a class="btn btn-outline-dark mt-auto" @click="viewDetail(item.ParentId)" >View Promotion</a></div>
+                      </div>
+                  </div>
+              </div>
 
-            </div>
-        </div>
-     </section>
+          </div>
+      </div>
+    </section>
 </template>
     
     <script>
@@ -40,7 +55,6 @@
     import { useI18n } from 'vue-i18n'
     import Header from '../components/header.vue'
     import CryptoJS from 'crypto-js'
-    
     
     let headers = { 
        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
@@ -54,6 +68,9 @@
                 promotionList:{},
                 promotionCategory:{},
                 selectedArticle: null,
+                detail:"",
+                title : "",
+                centerDialogVisible :false
             }
         }, 
         created(){
@@ -93,6 +110,15 @@
                 showAll() {
                   this.selectedArticle = null;
                 },
+                viewDetail(id){
+                    this.promotionList.forEach( (item) =>{
+                        if(item.ParentId === id){
+                            this.detail= item.Content
+                            this.title = item.Title
+                            this.centerDialogVisible = true
+                        }
+                    })
+                }
         },
         computed: {
             filteredArticles() {
@@ -120,4 +146,10 @@
         }
     }
     </script>
+
+<style>
+    .dialog-footer button:first-child {
+      margin-right: 10px;
+    }
+</style>
     
