@@ -6,41 +6,48 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <div>
-                <form @submit.prevent="submitRegisterForm">
-                <div class="form-sub-main">
-
-                  <div class="form-group">
-                      <input class="form-control _ge_de_ol" v-model="username" type="text" placeholder="Enter Username" required="" aria-required="true">
-                  </div>
-
-                  <div class="form-group">                                              
-                    <input id="password" type="password" class="form-control" v-model="password" name="password" placeholder="********" required="required">
-                    <i toggle="#password" class="fa fa-fw fa-eye toggle-password field-icon"></i>
-                  </div>
-                  
-                  <div class="form-group">
-                      <input class="form-control _ge_de_ol" v-model="fullname" type="text" maxlength="20" placeholder="Enter Full Name" required="" aria-required="true">
-                  </div>
-
-                  <div class="form-group">
-                      <input class="form-control _ge_de_ol" v-model="email" type="email" placeholder="Enter Email" required="" aria-required="true">
-                  </div>
-
-                  <div class="form-group">
-                      <input class="form-control _ge_de_ol" v-model="contact" maxlength="12"  inputmode="numeric" pattern="/d+" type="text" placeholder="Enter Contact" required="" aria-required="true">
-                      
-                  </div>
-
-                  <div class="form-group">
-                    <div class="btn_uy">
-                      <!-- <a href="#"><span>Login</span></a> -->
-                      <button type="submit" @click="submitRegister">{{ $t("nav.register")  }}</button>
+             
+                <Form @submit="onSubmit">
+                  <div class="form-sub-main">
+                    <div class="form-group">
+                      <Field class="form-control _ge_de_ol" name="Username" type="text" placeholder="Enter Username" :rules="validateUsername" autocomplete="off" />
+                      <ErrorMessage name="Username" style="color:red"/>
                     </div>
+
+                    <div class="form-group">
+                      <Field class="form-control _ge_de_ol" name="Password" type="password" :rules="validatePassword" placeholder="********" autocomplete="off" />
+                      <ErrorMessage name="Password" style="color:red"/>
+                    </div>
+
+                    <div class="form-group">
+                      <Field class="form-control _ge_de_ol" name="Confirm_Password" type="password" :rules="validateConfirmPassword" placeholder="********" autocomplete="off" />
+                      <ErrorMessage name="Confirm_Password" style="color:red"/>
+                    </div>
+
+                    <div class="form-group">
+                      <Field class="form-control _ge_de_ol" name="Name" type="text" placeholder="Enter Fullname" :rules="validateFullname" autocomplete="off" />
+                      <ErrorMessage name="Name" style="color:red"/>
+                    </div>
+
+                    <div class="form-group">
+                      <Field class="form-control _ge_de_ol" name="Email" type="text" placeholder="Enter Email" :rules="validateEmail" autocomplete="off" />
+                      <ErrorMessage name="Email" style="color:red"/>
+                    </div>
+
+                    <div class="form-group">
+                      <Field class="form-control _ge_de_ol" name="Contact" type="text" inputmode="numeric" pattern="/d+" placeholder="Enter Contact" :rules="validateContact" autocomplete="off" />
+                      <ErrorMessage name="Contact" style="color:red"/>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="btn_uy">
+                        <button>{{ $t("nav.register")  }}</button>
+                      </div>
+                    </div>
+
                   </div>
-                </div>
-                </form>
-              </div>
+                </Form>
+             
             </div>
           </div>
         </div>
@@ -53,6 +60,7 @@
 import axios from 'axios';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
+import { Field, Form, ErrorMessage } from 'vee-validate';
 
 export default {
     data(){
@@ -96,10 +104,111 @@ export default {
             .catch(error => {
                 console.error(error);
             });
+        },
+        onSubmit(values){
+          axios.post( 'register', {   
+                Username: values.Username, 
+                Password: values.Password,
+                Name: values.Name,
+                Email : values.Email,
+                Contact : values.Contact
+            },
+            {  
+                'X-Requested-With': 'XMLHttpRequest',  
+                withCredentials: true,    
+                credentials: 'include'
+            }
+            )
+            .then(response => {
+              if(response.data.ResponseCode == "0"){
+                alert(response.data.ResponseMessage)
+              }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        },
+        validateUsername(value) {
+          // if the field is empty
+          if (!value) {
+            return 'This field is required';
+          }
+        
+          // if the field is not a valid email
+          const regex = /^[a-zA-Z0-9]{3,18}$/i;
+          if (!regex.test(value)) {
+            return 'This field must be a valid Username';
+          }
+        
+          // All is good
+          return true;
+        },
+        validatePassword(value){
+          if (!value) {
+            return 'This field is required';
+          }
+
+          const regex = /^[a-zA-Z0-9]{3,16}$/i;
+          if (!regex.test(value)) {
+            return 'This field must be a valid Password';
+          }
+        
+          this.password = value
+          // All is good
+          return true;
+        },
+        validateConfirmPassword(value){
+          if (!value) {
+            return 'This field is required';
+          }
+
+          if(value != this.password ){
+            return 'This field must be same with Password';
+          }
+
+          return true;
+        },
+        validateFullname(value){
+            // if the field is empty
+            if (!value) {
+              return 'This field is required';
+            }
+            // All is good
+            return true;
+        },
+        validateEmail(value){
+            // if the field is empty
+            if (!value) {
+              return 'This field is required';
+            }
+
+            // if the field is not a valid email
+            const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+            if (!regex.test(value)) {
+              return 'This field must be a valid email';
+            }
+
+            // All is good
+            return true;
+        },
+        validateContact(value){
+            // if the field is empty
+            if (!value) {
+              return 'This field is required';
+            }
+
+            // if the field is not a valid email
+            const regex = /^[0-9]{3,14}$/i;
+            if (!regex.test(value)) {
+              return 'This field must be a valid Contact number';
+            }
+
+            // All is good
+            return true;
         }
     },
     components:{
-        Header
+        Header, Form , Field , ErrorMessage
     },
     computed:{
     },
