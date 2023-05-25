@@ -12,7 +12,8 @@
         "maintenance": "Maintenance",
         "view": "View",
         "cancal": "Cancel",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "login": "Login"
     },
     "nav": {
         "home": "Home",

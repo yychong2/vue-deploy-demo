@@ -6,47 +6,35 @@
         <div class="container">
           <div class="row">
             <div class="col-md-12">
-              <Transition>
-              <div v-if="tokenSwitch" style="margin-top: 80px;">
 
-                <div style="overflow-wrap: break-word ; color: white;" >
-                <p>Token : {{ token }}</p>
-                </div>
-
-              </div>
-              <div v-else>
-                <form @submit.prevent="loginWithPassword">
+              <Form @submit="onSubmit">
                 <div class="form-sub-main">
                   <div class="_main_head_as">
                     <a href="#">
                       <img src="../assets/img/vector.png">
                     </a>
                   </div>
-                  <div class="form-group">
-                      <input class="form-control _ge_de_ol" v-model="username" type="text" placeholder="Enter Username" required="" aria-required="true">
-                  </div>
 
-                  <div class="form-group">                                              
-                    <input id="password" type="password" class="form-control" v-model="password" name="password" placeholder="********" required="required">
-                    <i toggle="#password" class="fa fa-fw fa-eye toggle-password field-icon"></i>
+                  <div class="form-group">
+                    <Field class="form-control _ge_de_ol" name="Username" type="text" placeholder="Enter Username" :rules="validateUsername" autocomplete="off" />
+                    <ErrorMessage name="Username" style="color:red"/>
                   </div>
 
                   <div class="form-group">
-                    <div class="check_box_main">
-                      <a href="#" class="pas-text">Forgot Password</a>
-                    </div>
+                    <Field class="form-control _ge_de_ol" name="Password" type="password" :rules="validatePassword" placeholder="********" autocomplete="off" />
+                    <ErrorMessage name="Password" style="color:red"/>
                   </div>
 
                   <div class="form-group">
                     <div class="btn_uy">
-                      <!-- <a href="#"><span>Login</span></a> -->
-                      <button type="submit" @click="getToken">Login</button>
+                      <button>{{$t("common.login")}}</button>
                     </div>
                   </div>
+
                 </div>
-                </form>
-              </div>
-              </Transition>
+              
+              </Form>
+
             </div>
           </div>
         </div>
@@ -57,20 +45,17 @@
 
 <script>
 import axios from 'axios';
-import { isProxy, toRaw } from 'vue';
+import { isProxy, toRaw , reactive, ref  } from 'vue';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
+import { Field, Form, ErrorMessage } from 'vee-validate';
 
 export default {
     data(){
         return{
             title : "",
             description : "",
-            token: "",
-            username:"",
-            password:"",
-            tokenSwitch : false,
         }
     },
     setup(){},
@@ -80,10 +65,8 @@ export default {
       this.description = t("title.login_description")
     },
     methods: {
-        getToken() {
-            axios.post( 'auth', {   
-                username: this.username, password: this.password,
-            },
+        onSubmit(values){
+          axios.post( 'auth', { Username: values.Username , Password: values.Password },
             {  'X-Requested-With': 'XMLHttpRequest',  withCredentials: true,    credentials: 'include'}
             )
             .then(response => {
@@ -100,10 +83,38 @@ export default {
             .catch(error => {
                 console.error(error);
             });
+        },
+        validateUsername(value) {
+          // if the field is empty
+          if (!value) {
+            return 'This field is required';
+          }
+        
+          // if the field is not a valid email
+          const regex = /^[a-zA-Z0-9]{3,18}$/i;
+          if (!regex.test(value)) {
+            return 'This field must be a valid Username';
+          }
+        
+          // All is good
+          return true;
+        },
+        validatePassword(value){
+          if (!value) {
+            return 'This field is required';
+          }
+
+          const regex = /^[a-zA-Z0-9]{3,16}$/i;
+          if (!regex.test(value)) {
+            return 'This field must be a valid Password';
+          }
+        
+          // All is good
+          return true;
         }
     },
     components:{
-        Header
+        Header, Form , Field , ErrorMessage
     },
     computed:{
     },

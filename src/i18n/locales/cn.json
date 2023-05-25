@@ -12,7 +12,8 @@
         "maintenance": "维修",
         "view": "查看",
         "cancal": "取消",
-        "confirm": "确定"
+        "confirm": "确定",
+        "login": "登录"
     },
     "nav": {
         "home": "主页",

@@ -16,6 +16,8 @@
             <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'login'})">{{$t("nav.login")}}</RouterLink></a></li>
             <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'register'})">{{ $t("nav.register")  }}</RouterLink></a></li>  
             <li class="nav-item" v-if="afterLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'profile'})">{{$t("nav.profile")}}</RouterLink></a></li>
+            <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'testing'})">Testing</RouterLink></a></li>  
+
             <li class="nav-item dropdown" v-if="afterLogin">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{$t("nav.menu")}}</a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -24,7 +26,6 @@
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'promotion'})">{{ $t("nav.promotion")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'trsdetail'})">{{ $t("nav.trs_detail")  }}</RouterLink></a></li>
                     <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'balance'})">{{ $t("nav.balance")  }}</RouterLink></a></li>  
-                    <li><a class="dropdown-item"><RouterLink :to="Tr.i18nRoute({name:'testing'})">Testing</RouterLink></a></li>  
                 </ul>
             </li>
         </ul>
