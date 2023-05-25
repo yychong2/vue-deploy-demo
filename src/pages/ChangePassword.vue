@@ -2,29 +2,32 @@
     <Header :title="title" :description="description"/>
     <section class="form-01-main">
         <div class="form-cover">
-            <form @submit.prevent="submitChangePassword">
-                  <div class="form-sub-main">
-                
-                    <div class="form-group">
-                        <input class="form-control _ge_de_ol" v-model="old_password" type="password" placeholder="Enter Old Passowrd" required="" aria-required="true">
-                    </div>
+           
+            <Form @submit="updatePassword">
+                 <div class="form-sub-main">
+                     <div class="form-group">
+                       <Field class="form-control _ge_de_ol" name="old_password" type="password" placeholder="Enter Old Passowrd" :rules="validateOldPassword" autocomplete="off" />
+                       <ErrorMessage name="old_password" style="color:red"/>
+                     </div>
+                 
+                     <div class="form-group">
+                       <Field class="form-control _ge_de_ol" v-model="new_password" name="new_password" type="password" :rules="validateNewPassword" placeholder="Enter New Password" autocomplete="off" />
+                       <ErrorMessage name="new_password" style="color:red"/>
+                     </div>
+                 
+                     <div class="form-group">
+                       <Field class="form-control _ge_de_ol" name="confirm_password" type="password" :rules="validateConfirmPassword" placeholder="Enter Confirm Password" autocomplete="off" />
+                       <ErrorMessage name="confirm_password" style="color:red"/>
+                     </div>
 
-                    <div class="form-group">
-                        <input class="form-control _ge_de_ol" v-model="new_password" type="password" placeholder="Enter New Password" required="" aria-required="true">
-                    </div>
-                
-                    <div class="form-group">
-                        <input class="form-control _ge_de_ol" v-model="confirm_password" type="password" placeholder="Enter Confirm Password" required="" aria-required="true">
-                    </div>
-                
-                    <div class="form-group">
-                      <div class="btn_uy">
-                        <button type="submit" @click="updatePassword" :disabled="new_password != confirm_password">{{$t("common.submit")}}</button>
-                      </div>
-                    </div>
-                
-                  </div>
-            </form>
+                     <div class="form-group">
+                       <div class="btn_uy">
+                         <button>{{$t("common.submit")}}</button>
+                       </div>
+                     </div>
+
+                 </div>
+             </Form>
         </div>
     </section>
 </template>
@@ -44,9 +47,7 @@ export default {
         return{
             title : "",
             description : "",
-            old_password:"",
             new_password:"",
-            confirm_password:""
         }
     }, 
     created(){
@@ -56,10 +57,10 @@ export default {
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
     },
     methods:{
-            updatePassword(){
+            updatePassword(value){
                 axios.post( 'ChangeUserPassword', {
-                    OldPassword: this.old_password,
-                    NewPassword: this.new_password,
+                    OldPassword: value.old_password,
+                    NewPassword: value.new_password,
                 }, { headers }
                 ).then(response => {
                     if(response.data.ResponseCode == "0"){
@@ -68,6 +69,37 @@ export default {
                 }).catch(error => {
                    console.error(error);
                 });
+            },
+            validateOldPassword(value){
+                // if the field is empty
+                if (!value) {
+                  return 'This field is required';
+                }
+
+                // All is good
+                return true;
+            },
+            validateNewPassword(value){
+                // if the field is empty
+                if (!value) {
+                  return 'This field is required';
+                }
+
+                // All is good
+                return true;
+            },
+            validateConfirmPassword(value){
+                // if the field is empty
+                if (!value) {
+                  return 'This field is required';
+                }
+
+                if(value != this.new_password ){
+                  return 'This field must be same with Password';
+                }
+
+                // All is good
+                return true;
             }
         },
     components:{

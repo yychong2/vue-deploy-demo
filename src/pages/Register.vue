@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="form-group">
-                      <Field class="form-control _ge_de_ol" name="Password" type="password" :rules="validatePassword" placeholder="********" autocomplete="off" />
+                      <Field class="form-control _ge_de_ol" name="Password" v-model="Password" type="password" :rules="validatePassword" placeholder="********" autocomplete="off" />
                       <ErrorMessage name="Password" style="color:red"/>
                     </div>
 
@@ -60,18 +60,13 @@
 import axios from 'axios';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
-import { Field, Form, ErrorMessage } from 'vee-validate';
 
 export default {
     data(){
         return{
             title : "",
             description : "",
-            username:"",
-            password:"",
-            email:"",
-            contact: "",
-            fullname:""
+            Password:""
         }
     },
     setup(){},
@@ -81,30 +76,6 @@ export default {
       this.description = t("title.register_description")
     },
     methods: {
-        submitRegister(){
-
-            axios.post( 'register', {   
-                Username: this.username, 
-                Password: this.password,
-                Name: this.fullname,
-                Email : this.email,
-                Contact : this.contact
-            },
-            {  
-                'X-Requested-With': 'XMLHttpRequest',  
-                withCredentials: true,    
-                credentials: 'include'
-            }
-            )
-            .then(response => {
-              if(response.data.ResponseCode == "0"){
-                alert(response.data.ResponseMessage)
-              }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        },
         onSubmit(values){
           axios.post( 'register', {   
                 Username: values.Username, 
@@ -162,7 +133,7 @@ export default {
             return 'This field is required';
           }
 
-          if(value != this.password ){
+          if(value != this.Password ){
             return 'This field must be same with Password';
           }
 
@@ -208,7 +179,7 @@ export default {
         }
     },
     components:{
-        Header, Form , Field , ErrorMessage
+        Header
     },
     computed:{
     },

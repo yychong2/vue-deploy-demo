@@ -15,6 +15,8 @@ import './assets/css/style-login.css'
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
+import { Field, Form, ErrorMessage } from 'vee-validate';
+
 import axios from 'axios';
 const app = createApp(App)
 
@@ -36,4 +38,8 @@ app.use(VuePlyr, {
     plyr: {}
 })
 app.component('EasyDataTable', Vue3EasyDataTable)
+app.component('Field', Field)
+app.component('ErrorMessage', ErrorMessage)
+app.component('Form', Form)
+
 app.mount('#app')

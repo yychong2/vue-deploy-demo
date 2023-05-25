@@ -33,31 +33,32 @@
             </div>
         </div>
 
-        <form @submit.prevent="submitaddBankAccount">
+        <Form @submit="addBankAccount">
             <div class="form-sub-main">
-             
-              <div class="form-group">
-                <el-select class="form-control _ge_de_ol" v-model="add_bank_selected" placeholder="Please select" >
-                    <el-option v-for="(item,index) in allBankList" :label="item.BankName" :key="item.BankId" :value="item.BankId"></el-option>
-                </el-select>                                              
-              </div> 
-              
-              <div class="form-group">
-                  <input class="form-control _ge_de_ol" v-model="add_bank_account_name" type="text" placeholder="Enter Bank Account Name" required="" aria-required="true">
-              </div>
+                <div class="form-group">
+                  <el-select class="form-control _ge_de_ol" v-model="add_bank_selected" placeholder="Please select" >
+                      <el-option v-for="(item,index) in allBankList" :label="item.BankName" :key="item.BankId" :value="item.BankId"></el-option>
+                  </el-select>                                              
+                </div> 
 
-              <div class="form-group">
-                  <input class="form-control _ge_de_ol" v-model="add_bank_account_number" type="text" placeholder="Enter Bank Account Number" required="" aria-required="true">
-              </div>
-             
-              <div class="form-group">
-                <div class="btn_uy">
-                  <button type="submit" @click="addBankAccount">{{$t("common.submit")}}</button>
+                <div class="form-group">
+                    <Field class="form-control _ge_de_ol" name="add_bank_account_name" type="text" placeholder="Enter Bank Account Name" :rules="validateBankAccountName" autocomplete="off" />
+                    <ErrorMessage name="add_bank_account_name" style="color:red"/>
                 </div>
-              </div>
+
+                <div class="form-group">
+                    <Field class="form-control _ge_de_ol" name="add_bank_account_number" type="text" placeholder="Enter Bank Account Number" :rules="validateBankAccountNumber" autocomplete="off" />
+                    <ErrorMessage name="add_bank_account_number" style="color:red"/>
+                </div>
+
+                <div class="form-group">
+                  <div class="btn_uy">
+                    <button>{{$t("common.submit")}}</button>
+                  </div>
+                </div>
 
             </div>
-        </form>
+        </Form>
         
     </div>
     </Transition>
@@ -114,11 +115,16 @@ export default {
                   console.error(error);
                 });
             },
-            addBankAccount(){
+            addBankAccount(value){
+
+                if(this.add_bank_selected == ""){
+                    return alert('bank selected is required');
+                }
+
                 axios.post( 'AddBankAccount', {
                   BankAccountId: this.add_bank_selected,
-                  BankAccountName: this.add_bank_account_name,
-                  BankAccountNo: this.add_bank_account_number,
+                  BankAccountName: value.add_bank_account_name,
+                  BankAccountNo: value.add_bank_account_number,
                   //BankBranch: "123",
                   //IsVerified: true,
                   //allowDuplicate: true
@@ -132,6 +138,24 @@ export default {
             backBankList(){
                 this.afterResult = this.afterResult ? false : true;
                // this.afterResult = !this.enable;
+            },
+            validateBankAccountName(value){
+                // if the field is empty
+                if (!value) {
+                  return 'This field is required';
+                }
+
+                // All is good
+                return true;
+            },
+            validateBankAccountNumber(value){
+                // if the field is empty
+                if (!value) {
+                  return 'This field is required';
+                }
+
+                // All is good
+                return true;
             }
         },
     components:{

@@ -96,6 +96,11 @@ export default {
     },
     methods:{
         searchHistory(){
+          
+            if(this.startDate == null || this.endDate == null || this.report_type == ""){
+                    return alert('The field is required');
+            }
+
             axios.post( 'History', {
                 HistoryFromDate: this.startDate,
                 HistoryToDate : this.endDate,

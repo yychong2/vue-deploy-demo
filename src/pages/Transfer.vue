@@ -3,7 +3,8 @@
     <section class="form-01-main">
         <div class="form-cover">
             <div class="container">
-                <form @submit.prevent="submitTransferAmount">
+
+                <Form @submit="submitTransfer">
                     <div class="form-sub-main">
                       <div class="form-group">
                         <el-select class="form-control _ge_de_ol" v-model="productFrom" @change="onChange" clearable placeholder="Please select" >
@@ -18,17 +19,19 @@
                       </div> 
                   
                       <div class="form-group">
-                           <input class="form-control _ge_de_ol" v-model="transferAmount" type="text" placeholder="Enter Transfer Amount" required="" >
+                           <Field class="form-control _ge_de_ol" name="transferAmount" type="text" placeholder="Enter Transfer Amount" :rules="validateTransferAmount" autocomplete="off" />
+                           <ErrorMessage name="transferAmount" style="color:red"/>
                       </div>
 
                       <div class="form-group">
                         <div class="btn_uy">
-                          <button type="submit" @click="submitTransfer">{{$t("common.submit")}}</button>
+                          <button>{{$t("common.submit")}}</button>
                         </div>
                       </div>
 
                     </div>
-                </form>
+                </Form>
+
             </div>
         </div>
     </section>
@@ -92,6 +95,11 @@ export default {
             this.productTo = ""
         },
         submitTransfer(){
+
+            if(this.productFrom == "" || this.productTo == ""){
+                    return alert('bank selected is required');
+            }
+
             axios.post('Transfer', {
                 TransferFrom : this.productFrom ,
                 TransferTo : this.productTo ,
@@ -116,6 +124,15 @@ export default {
                 else{
                     return response.data
                 }
+        },
+        validateTransferAmount(value){
+            // if the field is empty
+            if (!value) {
+              return 'This field is required';
+            }
+
+            // All is good
+            return true;
         }
     },
     components:{

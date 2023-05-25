@@ -147,7 +147,14 @@ export default {
                 });
             },
             updateProfileDetail(){
+
+                if(this.bank_selected == null){
+                    return alert('The field is required');
+                }
+
                 const dob = this.update_dob.getFullYear() + "-"   + ( this.update_dob.getMonth() + 1) + "-"  +  this.update_dob.getDate()
+                
+               
 
                 axios.post( 'UpdateUserDetails', {
                    BirthDate: dob

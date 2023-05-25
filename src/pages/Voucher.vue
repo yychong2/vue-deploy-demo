@@ -16,21 +16,24 @@
                     </form>
                 </div>
                 <div v-else>
-                    <form @submit.prevent="submitvoucher">
+
+                    <Form @submit="getVoucherDetail">
                         <div class="form-sub-main">
                         
                             <div class="form-group">
-                                <input class="form-control _ge_de_ol" v-model="voucher" type="text" placeholder="Enter Voucher Code" required="" aria-required="true">
+                                <Field class="form-control _ge_de_ol" name="voucher" type="text" placeholder="Enter Voucher" :rules="validateVoucher" autocomplete="off" />
+                                <ErrorMessage name="voucher" style="color:red"/>
                             </div>
                         
                             <div class="form-group">
                               <div class="btn_uy">
-                                <button type="submit" @click="getVoucherDetail">{{$t("common.submit")}}</button>
+                                <button>{{$t("common.submit")}}</button>
                               </div>
                             </div>
 
                         </div>
-                    </form>
+                    </Form>
+
                 </div>
             </div>
         </div>
@@ -65,18 +68,6 @@ export default {
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);     
     },
     methods:{
-        getVoucherDetail(){
-            axios.post('GetVoucherDetailByVoucherCode', { VoucherCode : this.voucher
-            }, { headers } ).then(response => {
-                if(response.data.ResponseCode == "0"){
-                    this.detail= response.data.VoucherDetail.Content;
-                    this.afterResult = true
-                }
-            }).catch(error => {
-                console.error(error);
-            });
-
-        },
         submitVoucher(){
             axios.post('ClaimVoucher', { VoucherCode : this.voucher
             }, { headers } ).then(response => {
@@ -87,6 +78,28 @@ export default {
             }).catch(error => {
                 console.error(error);
             });
+        },
+        getVoucherDetail(values){
+            axios.post('GetVoucherDetailByVoucherCode', { VoucherCode : values.voucher
+            }, { headers } ).then(response => {
+                if(response.data.ResponseCode == "0"){
+                    this.detail= response.data.VoucherDetail.Content;
+                    this.voucher = values.voucher
+                    this.afterResult = true
+                }
+            }).catch(error => {
+                console.error(error);
+            });
+            
+        },
+        validateVoucher(value){
+                // if the field is empty
+                if (!value) {
+                  return 'This field is required';
+                }
+
+                // All is good
+                return true;
         }
     },
     components:{

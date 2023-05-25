@@ -49,7 +49,6 @@ import { isProxy, toRaw , reactive, ref  } from 'vue';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
-import { Field, Form, ErrorMessage } from 'vee-validate';
 
 export default {
     data(){
@@ -114,7 +113,7 @@ export default {
         }
     },
     components:{
-        Header, Form , Field , ErrorMessage
+        Header
     },
     computed:{
     },
