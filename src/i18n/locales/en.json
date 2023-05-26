@@ -35,7 +35,8 @@
         "history": "History",
         "voucher": "Voucher",
         "Withdrawal": "Withdrawal",
-        "register": "Register"
+        "register": "Register",
+        "referrer": "Referrer Rebate"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
@@ -78,7 +79,9 @@
         "withdrawal": "Withdrawal",
         "withdrawal_description": "Welcome to Withdrawal page",
         "register": "Register",
-        "register_description": "Welcome to Register page"
+        "register_description": "Welcome to Register page",
+        "referrer": "Referrer Rebate",
+        "referrer_description": "Welcome to Referrer Rebate page"
     },
     "profile": {
         "web_designer": "Web Designer",

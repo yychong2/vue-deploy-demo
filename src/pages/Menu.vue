@@ -11,9 +11,9 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'home'})">View</RouterLink></a>
-                            </div>
+                            <RouterLink :to="Tr.i18nRoute({name:'deposit'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>
@@ -25,9 +25,9 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'transfer'})">View</RouterLink></a>
-                            </div>
+                            <RouterLink :to="Tr.i18nRoute({name:'transfer'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>
@@ -39,9 +39,9 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">View</RouterLink></a>
-                            </div>
+                            <RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">  <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                               View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>
@@ -53,9 +53,9 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'bank'})">View</RouterLink></a>
-                            </div>
+                            <RouterLink :to="Tr.i18nRoute({name:'bank'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>
@@ -67,9 +67,9 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'password'})">View</RouterLink></a>
-                            </div>
+                            <RouterLink :to="Tr.i18nRoute({name:'password'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'history'})">View</RouterLink></a>
-                            </div>
+                            <RouterLink :to="Tr.i18nRoute({name:'history'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>
@@ -95,9 +95,23 @@
                             </div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                <RouterLink :to="Tr.i18nRoute({name:'voucher'})">View</RouterLink></a>
+                            <RouterLink :to="Tr.i18nRoute({name:'voucher'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder">{{ $t("nav.referrer")  }}</h5>
                             </div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <RouterLink :to="Tr.i18nRoute({name:'referrer'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
                         </div>
                     </div>
                 </div>

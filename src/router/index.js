@@ -97,6 +97,21 @@ const router = createRouter({
                 component: () =>
                     import ('../pages/Register.vue')
             }, {
+                path: 'deposit',
+                name: 'deposit',
+                component: () =>
+                    import ('../pages/Deposit.vue')
+            }, {
+                path: 'referrer',
+                name: 'referrer',
+                component: () =>
+                    import ('../pages/Referrer.vue')
+            }, {
+                path: 'launchgame',
+                name: 'launchgame',
+                component: () =>
+                    import ('../pages/LaunchGame.vue')
+            }, {
                 path: 'testing',
                 name: 'testing',
                 component: () =>
