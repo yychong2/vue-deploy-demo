@@ -11,9 +11,11 @@
         "update_profile": "更改个人秘密",
         "maintenance": "维修",
         "view": "查看",
-        "cancal": "取消",
+        "cancel": "取消",
         "confirm": "确定",
-        "login": "登录"
+        "login": "登录",
+        "transfer": "转钱",
+        "ignore_launch_game": "无视并进入游戏"
     },
     "nav": {
         "home": "主页",

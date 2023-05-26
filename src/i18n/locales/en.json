@@ -13,7 +13,9 @@
         "view": "View",
         "cancal": "Cancel",
         "confirm": "Confirm",
-        "login": "Login"
+        "login": "Login",
+        "transfer": "Transfer",
+        "ignore_launch_game": "Ignore Launch Game"
     },
     "nav": {
         "home": "Home",

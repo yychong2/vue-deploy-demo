@@ -2,7 +2,7 @@
 
 <template>
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background: #72777c !important;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" >
     <div class="container px-4 px-lg-5">
       <RouterLink class="navbar-brand" :to="Tr.i18nRoute({name:'home'})">{{$t("title.app_name")}}</RouterLink>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
