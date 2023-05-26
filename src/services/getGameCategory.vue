@@ -244,7 +244,6 @@
 
 .form-control2 {
     min-height: 50px;
-    -webkit-box-shadow: none;
     /* box-shadow: none; */
     border: 1px solid rgba(15, 14, 14, 0.3);
     padding: 10px 15px;
