@@ -7,19 +7,31 @@
                 <Form @submit="submitTransfer">
                     <div class="form-sub-main">
                       <div class="form-group">
-                        <el-select class="form-control _ge_de_ol" v-model="productFrom" @change="onChange" clearable placeholder="Please select" >
+                        <span>Transfer From</span>
+                        <el-select class="form-control2 _ge_de_ol" v-model="productFrom" @change="onChange" clearable placeholder="Please select" >
                             <el-option v-for="(item,index) in productList" :label="item.name" :key="item.code" :value="item.code"></el-option>
                         </el-select>                                              
                       </div> 
                   
                       <div class="form-group">
-                        <el-select class="form-control _ge_de_ol" clearable filterable v-model="productTo"  placeholder="Please select" >
+                        <span>Transfer To</span>
+                        <el-select class="form-control2 _ge_de_ol" clearable filterable v-model="productTo" @change="checkPromotion"  placeholder="Please select" >
                             <el-option v-for="(item,index) in productListTo" :label="item.name" :key="item.code" :value="item.code"></el-option>
                         </el-select>                                              
                       </div> 
+
+                      <div v-if="promotionResult">
+                          <div class="form-group">
+                              <span>Product Promotion</span>
+                              <el-select class="form-control2 _ge_de_ol" v-model="product_promotion_selected" placeholder="Please select" aria-required="true">
+                                  <el-option v-for="(item,index) in productPromotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
+                              </el-select>                                              
+                          </div> 
+                      </div>
                   
                       <div class="form-group">
-                           <Field class="form-control _ge_de_ol" name="transferAmount" type="text" placeholder="Enter Transfer Amount" :rules="validateTransferAmount" autocomplete="off" />
+                            <span>Transfer Amount</span>
+                           <Field class="form-control2 _ge_de_ol" name="transferAmount" type="text" placeholder="Enter Transfer Amount" :rules="validateTransferAmount" autocomplete="off" />
                            <ErrorMessage name="transferAmount" style="color:red"/>
                       </div>
 
@@ -57,7 +69,10 @@ export default {
             productTo:"",
             productList:[],
             productListTo:[],
-            transferAmount:""
+            transferAmount:"",
+            productPromotionList:[],
+            product_promotion_selected:"",
+            promotionResult : false,
         }
     }, 
     created(){
@@ -75,7 +90,9 @@ export default {
                         if( response.data.ProductList[i].IsMaintenance == false || response.data.ProductList[i].IsDrop == false ){
                             const balance = this.getProductBalance( response.data.ProductList[i].ProductCode , response.data.ProductList[i].IsSeamless , response.data.ProductList[i].IsMaintenance)
                             balance.then(result =>{ 
-                                this.productList.push({ name: response.data.ProductList[i].ProductName + " - " + result , code: response.data.ProductList[i].ProductCode })           
+                                this.productList.push({ name: response.data.ProductList[i].ProductName + " - " + result , 
+                                code: response.data.ProductList[i].ProductCode , 
+                                id: response.data.ProductList[i].Id })           
                             })
                         }
                     }
@@ -89,12 +106,12 @@ export default {
             this.productListTo = []
             for(let j = 0 ; j < this.productList.length ; j++ ){
                 if(code != this.productList[j].code){
-                    this.productListTo.push({ name: this.productList[j].name , code: this.productList[j].code })           
+                    this.productListTo.push({ name: this.productList[j].name , code: this.productList[j].code , id: this.productList[j].id })           
                 }
             }
             this.productTo = ""
         },
-        submitTransfer(){
+        submitTransfer(value){
 
             if(this.productFrom == "" || this.productTo == ""){
                     return alert('bank selected is required');
@@ -103,7 +120,8 @@ export default {
             axios.post('Transfer', {
                 TransferFrom : this.productFrom ,
                 TransferTo : this.productTo ,
-                TransferAmount : this.transferAmount,
+                TransferAmount : value.transferAmount,
+                ProductPromotionId : this.product_promotion_selected
                 //ProductPromotionId : ""
             }, {headers})
             .then(response => {
@@ -125,6 +143,44 @@ export default {
                     return response.data
                 }
         },
+        checkPromotion(prod_code){
+            //this.productTo = prod.code
+
+            const product_selected2 = []
+            this.productListTo.forEach(value =>{
+                if(value.code === prod_code){
+                    product_selected2.push(value)
+                }
+            })
+        
+            axios.post('GetProductPromoList', {
+                    "ProductId": product_selected2[0].id,
+                    "ProductCode": product_selected2[0].code,
+                    "IsLaunchGame": true
+                }, {headers})
+                .then(response => {
+                    if(response.data.ResponseCode == "0"){
+                        //console.log(response.data);
+                        this.productPromotionList = []
+
+                        if(response.data.ProductPromotionList.length > 0){
+                            this.productPromotionList.push({ Title : "Please select", Id : ""})
+                            response.data.ProductPromotionList.forEach( value =>{
+                                //console.log(value)
+                                this.productPromotionList.push({ Title : value.Title , Id : value.Id })
+                            })
+
+                            this.product_promotion_selected =""
+                            this.promotionResult = true
+                         
+                        }else{
+                            this.promotionResult = false
+                        }
+                    }
+                }).catch(error => {
+                      console.error(error);
+                })
+        },
         validateTransferAmount(value){
             // if the field is empty
             if (!value) {
@@ -143,3 +199,22 @@ export default {
 
 
 </script>
+
+
+<style>
+.form-control2{
+    min-height: 50px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 15px;
+    background-color: transparent;
+    color: #fff;
+    margin: 0px 0px 20px 0px;
+}
+
+.form-group{
+    text-align: left;
+    color: white;
+}
+</style>

@@ -153,7 +153,7 @@
                     this.gameUrl = response.data.GameUrl
                     const productWallet = this.getBalance( ProductCode , "false" , "false")
                     productWallet.then(result =>{ 
-
+                        this.loading = false
                         if(result == "Error"){
                             return alert("Error")
                         }
@@ -166,6 +166,7 @@
                         })
 
                         this.centerTransferVisible = true
+                     
 
                           /** min Pre Amount code */
                         // if(result > 30){
@@ -183,9 +184,12 @@
                         //     this.centerTransferVisible = true
                         // }
                     })
+
+                
+
                  })
-                .catch(error => { console.error(error); }) 
-                .finally( com => { this.loading = false });
+                .catch(error => { console.error(error); this.loading = false }) 
+                
             },
             submitTransfer(){
                 if(this.transferAmount == null || this.transferAmount == ""){

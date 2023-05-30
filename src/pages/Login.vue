@@ -90,17 +90,11 @@ export default {
               //this.token = response.data.AccessToken
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               //this.tokenSwitch = true;
-              //this.$emit("someEvent",false)
              
               location.reload();
             })
-            .catch(error => {
-                console.error(error);
-            })
-            // .finally( com => {
-            //           this.loading = false
-            //     }
-            // );
+            .catch(error => {  console.error(error);  })
+            .finally( com => {    this.loading = false  });
         },
         validateUsername(value) {
           // if the field is empty
