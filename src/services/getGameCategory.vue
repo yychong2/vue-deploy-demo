@@ -1,7 +1,8 @@
 <template>
 
-     <el-dialog v-model="centerTransferVisible" title="Transfer Wallet" width="60%" center>
-      
+    <Loading :loading="loading"/>
+
+    <el-dialog v-model="centerTransferVisible" title="Transfer Wallet" width="60%" center>
       
             <Form>
 
@@ -71,6 +72,7 @@
 <script>
   import axios from 'axios';
   import CryptoJS from 'crypto-js'
+  import Loading from '../components/Loading.vue'
 
   let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
@@ -92,7 +94,8 @@
             productWallet : null,
             transferAmount:null,
             gameUrl: "",
-            product_code : ""
+            product_code : "",
+            loading : false,
            }
         },
         created(){
@@ -132,6 +135,7 @@
                 .catch(error => { console.error(error); });
             },
             LaunchGame( ProductCode , CategoryType  ){
+                this.loading = true
                 axios.post('LaunchGames', {   
                   "CategoryType": CategoryType, "ProductCode": ProductCode , "ProductHtml5" : "0"  , "IsLaunchGame": true }
                 )
@@ -146,9 +150,7 @@
                     //this.mainWallet = response.data.WalletDetail.MainWalletBalance
                     //this.productWallet = response.data.WalletDetail.ProductWalletBalance
 
-
                     this.gameUrl = response.data.GameUrl
-                  
                     const productWallet = this.getBalance( ProductCode , "false" , "false")
                     productWallet.then(result =>{ 
 
@@ -181,11 +183,9 @@
                         //     this.centerTransferVisible = true
                         // }
                     })
-
-
                  })
-                .catch(error => { console.error(error); });
-
+                .catch(error => { console.error(error); }) 
+                .finally( com => { this.loading = false });
             },
             submitTransfer(){
                 if(this.transferAmount == null || this.transferAmount == ""){
@@ -233,6 +233,9 @@
                 window.open(this.gameUrl, "" , this.windowSize);
                 this.centerTransferVisible = false
             }
+        },
+        components:{
+            Loading
         }
     }
 </script>

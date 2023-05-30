@@ -2,10 +2,16 @@
   
     <div class="loading" v-if="loading" >
       <div class="shape">
-          <looping-rhombuses-spinner
+          <!-- <looping-rhombuses-spinner
             :animation-duration="2500"
             :rhombus-size="100"
             :color="'#ff1d5e'"
+          /> -->
+
+          <fulfilling-square-spinner
+            :animation-duration="4000"
+            :size="300"
+            color="#ccc8c9"
           />
       </div>  
     </div>
@@ -13,7 +19,7 @@
 </template>
 
 <script>
-import {LoopingRhombusesSpinner } from 'epic-spinners'
+import {FulfillingSquareSpinner   } from 'epic-spinners'
 
 
 export default {
@@ -32,7 +38,7 @@ export default {
     
   },
   components:{
-      LoopingRhombusesSpinner
+    FulfillingSquareSpinner  
   }
 
 };
@@ -41,7 +47,7 @@ export default {
 
 <style>
 .loading{
-    z-index: 9999;
+    z-index: 2;
     background: black;
     opacity: 0.8;
     height: 100%;
@@ -51,8 +57,8 @@ export default {
 }
 
 .shape{
-    width: 30%;
-    height: 50%;
-    margin: 20% 0 0% 37%;
+    /* width: 50%; */
+    /* height: 50%; */
+    margin: 20% 0 0% 42%;
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
-    <Header :title="title" :description="description"/>
+    <!-- <Header :title="title" :description="description"/> -->
 
+    <Loading :loading="loading"/>
+  
     <section class="form-01-main">
       <div class="form-cover">
         <div class="container">
@@ -25,6 +27,8 @@
                     <ErrorMessage name="Password" style="color:red"/>
                   </div>
 
+               
+
                   <div class="form-group">
                     <div class="btn_uy">
                       <button>{{$t("common.login")}}</button>
@@ -40,7 +44,7 @@
         </div>
       </div>
     </section>
-    
+ 
 </template>
 
 <script>
@@ -49,12 +53,15 @@ import { isProxy, toRaw , reactive, ref  } from 'vue';
 import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
+import Loading from '../components/Loading.vue'
 
 export default {
     data(){
         return{
             title : "",
             description : "",
+            message : "",
+            loading : false,
         }
     },
     setup(){},
@@ -62,29 +69,42 @@ export default {
       const { t } = useI18n()
       this.title = t("title.login")
       this.description = t("title.login_description")
+      
     },
     methods: {
         onSubmit(values){
-          axios.post( 'auth', { Username: values.Username , Password: values.Password },
-            {  'X-Requested-With': 'XMLHttpRequest',  withCredentials: true,    credentials: 'include'}
-            )
-            .then(response => {
-              const userId = "{'Username': '"+ response.data.MemberDetail.Username +"','UserId': '"+ response.data.MemberDetail.UserId +"', 'UserGroup': '" + response.data.MemberDetail.UserGroup +"', 'IpAddress': '" + response.data.MemberDetail.IpAddress + "'}";
+
+          this.loading = true
+          axios.post( 'auth', { Username: values.Username , Password: values.Password },{}
+            ).then(response => {
               //console.log(response.data.MemberDetail);
+
+              const userId = "{'Username': '" + response.data.MemberDetail.Username +
+              "','UserId': '"+ response.data.MemberDetail.UserId +
+              "', 'UserGroup': '" + response.data.MemberDetail.UserGroup +
+              "', 'IpAddress': '" + response.data.MemberDetail.IpAddress +
+              "', 'PlayerType': '" + response.data.MemberDetail.PlayerType + "'}";    
+
               sessionStorage.setItem("memDetail", CryptoJS.AES.encrypt(userId, this.aesKey))
               sessionStorage.setItem("tokenLogin", 'Bearer ' + response.data.AccessToken)
               //this.token = response.data.AccessToken
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               //this.tokenSwitch = true;
-
+              //this.$emit("someEvent",false)
+             
               location.reload();
             })
             .catch(error => {
                 console.error(error);
-            });
+            })
+            // .finally( com => {
+            //           this.loading = false
+            //     }
+            // );
         },
         validateUsername(value) {
           // if the field is empty
+
           if (!value) {
             return 'This field is required';
           }
@@ -113,13 +133,12 @@ export default {
         }
     },
     components:{
-        Header
+        Header ,Loading
     },
     computed:{
     },
    
 };
-
 
 
 </script>
@@ -166,3 +185,5 @@ export default {
   opacity: 0;
 }
 </style>
+
+

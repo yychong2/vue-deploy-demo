@@ -3,9 +3,7 @@
     <section class="form-01-main">
         <div class="form-cover">
             <div class="container">
-                {{ memberBankList }}
-                {{ memberBalance }}
-
+               
                 <Form @submit="onSubmit">
                     <div class="form-sub-main">
 

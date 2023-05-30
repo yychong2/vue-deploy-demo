@@ -85,7 +85,9 @@
         "register": "加入我的战队",
         "register_description": "欢迎加入我的战队",
         "referrer": "推死你的人回扣",
-        "referrer_description": "欢迎加入推死你的人回扣项目"
+        "referrer_description": "欢迎加入推死你的人回扣项目",
+        "deposit": "收钱做善事",
+        "deposit_description": "欢迎收钱做善事"
     },
     "profile": {
         "web_designer": "有钱人",

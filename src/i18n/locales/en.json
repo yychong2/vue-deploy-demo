@@ -83,7 +83,9 @@
         "register": "Register",
         "register_description": "Welcome to Register page",
         "referrer": "Referrer Rebate",
-        "referrer_description": "Welcome to Referrer Rebate page"
+        "referrer_description": "Welcome to Referrer Rebate page",
+        "deposit": "Deposit",
+        "deposit_description": "Welcome to Deposit page"
     },
     "profile": {
         "web_designer": "Web Designer",
