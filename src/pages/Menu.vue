@@ -91,6 +91,20 @@
                     <div class="card h-100">
                         <div class="card-body p-4">
                             <div class="text-center">
+                                <h5 class="fw-bolder">{{ $t("nav.pay")  }} PG</h5>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <RouterLink :to="Tr.i18nRoute({name:'depositpg'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
+                                View</a>
+                            </div></RouterLink>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <div class="card-body p-4">
+                            <div class="text-center">
                                 <h5 class="fw-bolder">{{ $t("nav.voucher")  }}</h5>
                             </div>
                         </div>

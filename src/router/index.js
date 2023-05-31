@@ -102,6 +102,11 @@ const router = createRouter({
                 component: () =>
                     import ('../pages/Deposit.vue')
             }, {
+                path: 'depositpg',
+                name: 'depositpg',
+                component: () =>
+                    import ('../pages/DepositPG.vue')
+            }, {
                 path: 'referrer',
                 name: 'referrer',
                 component: () =>
