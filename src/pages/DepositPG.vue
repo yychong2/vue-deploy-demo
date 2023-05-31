@@ -13,6 +13,15 @@
                                   <el-option v-for="(item,index) in operatorBankAccountList" :label="item.BankName" :key="item.BankId" :value="item.BankId "></el-option>
                               </el-select>                                              
                             </div> 
+
+                            <div v-if="bankCodeResult">
+                                <div class="form-group">
+                                  <span>Bank Options</span>
+                                  <el-select class="form-control2 _ge_de_ol" v-model="bank_code_selected" placeholder="Please select" aria-required="true">
+                                      <el-option v-for="(item,index) in bankCodeList" :label="item.Name" :key="item.Code" :value="item.Code "></el-option>
+                                  </el-select>                                              
+                                </div> 
+                            </div>
     
                             <div class="form-group">
                                 <span>Promotion</span>
@@ -60,9 +69,12 @@
                     title : "",
                     description : "",
                     operatorBankAccountList : {},
+                    bankCodeList:[],
                     promotionList:[],
                     bank_selected:"",
-                    promotion_selected :"",
+                    promotion_selected : "",
+                    bank_code_selected : "",
+                    bankCodeResult: false
                 }
             }, 
             created(){
@@ -70,6 +82,7 @@
                this.title = t("title.deposit")
                this.description = t("title.deposit_description")
                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+               //axios.defaults.headers.common['X-Member-Details'] = '{"Username": "davis7231","UserId": "11345", "UserGroup": "43","UserGroupName": "VIP43","Email": "b@a.com","IpAddress": "2001:e68:5410:52e4:8d92:85b1:2673:6c85","IsPauseBet": false,"PlayerType": "0","AgentId": "1","AgentCode": "ag1","Name": "testLai","DateCreated": "2021-03-08T07:35:26","MinWithdrawal": 0,"MaxWithdrawal": 0,"DailyWithdrawalLimit": 0,"DailyWithdrawalLimitAmt": 0,"Currency": "CNY"}';
                this.GetDepositDetails()
             },
             methods:{
@@ -79,7 +92,7 @@
                         if(response.data.ResponseCode == "0"){
                            // console.log(response.data);
                            this.operatorBankAccountList = response.data.OperatorBankAccountList
-                           
+                          
                            if(response.data.PromotionList.length > 0){
                                 this.promotionList.push({ Title : "Please select", Id : ""})
                                 response.data.PromotionList.forEach( value =>{
@@ -113,12 +126,26 @@
                         ProductCode       : "",
                         ProductPromotionId: "",
                         PromotionId       : "",
-                        PromotionCode     : ""
+                        PromotionCode     : "",
+                        SwiftCode : bank_selected2[0].SwiftCode
                     }, {headers})
                     .then(response => {
-                        console.log(response.data)
+                        this.bankCodeList = []
                         if(response.data.ResponseCode == "0"){
-                            console.log(response.data)
+                            if(response.data.PgDetail.BankList != null){
+                                if(response.data.PgDetail.BankList.length > 0 ){
+                                    console.log(response.data)
+                                    this.bankCodeList = response.data.PgDetail.BankList
+                                    console.log( this.bankCodeList)
+                                    this.bankCodeResult = true
+                                }else{
+                                    this.bankCodeList = ""
+                                    this.bankCodeResult = false
+                                }
+                            }else{
+                                    this.bankCodeList = ""
+                                    this.bankCodeResult = false
+                            }
                         }
                     }).catch(error => {
                           console.error(error);
@@ -146,6 +173,7 @@
                         console.log(response.data)
                         if(response.data.ResponseCode == "0"){
                             alert(response.data.ResponseMessage)
+                            window.open(response.data.ResponseData);
                         }
                     }).catch(error => {
                        console.error(error);

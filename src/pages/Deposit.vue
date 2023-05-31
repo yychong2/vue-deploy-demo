@@ -77,7 +77,7 @@
                 description : "",
                 promotionResult : false,
                 operatorBankAccountList : {},
-                productList:{},
+                productList:[],
                 promotionList:[],
                 productPromotionList:[],
                 bank_selected:"",
@@ -100,9 +100,16 @@
                     if(response.data.ResponseCode == "0"){
                        // console.log(response.data);
                        this.operatorBankAccountList = response.data.OperatorBankAccountList
-                       this.productList = response.data.ProductList
+                        //this.productList = response.data.ProductList
 
-                       if(response.data.PromotionList.length > 0){
+                        if(response.data.ProductList.length > 0){
+                            this.productList.push({ ProductName : "Please select", Id : "" , ProductCode : ""})
+                            response.data.ProductList.forEach( value =>{
+                                this.productList.push({ ProductName : value.ProductName , ProductCode : value.Id , Id : value.Id  })
+                            })
+                        }
+
+                        if(response.data.PromotionList.length > 0){
                             this.promotionList.push({ Title : "Please select", Id : ""})
                             response.data.PromotionList.forEach( value =>{
                                 this.promotionList.push({ Title : value.Title , Id : value.Id })
@@ -117,28 +124,6 @@
             },
             onSubmit(values){
                 const prodCode = this.product_selected 
-
-                console.log("Bank - " + this.bank_selected)
-                console.log("Product - " +this.product_selected)
-                console.log("Promotion - " +this.promotion_selected)
-                console.log("Product Promotion - " +this.product_promotion_selected)
-                console.log("Amount - " +values.amount_deposit)
-                console.log("Product Code - " + prodCode)
-                
-                // "DepositBankId": 0,
-                // "DepositBankCode": "string",
-                // "DepositAmount": 0,
-                // "ProductId": "string",
-                // "ProductCode": "string",
-                // "ProductPromotionId": "string",
-                // "PromotionId": "string",
-                // "DepositMethod": "string",
-                // "DepositDateTime": "string",
-                // "VerificationCode": "string",
-                // "SwiftCode": "string",
-                // "PromotionCode": "string",
-                // "Remark": "string"
-
                 axios.post( 'Deposit', {
                     DepositBankId     : this.bank_selected,
                     DepositBankCode   : "",
@@ -149,20 +134,13 @@
                     PromotionId       : this.promotion_selected,
                     PromotionCode     : ""
                 }, { headers } ).then(response => {
-                    console.log(response.data)
+                    //console.log(response.data)
                     if(response.data.ResponseCode == "0"){
                         alert(response.data.ResponseMessage)
                     }
-                }).catch(error => {
-                   console.error(error);
-                });
-
+                }).catch(error => { console.error(error); });
             },
             onChange(prod_code){
-                
-                //console.log(code.ProductCode)
-                //console.log(code.Id)
-                //this.product_selected = code.ProductCode
                 
                 const product_selected2 = []
                 this.productList.forEach(value =>{
@@ -178,30 +156,20 @@
                 }, {headers})
                 .then(response => {
                     if(response.data.ResponseCode == "0"){
-                     
                         this.productPromotionList = []
-
                         if(response.data.ProductPromotionList.length > 0){
                             this.productPromotionList.push({ Title : "Please select", Id : ""})
                             response.data.ProductPromotionList.forEach( value =>{
-                              
                                 this.productPromotionList.push({ Title : value.Title , Id : value.Id })
                             })
-
-                            this.product_promotion_selected =""
-                            this.promotionResult = true
-                         
-                        }else{
                             this.promotion_selected =""
+                            this.promotionResult = true
+                        } else {
+                            this.product_promotion_selected =""
                             this.promotionResult = false
-                          
                         }
                     }
-                }).catch(error => {
-                      console.error(error);
-                })
-
-
+                }).catch(error => { console.error(error); })
             },
             validateDepositAmount(value){
                   // if the field is empty
