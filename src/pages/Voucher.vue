@@ -1,49 +1,55 @@
 <template>
-    <Header :title="title" :description="description"/>
-    <section class="form-01-main">
-        <div class="form-cover">
-            <div class="container">
-                <div v-if="afterResult" style="margin-top: 80px;color:white;">
-                    <div v-html="detail" style="width: 50%; margin: auto;"></div>
-                    <form @submit.prevent="submitConfirmVoucher">
-                        <div class="form-sub-main">
-                            <div class="form-group">
-                              <div class="btn_uy">
-                                <button type="submit" @click="submitVoucher">{{$t("common.submit")}}</button>
-                              </div>
-                            </div>
-                        </div>
-                    </form>
+    <!-- Page content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-dark bg-gradient text-white rounded-3 mb-3"><i class="bi bi-credit-card"></i></div>
+                    <h1 class="fw-bolder">{{$t("title.voucher")}}</h1>
                 </div>
-                <div v-else>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
 
-                    <Form @submit="getVoucherDetail">
-                        <div class="form-sub-main">
-                        
-                            <div class="form-group">
-                                <Field class="form-control _ge_de_ol" name="voucher" type="text" placeholder="Enter Voucher" :rules="validateVoucher" autocomplete="off" />
-                                <ErrorMessage name="voucher" style="color:red"/>
-                            </div>
-                        
-                            <div class="form-group">
-                              <div class="btn_uy">
-                                <button>{{$t("common.submit")}}</button>
-                              </div>
-                            </div>
-
+                        <div v-if="afterResult" style="margin-top: 80px;color:white;">
+                            <div v-html="detail" style="width: 50%; margin: auto;"></div>
+                            <form @submit.prevent="submitConfirmVoucher">
+                                <div class="form-sub-main">
+                                    <div class="form-group">
+                                      <div class="d-grid">
+                                        <button class="btn btn-dark btn-lg"  @click="submitVoucher">{{$t("common.submit")}}</button>
+                                      </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </Form>
+                        <div v-else>
+                            <Form @submit="getVoucherDetail" id="voucherForm">
+                                <div class="form-floating mb-3">
+                                    <Field class="form-control _ge_de_ol" name="voucher" type="text" placeholder="Enter Voucher" :rules="validateVoucher" autocomplete="off" />
+                                    <label for="name">Voucher</label>
+                                    <ErrorMessage name="voucher" style="color:red"/>
+                                </div>
 
+                                <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.submit")}}</button></div>
+                              
+                            </Form>
+                        </div>
+
+                      
+
+                    </div>
                 </div>
             </div>
+          
         </div>
     </section>
+
 </template>
 
 <script>
 import axios from 'axios';
 import { useI18n } from 'vue-i18n'
-import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 
 let headers = { 
@@ -54,17 +60,12 @@ let headers = {
 export default {
     data(){
         return{
-            title : "",
-            description : "",
             voucher : "",
             afterResult: false,
             detail:""
         }
     }, 
     created(){
-       const { t } = useI18n()
-       this.title = t("title.voucher")
-       this.description = t("title.voucher_description")
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);     
     },
     methods:{
@@ -102,9 +103,7 @@ export default {
                 return true;
         }
     },
-    components:{
-        Header
-    }
+    components:{ }
 
 }
 

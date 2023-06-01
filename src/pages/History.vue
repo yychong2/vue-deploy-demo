@@ -1,37 +1,53 @@
 <template>
-<Header :title="title" :description="description"/>
-    <section class="form-01-main">
-        <div class="form-cover">
-            <form @submit.prevent="searchHistoryData">
-                <div class="form-sub-main">
-                    <div class="form-group">
-                      <div class="btn_uy">
-                        <button type="submit" @click="searchHistory">{{$t("common.submit")}}</button>
-                      </div>
-                    </div>
 
-                    <div class="form-group">
-                      <el-select class="form-control _ge_de_ol" v-model="report_type" placeholder="Report Type" >
-                          <el-option v-for="(item,index) in options" :label="item.label" :key="item.value" :value="item.value"></el-option>
-                      </el-select>                                              
-                    </div>
+    <!-- Page content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-dark bg-gradient text-white rounded-3 mb-3"><i class="bi bi-files"></i></div>
+                    <h1 class="fw-bolder">{{$t("nav.history")}}</h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                      <form @submit.prevent="searchHistoryData">
+                          
+                          <div class="form-floating mb-3">
+                            <div class="form-group">
+                              <el-select class="form-control _ge_de_ol" v-model="report_type" placeholder="Report Type" >
+                                <el-option v-for="(item,index) in options" :label="item.label" :key="item.value" :value="item.value"></el-option>
+                              </el-select>  
+                            </div>
+                           
+                          </div>
 
-                    <div class="form-group">
-                        <VueDatePicker class="form-control _ge_de_ol" v-model="startDate" :format="format" auto-apply placeholder="Start Date"  />
-                    </div>
+                          <div class="form-floating mb-3">
+                            <div class="form-group">
+                              <VueDatePicker class="form-control _ge_de_ol" v-model="startDate" :format="format" auto-apply placeholder="Start Date"  />
+                            </div>
+                          </div>
 
-                    <div class="form-group">
-                        <VueDatePicker class="form-control _ge_de_ol" v-model="endDate" :format="format" auto-apply placeholder="End Date"  />
-                    </div>
-                  </div>
-            </form>
+                          <div class="form-floating mb-3">
+                            <div class="form-group">
+                              <VueDatePicker class="form-control _ge_de_ol" v-model="endDate" :format="format" auto-apply placeholder="End Date"  />
+                            </div>
+                          </div>
 
-            <div v-show="show">
-                <EasyDataTable :headers="headers" :items="data" />
+                          <div class="d-grid"><button class="btn btn-dark btn-lg "  @click="searchHistory" id="submitButton" >{{$t("common.submit")}}</button></div>
+                        
+                      </form>
+                    </div>
+                </div>
             </div>
           
         </div>
     </section>
+
+    <div v-show="show">
+      <EasyDataTable :headers="headers" :items="data" />
+    </div>
+         
 </template>
 
 <script>
@@ -49,8 +65,6 @@ let headers = {
 export default {
     data(){
         return{
-            title : "",
-            description : "",
             update_dob:null,
             max_date:null,
             startDate :null,
@@ -89,9 +103,6 @@ export default {
         }
     }, 
     created(){
-      const { t } = useI18n()
-      this.title = t("title.history")
-      this.description = t("title.history_description")
       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
     },
     methods:{

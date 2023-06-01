@@ -3,63 +3,67 @@
     <Transition>
     <div v-if="afterResult">
         <div class="form-group">
-            <div class="btn_uy" style="margin-left: 27%; width: 21%;">
-              <button type="button" @click="backBankList">{{$t("common.add_bank")}}</button>
+            <div class="btn_uy" style="margin-left: 11%; width: 21%; margin-top: 1%;">
+              <button type="button" class="btn btn-dark btn-lg " @click="backBankList">{{$t("common.add_bank")}}</button>
             </div>
         </div>
         
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5" v-for="(item,index) of memberBankList" :key="index">
-                            <div class="card h-100">
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <h3 class="fw-bolder">{{ item.BankName    }}</h3>
-                                        <h5 class="fw-bolder">{{ item.BankAccountName    }}</h5>
-                                        <h5 class="fw-bolder">{{ item.BankAccountNo    }}</h5>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="container px-5 my-5" v-show="show">
+            <EasyDataTable :headers="headers" :items="memberBankList"   />
+        </div>
+       
     </div>
     <div v-else>
-        <div class="form-group">
-            <div class="btn_uy" style="margin-left: 27%; width: 21%;">
-              <button type="button" @click="backBankList">{{$t("common.back")}}</button>
-            </div>
-        </div>
 
-        <Form @submit="addBankAccount">
-            <div class="form-sub-main">
-                <div class="form-group">
-                  <el-select class="form-control _ge_de_ol" v-model="add_bank_selected" placeholder="Please select" >
-                      <el-option v-for="(item,index) in allBankList" :label="item.BankName" :key="item.BankId" :value="item.BankId"></el-option>
-                  </el-select>                                              
-                </div> 
+         <!-- Page content-->
+         <section class="py-5">
+             <div class="container px-5">
+                 <!-- Contact form-->
+                 <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
 
-                <div class="form-group">
-                    <Field class="form-control _ge_de_ol" name="add_bank_account_name" type="text" placeholder="Enter Bank Account Name" :rules="validateBankAccountName" autocomplete="off" />
-                    <ErrorMessage name="add_bank_account_name" style="color:red"/>
-                </div>
+                    <div class="btn_uy" style="margin-left: 27%; width: 21%;">
+                      <button type="button" class="btn btn-dark btn-lg " @click="backBankList">{{$t("common.back")}}</button>
+                    </div>
 
-                <div class="form-group">
-                    <Field class="form-control _ge_de_ol" name="add_bank_account_number" type="text" placeholder="Enter Bank Account Number" :rules="validateBankAccountNumber" autocomplete="off" />
-                    <ErrorMessage name="add_bank_account_number" style="color:red"/>
-                </div>
+                     <div class="text-center mb-5">
+                         <div class="feature bg-dark bg-gradient text-white rounded-3 mb-3"><i class="bi bi-bank"></i></div>
+                         <h1 class="fw-bolder">{{$t("title.bank")}} PG</h1>
+                     </div>
+                     <div class="row gx-5 justify-content-center">
+                         <div class="col-lg-8 col-xl-6">
+                             <Form @submit="addBankAccount">
 
-                <div class="form-group">
-                  <div class="btn_uy">
-                    <button>{{$t("common.submit")}}</button>
-                  </div>
-                </div>
+                                 <div class="form-floating mb-3">
+                                     <div class="form-group">
+                                         <span style="color:black;">Bank Selected</span>
+                                         <el-select class="form-control2 _ge_de_ol" v-model="bank_selected" @change="GetBankCodeDetails" placeholder="Please select" aria-required="true">
+                                             <el-option v-for="(item,index) in operatorBankAccountList" :label="item.BankName" :key="item.BankId" :value="item.BankId "></el-option>
+                                         </el-select>                                  
+                                     </div>
+                                 </div>
+                             
+                                 <div class="form-floating mb-3">
+                                    <Field  class="form-control _ge_de_ol" name="add_bank_account_name" type="text" placeholder="Enter Bank Account Name" :rules="validateBankAccountName" autocomplete="off" />
+                                    <label>Bank Account Name</label>
+                                    <ErrorMessage name="add_bank_account_name" style="color:red"/>
+                                 </div>
+                             
+                                 <div class="form-floating mb-3">
+                                    <Field class="form-control _ge_de_ol" name="add_bank_account_number" type="text" placeholder="Enter Bank Account Number" :rules="validateBankAccountNumber" autocomplete="off" />
+                                    <label>Bank Account Number</label>
+                                    <ErrorMessage name="add_bank_account_number" style="color:red"/>
+                                 </div>
 
-            </div>
-        </Form>
-        
+                               <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.submit")}}</button></div>
+                             
+                             </Form>
+                         </div>
+                     </div>
+                 </div>
+             
+             </div>
+         </section>
+
     </div>
     </Transition>
 </template>
@@ -80,12 +84,18 @@ export default {
         return{
             title : "",
             description : "",
-            memberBankList:{},
+            memberBankList:[],
             allBankList:{},
             afterResult: true,
             add_bank_account_number:"",
             add_bank_account_name:"",
             add_bank_selected:[],
+            headers: [
+                          { text: "Bank Name", value: "BankName" },
+                          { text: "Bank Account Name", value: "BankAccountName" },
+                          { text: "Bank Account Number", value: "BankAccountNo"}
+                    ],
+            show:false
         }
     }, 
     created(){
@@ -99,9 +109,10 @@ export default {
     },
     methods:{
             getMemberBank : function(params){
-                this.memberBankList = {}
+                this.memberBankList = []
                 axios.get('GetMemberBankAccountList', {}, { headers } ).then(response => {
                     this.memberBankList = response.data.MemberBankDetails
+                    this.show = true
                 })
                 .catch(error => {
                   console.error(error);

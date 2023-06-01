@@ -1,68 +1,77 @@
 <template>
-              
 
-<Header :title="title" :description="description"/>
-    <section class="form-01-main">
-        <div class="form-cover">
-            <div class="container">
-                <Form @submit="onSubmit">
-                    <div class="form-sub-main">
-                        <div class="form-group">
-                          <span>Bank Name</span>
-                          <el-select class="form-control2 _ge_de_ol" v-model="bank_selected" placeholder="Please select" aria-required="true">
-                              <el-option v-for="(item,index) in operatorBankAccountList" :label="item.BankName" :key="item.BankId" :value="item.BankId "></el-option>
-                          </el-select>                                              
-                        </div> 
+    <!-- Page content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-dark bg-gradient text-white rounded-3 mb-3"><i class="bi bi-cash"></i></div>
+                    <h1 class="fw-bolder">{{$t("title.deposit")}}</h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <Form @submit="onSubmit">
 
-                        <div class="form-group">
-                            <span>Product Name</span>
-                          <el-select class="form-control2 _ge_de_ol" v-model="product_selected" @change="onChange" placeholder="Please select" aria-required="true">
-                              <el-option v-for="(item,index) in productList" :label="item.ProductName" :key="item.ProductCode" :value="item.ProductCode"></el-option>
-                          </el-select>                                              
-                        </div> 
-
-                        <div v-if="promotionResult">
-                            <div class="form-group">
-                                <span>Product Promotion</span>
-                                <el-select class="form-control2 _ge_de_ol" v-model="product_promotion_selected" placeholder="Please select" aria-required="true">
-                                    <el-option v-for="(item,index) in productPromotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
-                                </el-select>                                              
-                            </div> 
-                        </div>
-                        <div v-else>
-                            <div class="form-group">
-                                <span>Promotion</span>
-                                <el-select class="form-control2 _ge_de_ol" v-model="promotion_selected" placeholder="Please select" aria-required="true">
-                                    <el-option v-for="(item,index) in promotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
-                                </el-select>                                              
+                            <div class="form-floating mb-3">
+                                <div class="form-group">
+                                    <span style="color:black;">Bank Name</span>
+                                    <el-select class="form-control2 _ge_de_ol" v-model="bank_selected" placeholder="Please select" aria-required="true">
+                                        <el-option v-for="(item,index) in operatorBankAccountList" :label="item.BankName" :key="item.BankId" :value="item.BankId "></el-option>
+                                    </el-select>                                  
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <span>Deposit Amount</span>
-                            <Field class="form-control2 _ge_de_ol" name="amount_deposit" type="text" inputmode="numeric" pattern="/d+" placeholder="Enter Deposit Amount" :rules="validateDepositAmount" autocomplete="off" />
-                            <ErrorMessage name="amount_deposit" style="color:red"/>
-                        </div>
+                            <div class="form-floating mb-3">
+                                <div class="form-group">
+                                    <span style="color:black;">Product Name</span>
+                                    <el-select class="form-control2 _ge_de_ol" v-model="product_selected" @change="onChange" placeholder="Please select" aria-required="true">
+                                        <el-option v-for="(item,index) in productList" :label="item.ProductName" :key="item.ProductCode" :value="item.ProductCode"></el-option>
+                                    </el-select>                         
+                                </div>
+                            </div>
 
+                            <div class="form-floating mb-3" v-if="promotionResult">
+                                <div class="form-group">
+                                    <span style="color:black;">Product Promotion</span>
+                                    <el-select class="form-control2 _ge_de_ol" v-model="product_promotion_selected" placeholder="Please select" aria-required="true">
+                                        <el-option v-for="(item,index) in productPromotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
+                                    </el-select>                                              
+                                </div> 
+                            </div>
 
-                        <div class="form-group">
-                          <div class="btn_uy">
-                            <button>{{ $t("common.submit")  }}</button>
-                          </div>
-                        </div>
+                            <div class="form-floating mb-3" v-else>
+                                <div class="form-group">
+                                    <span style="color:black;">Promotion</span>
+                                    <el-select class="form-control2 _ge_de_ol" v-model="promotion_selected" placeholder="Please select" aria-required="true">
+                                        <el-option v-for="(item,index) in promotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
+                                    </el-select>                                              
+                                </div>
+                            </div>
 
+                            <div class="form-floating mb-3">
+                                <Field class="form-control2 _ge_de_ol" name="amount_deposit" style="color: black;" type="text" inputmode="numeric" pattern="/d+" placeholder="Enter Deposit Amount" :rules="validateDepositAmount" autocomplete="off" />
+                               
+                                <ErrorMessage name="amount_deposit" style="color:red"/>
+                            </div>
+
+                          <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.submit")}}</button></div>
+                          
+                        </Form>
                     </div>
-                </Form>
+                </div>
             </div>
+          
         </div>
     </section>
+
+   
 </template>
 
 
 <script>
     import axios from 'axios';
     import { useI18n } from 'vue-i18n'
-    import Header from '../components/header.vue'
     import CryptoJS from 'crypto-js'
   
     
@@ -73,8 +82,6 @@
     export default {
         data(){
             return{
-                title : "",
-                description : "",
                 promotionResult : false,
                 operatorBankAccountList : {},
                 productList:[],
@@ -87,9 +94,6 @@
             }
         }, 
         created(){
-           const { t } = useI18n()
-           this.title = t("title.deposit")
-           this.description = t("title.deposit_description")
            axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
            this.GetDepositDetails()
         },
@@ -182,7 +186,7 @@
             }
         },
         components:{
-            Header 
+             
         }
     }
 </script>

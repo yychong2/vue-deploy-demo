@@ -122,12 +122,12 @@ const router = createRouter({
                 component: () =>
                     import ('../pages/Testing.vue')
             },
-            {
-                path: '/:pathMatch(.*)',
-                name: 'not-found',
-                component: () =>
-                    import ('../pages/NotFound.vue')
-            },
+            // {
+            //     path: '/:pathMatch(.*)',
+            //     name: 'not-found',
+            //     component: () =>
+            //         import ('../pages/NotFound.vue')
+            // },
             {
                 path: '*',
                 name: 'notFound',

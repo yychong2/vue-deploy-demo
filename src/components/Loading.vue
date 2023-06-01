@@ -45,20 +45,3 @@ export default {
 
 </script>
 
-<style>
-.loading{
-    z-index: 2;
-    background: black;
-    opacity: 0.8;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    overflow-x: hidden;
-}
-
-.shape{
-    /* width: 50%; */
-    /* height: 50%; */
-    margin: 20% 0 0% 42%;
-}
-</style>

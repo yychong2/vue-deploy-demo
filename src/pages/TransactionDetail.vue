@@ -1,5 +1,4 @@
 <template>
-    <Header :title="title" :description="description"/>
    <section class="form-01-main">
       <div class="form-cover">
         <div class="container" style="margin-top: 80px;">
@@ -7,7 +6,7 @@
             <div class="container py-5 h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-lg-6 mb-4 mb-lg-0">
-                  <div class="card mb-3" style="border-radius: .5rem;">
+                  <div class=" mb-3" style="border-radius: .5rem;">
                     <div class="row g-0">
                       <div class="col-md-12">
                         <div class="card-body p-4">
@@ -57,14 +56,13 @@
           </section>         
         </div>
       </div>
-</section>
+   </section>
 </template>
 
 
 <script>
 import axios from 'axios';
 import { useI18n } from 'vue-i18n'
-import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 
 let headers = { 
@@ -74,15 +72,10 @@ let headers = {
 export default {
     data(){
         return{
-            title : "",
-            description : "",
             UserTransactionDetail:{}
         }
     }, 
     created(){
-      const { t } = useI18n()
-      this.title = t("title.trs_detail")
-      this.description = t("title.trs_detail_description")
       this.GetTransactionDetail()
       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
 
@@ -101,7 +94,7 @@ export default {
         }
     },
     components:{
-        Header
+        
     }
 }
 </script>

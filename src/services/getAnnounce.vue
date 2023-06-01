@@ -1,6 +1,6 @@
 <template>
     <!-- <marquee-text v-for="(slide, index ) in AnnouncementList" :key="index" :duration="1"></marquee-text> -->
-    <MarqueeText :repeat="3"><span>{{ AnnouncementText }}</span></MarqueeText>
+    <MarqueeText :repeat="4"><span>{{ AnnouncementText }}</span></MarqueeText>
 </template>
 
 <script>

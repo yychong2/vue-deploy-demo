@@ -1,58 +1,69 @@
 <template>
-    <Header :title="title" :description="description"/>
-    <section class="form-01-main">
-        <div class="form-cover">
-            <div class="container">
 
-                <Form @submit="submitTransfer">
-                    <div class="form-sub-main">
-                      <div class="form-group">
-                        <span>Transfer From</span>
-                        <el-select class="form-control2 _ge_de_ol" v-model="productFrom" @change="onChange" clearable placeholder="Please select" >
-                            <el-option v-for="(item,index) in productList" :label="item.name" :key="item.code" :value="item.code"></el-option>
-                        </el-select>                                              
-                      </div> 
-                  
-                      <div class="form-group">
-                        <span>Transfer To</span>
-                        <el-select class="form-control2 _ge_de_ol" clearable filterable v-model="productTo" @change="checkPromotion"  placeholder="Please select" >
-                            <el-option v-for="(item,index) in productListTo" :label="item.name" :key="item.code" :value="item.code"></el-option>
-                        </el-select>                                              
-                      </div> 
+     <!-- Page content-->
+     <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-dark bg-gradient text-white rounded-3 mb-3"><i class="bi bi-file-earmark-post"></i></div>
+                    <h1 class="fw-bolder">{{$t("nav.transfer")}}</h1>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <Form @submit="submitTransfer">
 
-                      <div v-if="promotionResult">
-                          <div class="form-group">
-                              <span>Product Promotion</span>
-                              <el-select class="form-control2 _ge_de_ol" v-model="product_promotion_selected" placeholder="Please select" aria-required="true">
-                                  <el-option v-for="(item,index) in productPromotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
-                              </el-select>                                              
-                          </div> 
-                      </div>
-                  
-                      <div class="form-group">
-                            <span>Transfer Amount</span>
-                           <Field class="form-control2 _ge_de_ol" name="transferAmount" type="text" placeholder="Enter Transfer Amount" :rules="validateTransferAmount" autocomplete="off" />
-                           <ErrorMessage name="transferAmount" style="color:red"/>
-                      </div>
+                            <div class="form-floating mb-3">
+                                <div class="form-group">
+                                    <span style="color:black;">Transfer From</span>
+                                    <el-select class="form-control2 _ge_de_ol" v-model="productFrom" @change="onChange" clearable placeholder="Please select" >
+                                        <el-option v-for="(item,index) in productList" :label="item.name" :key="item.code" :value="item.code"></el-option>
+                                    </el-select>                                 
+                                </div>
+                            </div>
 
-                      <div class="form-group">
-                        <div class="btn_uy">
-                          <button>{{$t("common.submit")}}</button>
-                        </div>
-                      </div>
+                            <div class="form-floating mb-3">
+                                <div class="form-group">
+                                    <span style="color:black;">Transfer To</span>
+                                    <el-select class="form-control2 _ge_de_ol" clearable filterable v-model="productTo" @change="checkPromotion"  placeholder="Please select" >
+                                        <el-option v-for="(item,index) in productListTo" :label="item.name" :key="item.code" :value="item.code"></el-option>
+                                    </el-select>                                 
+                                </div>
+                            </div>
 
+                            <div class="form-floating mb-3" v-if="promotionResult">
+                                <div class="form-floating mb-3">
+                                    <div class="form-group">
+                                        <span style="color:black;">Product Promotion</span>
+                                        <el-select class="form-control2 _ge_de_ol" v-model="product_promotion_selected" placeholder="Please select" aria-required="true">
+                                            <el-option v-for="(item,index) in productPromotionList" :label="item.Title" :key="item.Id" :value="item.Id"></el-option>
+                                        </el-select>                                              
+                                    </div> 
+                                </div>
+                            </div>
+
+
+                            <div class="form-floating mb-3">
+                                <Field class="form-control _ge_de_ol" name="transferAmount" type="text" placeholder="Enter Transfer Amount" :rules="validateTransferAmount" autocomplete="off" />
+                                <label for="name">Transfer Amount</label>
+                                <ErrorMessage name="transferAmount" style="color:red"/>
+                            </div>
+                          
+                          <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.submit")}}</button></div>
+                          
+                        </Form>
                     </div>
-                </Form>
-
+                </div>
             </div>
+          
         </div>
     </section>
+
 </template>
 
 <script>
 import axios from 'axios';
 import { useI18n } from 'vue-i18n'
-import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 
 let headers = { 
@@ -63,8 +74,6 @@ let headers = {
 export default {
     data(){
         return{
-            title : "",
-            description : "",
             productFrom:"",
             productTo:"",
             productList:[],
@@ -76,9 +85,6 @@ export default {
         }
     }, 
     created(){
-       const { t } = useI18n()
-       this.title = t("title.transfer")
-       this.description = t("title.transfer_description")
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
        this.GetProductWalletFrom()
     },
@@ -191,9 +197,7 @@ export default {
             return true;
         }
     },
-    components:{
-        Header
-    }
+    components:{ }
 
 }
 

@@ -9,9 +9,6 @@ import 'vue-plyr/dist/vue-plyr.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
-import './assets/css/styles.css'
-import './assets/css/style-login.css'
-
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 

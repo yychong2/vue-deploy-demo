@@ -34,8 +34,61 @@
      
     </el-dialog>
 
+    <el-tabs class="el-border" type="border-card" v-model="activeName" @tab-click="filterCategory">
+      <el-tab-pane label="Slot" name="SL">
+
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
+                    <div class="position-relative mb-5 gameClick">
+                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      </el-tab-pane>
+      <el-tab-pane label="Casino" name="LC"> 
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
+                    <div class="position-relative mb-5 gameClick">
+                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Fish" name="FH">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
+                    <div class="position-relative mb-5 gameClick">
+                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Sportbook" name="SB">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
+                    <div class="position-relative mb-5 gameClick">
+                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+
      <!-- Section-->
-     <section class="py-5">
+     <!-- <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <div>
@@ -48,16 +101,16 @@
                 
                 <div class="col mb-5" v-for="(item,index) of gameList" :key="index">
                         <div class="card h-100">
-                            <!-- Product image-->
+                       
                             <img class="card-img-top" :src="item.Image2 " alt="{{ item.ProductName }}" />
-                            <!-- Product details-->
+                      
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    <!-- Product name-->
+                          
                                     <h5 class="fw-bolder">{{ item.ProductName }}</h5>
                                 </div>
                             </div>
-                            <!-- Product actions-->
+                        
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" @click="LaunchGame(item.ProductCode , item.ProductType)" >View Game</a></div>
                             </div>
@@ -65,7 +118,7 @@
                 </div>
             </div>
         </div>
-     </section>
+     </section> -->
 
 </template>
 
@@ -96,6 +149,7 @@
             gameUrl: "",
             product_code : "",
             loading : false,
+            activeName:"SL"
            }
         },
         created(){
@@ -118,20 +172,18 @@
                  })
                 .catch(error => { console.error(error); });
             },
-            filterCategory(CategoryType){
+            filterCategory(tab,event){
                 this.gameList = []
                 axios.post( 'GetProductListByCategory', {   
-                  "CategoryType": CategoryType , "IsLaunchGame": false }
+                  "CategoryType": tab.props.name , "IsLaunchGame": false }
                 )
                 .then(response => { 
-
                     response.data.ProductTypeContent.forEach(item =>{
                         if( item.isHide == false && item.isDrop == false ){
                             this.gameList.push(item);
                         }
                     })
-
-                 })
+                })
                 .catch(error => { console.error(error); });
             },
             LaunchGame( ProductCode , CategoryType  ){
@@ -259,4 +311,65 @@
     width: 100%;
     margin: 0px 0px 30px 0px;
 }
+
+.card{
+    width:20%;
+}
+
+.img-fluid{
+    width: 600px;
+    height:400px;
+}
+
+.el-border{
+    width: 95%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.gameClick{
+    cursor: pointer;
+}
+
+.loading{
+    z-index: 99999;
+    background: black;
+    opacity: 0.8;
+    margin-top: -31%;
+    height: 122%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+}
+
+.shape{
+    /* width: 50%; */
+    /* height: 50%; */
+    margin: 20% 0 0% 42%;
+}
+
+@media only screen and (max-width: 600px) {
+    .img-fluid{
+            width: 100%;
+            height:100%;
+    }
+
+    .loading{
+    z-index: 99999;
+    background: black;
+    opacity: 0.8;
+    margin-top: -120%;
+    height: 107%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+  }
+
+  .fulfilling-square-spinner{
+    height: 200px !important;
+    width: 200px !important;
+    margin: 48% 0 0% -28%;
+  }
+}
+
 </style>

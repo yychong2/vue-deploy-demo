@@ -3,7 +3,7 @@
 <template>
 
   
-  <Navigation class="nav"></Navigation>
+  <Navigation></Navigation>
   <RouterView ></RouterView>
   <Footer />
 
@@ -14,8 +14,6 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Footer from './components/footer.vue'
 import Navigation from './components/navigation.vue'
-
-
 
 export default{
   setup(){
@@ -33,3 +31,9 @@ export default{
 }
 </script>
 
+
+<style>
+.justify-content-center{
+  color:black !important;
+}
+</style>

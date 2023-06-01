@@ -1,48 +1,40 @@
 <template>
-    <!-- <Header :title="title" :description="description"/> -->
-
+   
     <Loading :loading="loading"/>
   
-    <section class="form-01-main">
-      <div class="form-cover">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-
-              <Form @submit="onSubmit">
-                <div class="form-sub-main">
-                  <div class="_main_head_as">
-                    <a href="#">
-                      <img src="../assets/img/vector.png">
-                    </a>
-                  </div>
-
-                  <div class="form-group">
-                    <Field class="form-control _ge_de_ol" name="Username" type="text" placeholder="Enter Username" :rules="validateUsername" autocomplete="off" />
-                    <ErrorMessage name="Username" style="color:red"/>
-                  </div>
-
-                  <div class="form-group">
-                    <Field class="form-control _ge_de_ol" name="Password" type="password" :rules="validatePassword" placeholder="********" autocomplete="off" />
-                    <ErrorMessage name="Password" style="color:red"/>
-                  </div>
-
-               
-
-                  <div class="form-group">
-                    <div class="btn_uy">
-                      <button>{{$t("common.login")}}</button>
-                    </div>
-                  </div>
-
+    <!-- Page content-->
+    <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-dark bg-gradient text-white rounded-3 mb-3"><i class="bi bi-person-square"></i></div>
+                    <h1 class="fw-bolder">{{$t("common.login")}}</h1>
                 </div>
-              
-              </Form>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
 
+                      <Form @submit="onSubmit" id="loginForm">
+                            <div class="form-floating mb-3">
+                                <Field class="form-control" name="Username" type="text" placeholder="Enter Username" :rules="validateUsername" autocomplete="off" />
+                                <label for="name">Username</label>
+                                <ErrorMessage name="Username" style="color:red"/>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <Field class="form-control " name="Password" type="password" :rules="validatePassword" placeholder="********" autocomplete="off" />
+                                <label for="name">Password</label>
+                                <ErrorMessage name="Password" style="color:red"/>
+                            </div>
+
+                            <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.login")}}</button></div>
+                      </Form>
+
+                    </div>
+                </div>
             </div>
-          </div>
+          
         </div>
-      </div>
     </section>
  
 </template>
@@ -50,7 +42,6 @@
 <script>
 import axios from 'axios';
 import { isProxy, toRaw , reactive, ref  } from 'vue';
-import Header from '../components/header.vue'
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 import Loading from '../components/Loading.vue'
@@ -58,19 +49,10 @@ import Loading from '../components/Loading.vue'
 export default {
     data(){
         return{
-            title : "",
-            description : "",
-            message : "",
             loading : false,
         }
     },
-    setup(){},
-    created(){
-      const { t } = useI18n()
-      this.title = t("title.login")
-      this.description = t("title.login_description")
-      
-    },
+    created(){},
     methods: {
         onSubmit(values){
 
@@ -127,7 +109,7 @@ export default {
         }
     },
     components:{
-        Header ,Loading
+       Loading
     },
     computed:{
     },
@@ -139,36 +121,6 @@ export default {
 
 
 <style>
-
-.form-01-main{
-   height: 804px;;
-}
-
-.btn_uy button{
-    padding: 10px 20px;
-    background: #37a000;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 400;
-    white-space: nowrap;
-    line-height: normal;
-    border-radius: 5px;
-    color: #fff;
-    width: 100%;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.active{
-    display: block;
-}
-
-.non-active {
-    display: none;
-}
-
 .v-enter-active,
 .v-leave-active {
   transition: opacity 0.5s ease;
@@ -178,6 +130,42 @@ export default {
 .v-leave-to {
   opacity: 0;
 }
+
+.loading{
+    z-index: 99999;
+    background: black;
+    opacity: 0.8;
+    margin-top: -5%;
+    height: 103%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+}
+
+.shape{
+    /* width: 50%; */
+    /* height: 50%; */
+    margin: 20% 0 0% 42%;
+}
+
+@media only screen and (max-width: 600px) {
+  .loading{
+    z-index: 99999;
+    background: black;
+    opacity: 0.8;
+    margin-top: -13%;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+  }
+
+  .fulfilling-square-spinner{
+    height: 200px !important;
+    width: 200px !important;
+    margin: 48% 0 0% -28%;
+  }
+}
+
+
 </style>
-
-

@@ -15,7 +15,7 @@
       </template>
     </el-dialog>
 
-      <!-- Section-->
+    <!-- Section-->
     <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
           <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -32,7 +32,7 @@
               </div>
 
               <div class="col mb-5" v-for="(item,index) of filteredArticles" :key="index">
-                  <div class="card h-100">
+                  <div class=" h-100">
                       <img class="card-img-top" :src="item.Image " alt="{{ item.Title }}" />
                       <div class="card-body p-4">
                           <div class="text-center">

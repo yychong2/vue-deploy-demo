@@ -1,42 +1,48 @@
 <template>
     <Header :title="title" :description="description"/>
-    <section class="form-01-main">
-        <div class="form-cover">
-            <div class="form-sub-main" style="max-width: 1000px; ">
-                <img :src="qr_code" style="width:300px; height: 300px;" alt="" />
-                <div style="position: relative;">
-                    <input class="form-control _ge_de_ol" ref="message" style="color: black; max-width: 1000px;" type="text" v-model="referrar_link" disabled/>
-                    <button class="copy_button" @click="copy">Copy</button>
+
+    <!-- Page content-->
+    <section class="py-5">
+            <div class="container px-5">
+
+                <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+                   
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-5">
+
+                            <img :src="qr_code" style="width:300px; height: 300px;" alt="" />
+                            <div style="position: relative;">
+                                <input class="form-control _ge_de_ol" ref="message" style="color: black; max-width: 1000px;" type="text" v-model="referrar_link" disabled/>
+                                <button class="copy_button" @click="copy">Copy</button>
+                            </div>
+
+
+                             <!-- <div style="max-width: 500px; margin:auto">
+                                 <Form @submit="searchRebateData">
+                                     <div class="form-group">
+                                        <VueDatePicker class="form-control _ge_de_ol" v-model="startDate" :format="format" auto-apply placeholder="Start Date"  />
+                                     </div>
+                                 
+                                     <div class="form-group">
+                                          <VueDatePicker class="form-control _ge_de_ol" v-model="endDate" :format="format" auto-apply placeholder="End Date"  />
+                                     </div>
+                                 
+                                     <div class="form-group">
+                                           <div class="btn_uy">
+                                             <button >{{$t("common.submit")}}</button>
+                                           </div>
+                                     </div>
+                                 </Form>
+                                    <input type="hidden" id="testing-code" :value="referrar_link">
+                             </div> -->
+
+                        </div>
+                    </div>
                 </div>
-                
+            
             </div>
-         
-
-            <input type="hidden" id="testing-code" :value="referrar_link">
-
-            <!-- <div style="max-width: 500px; margin:auto">
-                <Form @submit="searchRebateData">
-                    <div class="form-group">
-                       <VueDatePicker class="form-control _ge_de_ol" v-model="startDate" :format="format" auto-apply placeholder="Start Date"  />
-                    </div>
-
-                    <div class="form-group">
-                         <VueDatePicker class="form-control _ge_de_ol" v-model="endDate" :format="format" auto-apply placeholder="End Date"  />
-                    </div>
-
-                    <div class="form-group">
-                          <div class="btn_uy">
-                            <button >{{$t("common.submit")}}</button>
-                          </div>
-                    </div>
-                </Form>
-          
-            </div> -->
-               
-           
-        </div> 
     </section>
-    
+
 </template>
 
 <script>

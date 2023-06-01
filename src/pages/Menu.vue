@@ -1,137 +1,91 @@
 <template>
-     <!-- Section-->
-     <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.pay")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'deposit'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.transfer")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'transfer'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.receive")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">  <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                               View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.bank")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'bank'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.password")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'password'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.history")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'history'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.pay")  }} PG</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'depositpg'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.voucher")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'voucher'})"> <div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">{{ $t("nav.referrer")  }}</h5>
-                            </div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <RouterLink :to="Tr.i18nRoute({name:'referrer'})"><div class="text-center"><a class="btn btn-outline-dark mt-auto" >
-                                View</a>
-                            </div></RouterLink>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     </section>
+
+     <div class="container px-5 my-5">
+         <div class="row gx-5">
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'deposit'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.pay")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'depositpg'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.pay")  }} PG</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.receive")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'transfer'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.transfer")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'bank'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.bank")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'password'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.password")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'history'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.history")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'voucher'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.voucher")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+
+             <div class="col-lg-4">
+                 <div class="position-relative mb-5 gameClick">
+                     <RouterLink :to="Tr.i18nRoute({name:'referrer'})">
+                         <img class="img-fluid rounded-3 mb-3" src="../assets/img/dummy2.png"  />
+                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.referrer")  }}</a>
+                     </RouterLink>
+                 </div>
+             </div>
+         </div>
+     </div>
 
 </template>
 
