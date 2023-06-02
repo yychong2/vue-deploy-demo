@@ -30,10 +30,3 @@ export default{
 
 }
 </script>
-
-
-<style>
-.justify-content-center{
-  color:black !important;
-}
-</style>

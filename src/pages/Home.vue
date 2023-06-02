@@ -80,7 +80,6 @@
             }
 
         },
-        methods:{},
         components:{
             Header , gameCategory,getBanner,getAnnounce
         }

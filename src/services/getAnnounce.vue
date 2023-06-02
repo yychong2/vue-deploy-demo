@@ -40,28 +40,4 @@ export default{
    }
 </script>
 
-<style>
-.wrap {
-  overflow: hidden;
-}
-
-.content {
-  width: 100000px;
-}
-
-.text {
-  animation-name: animation;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  float: left;
-}
-
-.paused .text {
-  animation-play-state: paused
-}
-
-@keyframes animation {
-  0% { transform:translateX(0); }
-  100% { transform:translateX(-100%); }
-}
-</style>
+<style></style>

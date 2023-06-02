@@ -64,10 +64,4 @@
     }
 </script>
 
-<style>
-
-.justify-content-center{
-    margin-top: 38px;
-    color: white;
-}
-</style>
+<style></style>

@@ -8,14 +8,18 @@
                 <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
                    
                     <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-8 col-xl-5">
+                        <div class="col-lg-8 col-xl-8">
 
-                            <img :src="qr_code" style="width:300px; height: 300px;" alt="" />
-                            <div style="position: relative;">
-                                <input class="form-control _ge_de_ol" ref="message" style="color: black; max-width: 1000px;" type="text" v-model="referrar_link" disabled/>
-                                <button class="copy_button" @click="copy">Copy</button>
+                            <div class="qr_board">
+                                <img class="qr_code" :src="qr_code"  alt="" />
                             </div>
-
+                            <div>
+                                <input class="form-control _ge_de_ol" ref="message" style="color: black; max-width: 1000px;" type="text" v-model="referrar_link" disabled/>
+                               
+                            </div>
+                            <hr class="mt-0 mb-4">
+                            <button class="btn btn-dark btn-lg " @click="copy">Copy</button>
+                            <input type="hidden" id="testing-code" :value="referrar_link">
 
                              <!-- <div style="max-width: 500px; margin:auto">
                                  <Form @submit="searchRebateData">
@@ -33,7 +37,6 @@
                                            </div>
                                      </div>
                                  </Form>
-                                    <input type="hidden" id="testing-code" :value="referrar_link">
                              </div> -->
 
                         </div>
@@ -165,5 +168,28 @@ export default {
     border-radius: 6px;
     background: green;
     color: white;
+}
+
+.qr_code{
+    width:300px; 
+    height: 300px;
+}
+
+.qr_board{
+    width: 300px;
+    margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+    .qr_code{
+        width:100%; 
+        height: 100%; 
+    }
+
+    .qr_board{
+        width: 100%;
+        margin: auto;
+    }
+
 }
 </style>

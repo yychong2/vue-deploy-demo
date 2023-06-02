@@ -1,4 +1,4 @@
-<template>
+<template >
 
     <Loading :loading="loading"/>
 
@@ -297,13 +297,9 @@
 </script>
 
 <style>
-.text-center{
-    color: black;
-}
 
 .form-control2 {
     min-height: 50px;
-    /* box-shadow: none; */
     border: 1px solid rgba(15, 14, 14, 0.3);
     padding: 10px 15px;
     background-color: transparent;
@@ -315,61 +311,4 @@
 .card{
     width:20%;
 }
-
-.img-fluid{
-    width: 600px;
-    height:400px;
-}
-
-.el-border{
-    width: 95%;
-    margin: auto;
-    margin-top: 10px;
-}
-
-.gameClick{
-    cursor: pointer;
-}
-
-.loading{
-    z-index: 99999;
-    background: black;
-    opacity: 0.8;
-    margin-top: -31%;
-    height: 122%;
-    width: 100%;
-    position: fixed;
-    overflow: hidden;
-}
-
-.shape{
-    /* width: 50%; */
-    /* height: 50%; */
-    margin: 20% 0 0% 42%;
-}
-
-@media only screen and (max-width: 600px) {
-    .img-fluid{
-            width: 100%;
-            height:100%;
-    }
-
-    .loading{
-    z-index: 99999;
-    background: black;
-    opacity: 0.8;
-    margin-top: -120%;
-    height: 107%;
-    width: 100%;
-    position: fixed;
-    overflow: hidden;
-  }
-
-  .fulfilling-square-spinner{
-    height: 200px !important;
-    width: 200px !important;
-    margin: 48% 0 0% -28%;
-  }
-}
-
 </style>

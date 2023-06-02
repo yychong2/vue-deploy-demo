@@ -111,8 +111,4 @@
         }
     }
 </script>
-<style>
-.text-center{
-    color: black;
-}
-</style>
+<style></style>

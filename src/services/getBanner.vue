@@ -11,8 +11,6 @@
  import axios from 'axios';
  import CryptoJS from 'crypto-js'
 
-
-
   axios.defaults.withCredentials = true;
 
  export default{
@@ -48,8 +46,4 @@
       }
    }
 </script>
-<style>
-.text-center{
-   color: black;
-}
-</style>
+<style></style>
