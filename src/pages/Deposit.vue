@@ -1,5 +1,5 @@
 <template>
-
+    <Loading :loading="loading"/>
     <!-- Page content-->
     <section class="py-5">
         <div class="container px-5">
@@ -73,7 +73,7 @@
     import axios from 'axios';
     import { useI18n } from 'vue-i18n'
     import CryptoJS from 'crypto-js'
-  
+    import Loading from '../components/Loading.vue'
     
     let headers = { 
                 "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'], 
@@ -90,7 +90,8 @@
                 bank_selected:"",
                 product_selected :"",
                 promotion_selected :"",
-                product_promotion_selected : ""
+                product_promotion_selected : "",
+                loading : false,
             }
         }, 
         created(){
@@ -128,6 +129,8 @@
             },
             onSubmit(values){
                 const prodCode = this.product_selected 
+                this.loading = true
+                
                 axios.post( 'Deposit', {
                     DepositBankId     : this.bank_selected,
                     DepositBankCode   : "",
@@ -142,7 +145,9 @@
                     if(response.data.ResponseCode == "0"){
                         alert(response.data.ResponseMessage)
                     }
-                }).catch(error => { console.error(error); });
+                })
+                .catch(error => { console.error(error); })
+                .finally( com => {    this.loading = false  });
             },
             onChange(prod_code){
                 
@@ -186,7 +191,7 @@
             }
         },
         components:{
-             
+            Loading
         }
     }
 </script>

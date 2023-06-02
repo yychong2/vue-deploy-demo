@@ -1,4 +1,5 @@
 <template>
+     <Loading :loading="loading"/>
 
      <!-- Page content-->
      <section class="py-5">
@@ -65,6 +66,7 @@
 import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
+import Loading from '../components/Loading.vue'
 
 let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
@@ -82,6 +84,7 @@ export default {
             productPromotionList:[],
             product_promotion_selected:"",
             promotionResult : false,
+            loading : false
         }
     }, 
     created(){
@@ -122,7 +125,7 @@ export default {
             if(this.productFrom == "" || this.productTo == ""){
                     return alert('bank selected is required');
             }
-
+            this.loading = true
             axios.post('Transfer', {
                 TransferFrom : this.productFrom ,
                 TransferTo : this.productTo ,
@@ -134,9 +137,9 @@ export default {
                 if(response.data.ResponseCode == "0"){
                     alert(response.data.ResponseMessage);
                 }
-            }).catch(error => {
-                  console.error(error);
             })
+            .catch(error => { console.error(error); })
+            .finally( com => {    this.loading = false  });
 
         },
         async getProductBalance(productCode , isSeamless , isMaintenance){
@@ -197,7 +200,7 @@ export default {
             return true;
         }
     },
-    components:{ }
+    components:{ Loading }
 
 }
 

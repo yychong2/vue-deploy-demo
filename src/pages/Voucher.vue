@@ -1,4 +1,6 @@
 <template>
+    <Loading :loading="loading"/>
+
     <!-- Page content-->
     <section class="py-5">
         <div class="container px-5">
@@ -51,6 +53,7 @@
 import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
+import Loading from '../components/Loading.vue'
 
 let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
@@ -62,7 +65,8 @@ export default {
         return{
             voucher : "",
             afterResult: false,
-            detail:""
+            detail:"",
+            loading : false,
         }
     }, 
     created(){
@@ -70,15 +74,17 @@ export default {
     },
     methods:{
         submitVoucher(){
+            this.loading = true
+
             axios.post('ClaimVoucher', { VoucherCode : this.voucher
             }, { headers } ).then(response => {
                 if(response.data.ResponseCode == "0"){
                     alert(response.data.ResponseMessage);
                     this.afterResult = false
                 }
-            }).catch(error => {
-                console.error(error);
-            });
+            })
+            .catch(error => {console.error(error); }) 
+            .finally( com => {    this.loading = false  });
         },
         getVoucherDetail(values){
             axios.post('GetVoucherDetailByVoucherCode', { VoucherCode : values.voucher
@@ -103,7 +109,7 @@ export default {
                 return true;
         }
     },
-    components:{ }
+    components:{  Loading }
 
 }
 

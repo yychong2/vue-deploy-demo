@@ -1,4 +1,5 @@
 <template>
+    <Loading :loading="loading"/>
 
     <!-- Page content-->
     <section class="py-5">
@@ -53,10 +54,10 @@
 <script>
 import axios from 'axios';
 import { useI18n } from 'vue-i18n'
-import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import Loading from '../components/Loading.vue'
 
 let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']      
@@ -99,7 +100,8 @@ export default {
             ],
             headers:[],
             data:[],
-            show:false
+            show:false,
+            loading : false,
         }
     }, 
     created(){
@@ -111,6 +113,7 @@ export default {
             if(this.startDate == null || this.endDate == null || this.report_type == ""){
                     return alert('The field is required');
             }
+            this.loading = true
 
             axios.post( 'History', {
                 HistoryFromDate: this.startDate,
@@ -201,14 +204,13 @@ export default {
                     }
                   }
               }
-              
-            }).catch(error => {
-               console.error(error);
-            });
+             
+            }).catch(error => { console.error(error);})
+            .finally( com => {    this.loading = false  });
         }
     },
     components:{
-        Header,VueDatePicker
+      Loading,VueDatePicker
     }
 }
 

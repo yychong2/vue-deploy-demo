@@ -1,5 +1,8 @@
 <template>
     <Header :title="title" :description="description"/>
+
+    <Loading :loading="loading"/>
+
     <Transition>
     <div v-if="afterResult">
         <div class="form-group">
@@ -36,8 +39,8 @@
                                  <div class="form-floating mb-3">
                                      <div class="form-group">
                                          <span style="color:black;">Bank Selected</span>
-                                         <el-select class="form-control2 _ge_de_ol" v-model="bank_selected" @change="GetBankCodeDetails" placeholder="Please select" aria-required="true">
-                                             <el-option v-for="(item,index) in operatorBankAccountList" :label="item.BankName" :key="item.BankId" :value="item.BankId "></el-option>
+                                         <el-select class="form-control2 _ge_de_ol" v-model="add_bank_selected" placeholder="Please select" aria-required="true">
+                                             <el-option v-for="(item,index) in allBankList" :label="item.BankName" :key="item.BankId" :value="item.BankId "></el-option>
                                          </el-select>                                  
                                      </div>
                                  </div>
@@ -54,7 +57,7 @@
                                     <ErrorMessage name="add_bank_account_number" style="color:red"/>
                                  </div>
 
-                               <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.submit")}}</button></div>
+                                 <div class="d-grid"><button class="btn btn-dark btn-lg " id="submitButton" >{{$t("common.submit")}}</button></div>
                              
                              </Form>
                          </div>
@@ -73,7 +76,7 @@ import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
-
+import Loading from '../components/Loading.vue'
 
 let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
@@ -95,7 +98,8 @@ export default {
                           { text: "Bank Account Name", value: "BankAccountName" },
                           { text: "Bank Account Number", value: "BankAccountNo"}
                     ],
-            show:false
+            show:false,
+            loading : false,
         }
     }, 
     created(){
@@ -131,7 +135,7 @@ export default {
                 if(this.add_bank_selected == ""){
                     return alert('bank selected is required');
                 }
-
+                this.loading = true
                 axios.post( 'AddBankAccount', {
                   BankAccountId: this.add_bank_selected,
                   BankAccountName: value.add_bank_account_name,
@@ -144,7 +148,9 @@ export default {
                         this.afterResult = true
                         this.getMemberBank()
                     }
-                }).catch(error => { console.error(error) });
+                })
+                .catch(error => { console.error(error) })
+                .finally( com => {    this.loading = false  });
             },
             backBankList(){
                 this.afterResult = this.afterResult ? false : true;
@@ -170,7 +176,7 @@ export default {
             }
         },
     components:{
-        Header
+        Header,Loading
     }
 }
 </script>

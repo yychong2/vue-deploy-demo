@@ -1,6 +1,6 @@
 <template>
-          
-           <!-- Page content-->
+    <Loading :loading="loading"/>
+    <!-- Page content-->
     <section class="py-5">
         <div class="container px-5">
             <!-- Contact form-->
@@ -64,7 +64,7 @@
         import axios from 'axios';
         import { useI18n } from 'vue-i18n'
         import CryptoJS from 'crypto-js'
-      
+        import Loading from '../components/Loading.vue'
         
         let headers = { 
                     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'], 
@@ -79,7 +79,8 @@
                     bank_selected:"",
                     promotion_selected : "",
                     bank_code_selected : "",
-                    bankCodeResult: false
+                    bankCodeResult: false,
+                    loading : false,
                 }
             }, 
             created(){
@@ -161,7 +162,7 @@
                     //console.log("Bank - " + this.bank_selected)
                     //console.log("Promotion - " +this.promotion_selected)
                     //console.log("Amount - " +values.amount_deposit)
-                    
+                    this.loading = true
                     axios.post( 'PgDeposit', {
                         DepositBankId     : this.bank_selected,
                         DepositBankCode   : "",
@@ -177,9 +178,9 @@
                             alert(response.data.ResponseMessage)
                             window.open(response.data.ResponseData);
                         }
-                    }).catch(error => {
-                       console.error(error);
-                    });
+                    })
+                    .catch(error => { console.error(error);})
+                    .finally( com => {    this.loading = false  });
     
                 },
                 validateDepositAmount(value){
@@ -193,7 +194,7 @@
                 }
             },
             components:{
-                 
+                Loading
             }
         }
     </script>
