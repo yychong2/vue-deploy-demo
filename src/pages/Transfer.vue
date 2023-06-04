@@ -75,7 +75,9 @@ let headers = {
 
 export default {
     data(){
+        const { t } = useI18n()
         return{
+            loadingPrice: t("common.loading"),
             productFrom:"",
             productTo:"",
             productList:[],
@@ -95,16 +97,30 @@ export default {
         GetProductWalletFrom(){
             axios.get('GetProductWalletDetails', {}, {headers} ).then(response => {
                 if(response.data.ResponseCode == "0"){
-                    for( let i = 0 ; i < response.data.ProductList.length ; i++){
-                        if( response.data.ProductList[i].IsMaintenance == false || response.data.ProductList[i].IsDrop == false ){
-                            const balance = this.getProductBalance( response.data.ProductList[i].ProductCode , response.data.ProductList[i].IsSeamless , response.data.ProductList[i].IsMaintenance)
-                            balance.then(result =>{ 
-                                this.productList.push({ name: response.data.ProductList[i].ProductName + " - " + result , 
-                                code: response.data.ProductList[i].ProductCode , 
-                                id: response.data.ProductList[i].Id })           
-                            })
+
+                    response.data.ProductList.forEach( (value) =>{
+                        if( value.IsMaintenance == false || value.IsDrop == false ){
+
+                            this.productList.push({ 
+                                name: value.ProductName + " - " + this.loadingPrice , 
+                                product_name : value.ProductName,
+                                code: value.ProductCode , 
+                                id: value.Id ,
+                                IsSeamless : value.IsSeamless,
+                                IsMaintenance : value.IsMaintenance
+                            })    
+                             
                         }
-                    }
+
+                    })
+
+                    this.productList.forEach((value) =>{
+                        const balance = this.getProductBalance( value.code , value.IsSeamless , value.IsMaintenance);
+                        balance.then( result =>{
+                            value.name = value.product_name + " - " + result
+                        })
+                    })
+
                 }
             })
             .catch(error => {

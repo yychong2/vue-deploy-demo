@@ -15,7 +15,8 @@
         "confirm": "Confirm",
         "login": "Login",
         "transfer": "Transfer",
-        "ignore_launch_game": "Ignore Launch Game"
+        "ignore_launch_game": "Ignore Launch Game",
+        "loading": "Loading..."
     },
     "nav": {
         "home": "Home",

@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 
+
 let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
 };
@@ -23,6 +24,7 @@ export default {
         const { t } = useI18n()
         return{
             status: t("common.maintenance"),
+            loading: t("common.loading"),
             balanceList:[],
             headers : [
                           { text: "Product Name", value: "ProductName" },
@@ -41,7 +43,17 @@ export default {
                 axios.get( 'GetProductWalletDetails', {}, {headers}
                 ).then(response => {
                     if(response.data.ResponseCode == "0"){
-                        this.balanceList = response.data.ProductList
+                        //console.log( response.data.ProductList )
+                        response.data.ProductList.forEach( (value) => {
+                            this.balanceList.push(
+                                 {  ProductName : value.ProductName ,
+                                    ProductCode : value.ProductCode ,
+                                    IsSeamless : value.IsSeamless,
+                                    IsMaintenance : value.IsMaintenance,
+                                    ProductWalletBalance : this.loading
+                                 }
+                            )
+                        });
                         for( let i = 0 ; i < this.balanceList.length ; i++){
                             const balance = this.getProductBalance(this.balanceList[i].ProductCode , this.balanceList[i].IsSeamless , this.balanceList[i].IsMaintenance)
 

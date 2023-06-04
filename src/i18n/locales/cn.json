@@ -15,7 +15,8 @@
         "confirm": "确定",
         "login": "登录",
         "transfer": "转钱",
-        "ignore_launch_game": "无视并进入游戏"
+        "ignore_launch_game": "无视并进入游戏",
+        "loading": "加载中..."
     },
     "nav": {
         "home": "主页",
