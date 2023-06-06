@@ -15,11 +15,11 @@ const Trans = {
         return i18n.global.locale.value
     },
 
-    set currentLocale(newLocale) { // <--- 2
+    set currentLocale(newLocale) {
         i18n.global.locale.value = newLocale
     },
 
-    async switchLanguage(newLocale) { // <--- 3
+    async switchLanguage(newLocale) {
         await Trans.loadLocaleMessages(newLocale)
         Trans.currentLocale = newLocale
         document.querySelector("html").setAttribute("lang", newLocale)
