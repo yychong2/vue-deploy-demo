@@ -43,7 +43,6 @@ const Trans = {
         const locale = window.navigator.language ||
             window.navigator.userLanguage ||
             Trans.defaultLocale
-
         return {
             locale: locale,
             localeNoRegion: locale.split('-')[0]
@@ -62,6 +61,9 @@ const Trans = {
 
     guessDefaultLocale() {
         const userPersistedLocale = Trans.getPersistedLocale()
+
+        console.log(userPersistedLocale)
+
         if (userPersistedLocale) {
             return userPersistedLocale
         }
@@ -83,7 +85,7 @@ const Trans = {
         const paramLocale = localStorage.getItem("user-locale")
 
         if (!Trans.isLocaleSupported(paramLocale)) {
-            return next(Trans.guessDefaultLocale())
+            return next()
         }
 
         await Trans.switchLanguage(paramLocale)
