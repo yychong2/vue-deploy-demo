@@ -55,7 +55,6 @@ export default {
     created(){},
     methods: {
         onSubmit(values){
-
           this.loading = true
           axios.post( 'auth', { Username: values.Username , Password: values.Password },{}
             ).then(response => {
@@ -72,8 +71,8 @@ export default {
               //this.token = response.data.AccessToken
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               //this.tokenSwitch = true;
-              window.location.href="/vue-deploy-demo/"
-
+              //window.location.href="/vue-deploy-demo/"
+              this.$router.push({ path: '/' })
             })
             .catch(error => {  console.error(error);  })
             .finally( com => {    this.loading = false  });
