@@ -61,7 +61,10 @@ export default{
     logout(){
       sessionStorage.clear("memDetail")
       sessionStorage.clear("tokenLogin")
-      this.$router.push({ path: '/' })
+      this.$router
+      .push({ path: '/' })
+      .then(() => { this.$router.go() 
+      })
     }
   },
   components:{

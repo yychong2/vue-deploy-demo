@@ -72,7 +72,11 @@ export default {
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               //this.tokenSwitch = true;
               //window.location.href="/vue-deploy-demo/"
-              this.$router.push({ path: '/' })
+            
+              this.$router
+                .push({ path: '/' })
+                .then(() => { this.$router.go() })
+              
             })
             .catch(error => {  console.error(error);  })
             .finally( com => {    this.loading = false  });
