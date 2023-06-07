@@ -16,14 +16,6 @@ import Footer from './components/footer.vue'
 import Navigation from './components/navigation.vue'
 
 export default{
-  setup(){
-    return{
-    }
-  },
-  created(){
-  },
-  methods:{
-  },
   components:{
     Footer, Navigation
   }
