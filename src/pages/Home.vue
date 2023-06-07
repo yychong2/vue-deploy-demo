@@ -28,7 +28,27 @@
       <section class="py-5" id="features">
           <div class="container px-5 my-5">
                 <div class="row gx-5">
-                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Best Friend - ALin cover</h2></div>
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h2 class="fw-bolder mb-0">Best Friend - A-Lin cover</h2>
+                        <hr/>
+                        <h4>想當星辰 卻像路燈
+                            若愛一個人 切忌愛得太深
+                            酒後傳的訊息 你別當真
+                            我總感情用事 忘了不可能</h4>
+                        <h4>也委屈你 長期容忍
+                            但我們之間 該用什麼相稱
+                            難道非要我愛 其他的人
+                            你才心安理得 卸下了責任</h4>
+                        <h4>我們不討論的關係 很接近卻不是愛情
+                            擁有無數交集 要丟棄太可惜
+                            我演的恨 真不誠懇
+                            你最清楚 我是怎樣的人</h4>
+                        <h4>沒人不羨慕的關係 只是沒結局的續集
+                            為什麼太熟悉 反而變成距離
+                            觸不到的戀人 化身摯友也像搪塞
+                            你明知道我不會等到 卻放任我等</h4>
+                        
+                    </div>
                     <div class="col-lg-8">
                         <div class="row gx-5 row-cols-1 ">
                             <div class="col mb-5 h-100">
