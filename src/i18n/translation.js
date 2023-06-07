@@ -80,7 +80,7 @@ const Trans = {
     },
 
     async routeMiddleware(to, _from, next) {
-        const paramLocale = to.params.locale
+        const paramLocale = localStorage.getItem("user-locale")
 
         if (!Trans.isLocaleSupported(paramLocale)) {
             return next(Trans.guessDefaultLocale())
@@ -95,7 +95,7 @@ const Trans = {
         return {
             ...to,
             params: {
-                locale: Trans.currentLocale,
+                // locale: localStorage.getItem("user-locale"),
                 ...to.params
             }
         }

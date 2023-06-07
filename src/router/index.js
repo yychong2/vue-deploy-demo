@@ -6,11 +6,11 @@ const router = createRouter({
     history: createWebHistory(
         import.meta.env.BASE_URL),
     routes: [{
-        path: "/:locale?",
+        path: "/",
         component: RouterView,
         beforeEnter: Tr.routeMiddleware,
         children: [{
-                path: '',
+                path: '/',
                 name: 'home',
                 component: HomeView,
 

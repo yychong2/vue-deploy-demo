@@ -25,6 +25,7 @@ import { useRouter } from "vue-router"
       const switchLanguage = async (event) => {
         const newLocale = event.target.value
         await Tr.switchLanguage(newLocale)
+   
         try {
           await router.replace({ params: { locale: newLocale } })  
         } catch(e) { 

@@ -72,8 +72,8 @@ export default {
               //this.token = response.data.AccessToken
               //console.log(CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8))
               //this.tokenSwitch = true;
-             
-              location.reload();
+              window.location.href="/"
+              
             })
             .catch(error => {  console.error(error);  })
             .finally( com => {    this.loading = false  });

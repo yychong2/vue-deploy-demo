@@ -38,7 +38,8 @@
         "history": "看回以前",
         "voucher": "幽会倦",
         "register": "加入我的战队",
-        "referrer": "推死你的人回扣"
+        "referrer": "推死你的人回扣",
+        "logout": "登出"
     },
     "home": {
         "header": "欢迎来到 Vue 3 I18n 教程！",

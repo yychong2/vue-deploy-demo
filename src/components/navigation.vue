@@ -15,7 +15,7 @@
                 <li class="nav-item" v-if="beforeLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'register'})">{{ $t("nav.register")  }}</RouterLink></a></li>               
                 <li class="nav-item" v-if="afterLogin"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'profile'})">{{$t("nav.profile")}}</RouterLink></a></li>
                 <!-- <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'language'})">{{$t("nav.loginTest")}}</RouterLink></a></li> -->
-                <!-- <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'testing'})">Testing</RouterLink></a></li>   -->
+                <!-- <li class="nav-item"><a><RouterLink class="nav-link" :to="Tr.i18nRoute({name:'testing'})">Testing</RouterLink></a></li>   -->          
                 <li class="nav-item dropdown" v-if="afterLogin">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{$t("nav.menu")}}</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -25,6 +25,7 @@
                       <RouterLink :to="Tr.i18nRoute({name:'balance'})"><li><a class="dropdown-item">{{ $t("nav.balance")  }}</a></li>  </RouterLink>
                     </ul>
                 </li>
+                <li class="nav-item" style="cursor: pointer;" v-if="afterLogin" @click="logout"><a class="nav-link">{{$t("nav.logout")}}</a></li> 
             </ul>
             <div class="navbar-nav ms-auto mb-2 mb-lg-0">
               <LanguageSwitcher></LanguageSwitcher>
@@ -57,6 +58,11 @@ export default{
       }
   },
   methods:{
+    logout(){
+      sessionStorage.clear("memDetail")
+      sessionStorage.clear("tokenLogin")
+      window.location.href='/'
+    }
   },
   components:{
      LanguageSwitcher

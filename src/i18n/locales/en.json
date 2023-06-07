@@ -39,7 +39,8 @@
         "voucher": "Voucher",
         "Withdrawal": "Withdrawal",
         "register": "Register",
-        "referrer": "Referrer Rebate"
+        "referrer": "Referrer Rebate",
+        "logout": "Logout"
     },
     "home": {
         "header": "Welcome to the Vue 3 I18n tutorial!",
