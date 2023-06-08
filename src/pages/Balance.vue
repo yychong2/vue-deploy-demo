@@ -4,6 +4,9 @@
         <div v-show="show">
             <EasyDataTable :headers="headers"  :items="balanceList" />
         </div>
+
+       
+
     </div>
 
 </template>
@@ -27,7 +30,8 @@ export default {
             headers2 : { 
                 "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
             },
-            show:false
+            show:false,
+           
             
         }
     }, 
@@ -81,6 +85,6 @@ export default {
                 }
             }
     },  
-    components:{ }
+    components:{   }
 }
 </script>
