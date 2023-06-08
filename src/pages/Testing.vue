@@ -1,6 +1,15 @@
 <template>
   
-    <div class="loading" v-if="loading" >
+<div>
+  <Pie
+          id="my-chart-id"
+          :options="chartOptions"
+          :data="chartData"
+        />
+</div>
+  
+
+    <!-- <div class="loading" v-if="loading" >
       <div class="shape">
           <looping-rhombuses-spinner
             :animation-duration="2500"
@@ -8,21 +17,32 @@
             :color="'#ff1d5e'"
           />
       </div>  
-    </div>
+    </div> -->
 
 </template>
 
 <script>
 import {LoopingRhombusesSpinner } from 'epic-spinners'
+import { Pie } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend,ArcElement, BarElement, CategoryScale, LinearScale } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale ,ArcElement)
 
 
 export default {
   data(){
-        return{ }
+        return{ 
+          chartData: {
+              labels: [ 'January', 'February', 'March' ],
+              datasets: [ { backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'], data: [40, 20, 12] } ]
+            },
+            chartOptions: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+
+        }
   }, 
-  components: {
-    
-  },
   props:{
      loading:{
          type: Boolean,
@@ -32,7 +52,7 @@ export default {
     
   },
   components:{
-      LoopingRhombusesSpinner
+      LoopingRhombusesSpinner , Pie
   }
 
 };
