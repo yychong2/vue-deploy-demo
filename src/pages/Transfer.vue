@@ -68,11 +68,6 @@ import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 import Loading from '../components/Loading.vue'
 
-let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-};
-
-
 export default {
     data(){
         const { t } = useI18n()
@@ -86,7 +81,10 @@ export default {
             productPromotionList:[],
             product_promotion_selected:"",
             promotionResult : false,
-            loading : false
+            loading : false,
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
         }
     }, 
     created(){
@@ -95,7 +93,7 @@ export default {
     },
     methods:{
         GetProductWalletFrom(){
-            axios.get('GetProductWalletDetails', {}, {headers} ).then(response => {
+            axios.get('GetProductWalletDetails', {}, this.headers ).then(response => {
                 if(response.data.ResponseCode == "0"){
 
                     response.data.ProductList.forEach( (value) =>{
@@ -148,7 +146,7 @@ export default {
                 TransferAmount : value.transferAmount,
                 ProductPromotionId : this.product_promotion_selected
                 //ProductPromotionId : ""
-            }, {headers})
+            }, this.headers)
             .then(response => {
                 if(response.data.ResponseCode == "0"){
                     alert(response.data.ResponseMessage);
@@ -160,13 +158,13 @@ export default {
         },
         async getProductBalance(productCode , isSeamless , isMaintenance){
 
-                const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
-                if(response.data == '9999' || response.data == 'null' ){
-                    return "Maintanence"
-                }
-                else{
-                    return response.data
-                }
+            const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  }, this.headers)
+            if(response.data == '9999' || response.data == 'null' ){
+                return "Maintanence"
+            }
+            else{
+                return response.data
+            }
         },
         checkPromotion(prod_code){
             //this.productTo = prod.code
@@ -182,7 +180,7 @@ export default {
                     "ProductId": product_selected2[0].id,
                     "ProductCode": product_selected2[0].code,
                     "IsLaunchGame": true
-                }, {headers})
+                }, this.headers)
                 .then(response => {
                     if(response.data.ResponseCode == "0"){
                         //console.log(response.data);

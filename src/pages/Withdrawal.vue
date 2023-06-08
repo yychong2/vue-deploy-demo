@@ -62,15 +62,18 @@
                 memberBalance :"",
                 bank_selected:"",
                 loading : false,
+                headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+                }
             }
         }, 
         created(){
-           this.getMemberBankAccount()
-           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+            axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+            this.getMemberBankAccount()
         },
         methods:{
             getMemberBankAccount : function(params){
-                axios.get('GetWithdrawalDetails', {}, {headers} ).then(response => {
+                axios.get('GetWithdrawalDetails', {}, this.headers ).then(response => {
                     if(response.data.ResponseCode == "0"){
                         this.memberBankList = response.data.MemberBankAcountDetails
                         this.memberBalance= response.data.TotalBalance
@@ -90,7 +93,7 @@
                 axios.post( 'Withdrawal', {
                   BankAccountId: this.bank_selected,
                   WithdrawAmount: values.amount_withdraw,
-                }, { headers } ).then(response => {
+                }, this.headers).then(response => {
                     if(response.data.ResponseCode == "0"){
                         alert(response.data.ResponseMessage)
                     }

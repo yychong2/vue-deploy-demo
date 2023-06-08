@@ -55,11 +55,6 @@ import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 import Loading from '../components/Loading.vue'
 
-let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-};
-
-
 export default {
     data(){
         return{
@@ -67,6 +62,9 @@ export default {
             afterResult: false,
             detail:"",
             loading : false,
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
         }
     }, 
     created(){
@@ -77,7 +75,7 @@ export default {
             this.loading = true
 
             axios.post('ClaimVoucher', { VoucherCode : this.voucher
-            }, { headers } ).then(response => {
+            }, this.headers ).then(response => {
                 if(response.data.ResponseCode == "0"){
                     alert(response.data.ResponseMessage);
                     this.afterResult = false
@@ -88,7 +86,7 @@ export default {
         },
         getVoucherDetail(values){
             axios.post('GetVoucherDetailByVoucherCode', { VoucherCode : values.voucher
-            }, { headers } ).then(response => {
+            }, this.headers ).then(response => {
                 if(response.data.ResponseCode == "0"){
                     this.detail= response.data.VoucherDetail.Content;
                     this.voucher = values.voucher

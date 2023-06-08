@@ -13,12 +13,6 @@ import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 
-
-let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-};
-
-
 export default {
     data(){
         const { t } = useI18n()
@@ -30,17 +24,20 @@ export default {
                           { text: "Product Name", value: "ProductName" },
                           { text: "Balance", value: "ProductWalletBalance"}
             ],
+            headers2 : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            },
             show:false
             
         }
     }, 
     created(){
-       this.GetProductWalletDetails()
        axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
+       this.GetProductWalletDetails()   
     },
     methods:{
             GetProductWalletDetails(){
-                axios.get( 'GetProductWalletDetails', {}, {headers}
+                axios.get( 'GetProductWalletDetails', {}, this.headers2
                 ).then(response => {
                     if(response.data.ResponseCode == "0"){
                         //console.log( response.data.ProductList )
@@ -54,13 +51,17 @@ export default {
                                  }
                             )
                         });
-                        for( let i = 0 ; i < this.balanceList.length ; i++){
-                            const balance = this.getProductBalance(this.balanceList[i].ProductCode , this.balanceList[i].IsSeamless , this.balanceList[i].IsMaintenance)
+
+                        this.balanceList.forEach( (value) =>{
+                            const balance = this.getProductBalance(value.ProductCode , 
+                            value.IsSeamless , value.IsMaintenance)
 
                             balance.then(result =>{ 
-                                    this.balanceList[i].ProductWalletBalance = result
+                                value.ProductWalletBalance = result
                             })
-                        }
+                        })
+
+                       
                         this.show = true
                     }
                 })
@@ -69,7 +70,8 @@ export default {
                 });
             },
             async getProductBalance(productCode , isSeamless , isMaintenance){
-                const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
+               
+                const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },this.headers2)
                         
                 if(response.data == '9999' || response.data == 'null' ){
                     return this.status

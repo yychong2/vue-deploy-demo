@@ -59,10 +59,6 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import Loading from '../components/Loading.vue'
 
-let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']      
-};
-
 export default {
     data(){
         return{
@@ -72,6 +68,9 @@ export default {
             endDate : null,            
             format:"yyyy-MM-dd",
             report_type:"",
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            },
             options : [
               {
                 value: 'DEP',
@@ -119,7 +118,7 @@ export default {
                 HistoryFromDate: this.startDate,
                 HistoryToDate : this.endDate,
                 ReportType : this.report_type
-            }, { headers } ).then(response => {
+            }, this.headers ).then(response => {
 
               if(response.data.ResponseCode == "0"){
                   if(this.report_type == "DEP"){

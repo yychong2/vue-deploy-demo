@@ -8,14 +8,13 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js'
 import MarqueeText from 'vue-marquee-text-component'
 
-let headers = {
-     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-};
-
 export default{
        data(){
           return{
-           AnnouncementText: ""
+            AnnouncementText: "",
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
           }
        },
        created(){
@@ -24,7 +23,7 @@ export default{
        },
        methods:{
           getAnnounce : function(params){
-            axios.get( 'GetAnnouncement', { } , {headers} ).then(response => {
+            axios.get( 'GetAnnouncement', { } , this.headers ).then(response => {
               for(let i=0 ; i < response.data.AnnouncementList.length ; i++){
                  this.AnnouncementText = this.AnnouncementText + response.data.AnnouncementList[i].Content + " , "
               }

@@ -65,24 +65,22 @@ import axios from 'axios';
 import { useI18n } from 'vue-i18n'
 import CryptoJS from 'crypto-js'
 
-let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-};
-
 export default {
     data(){
         return{
-            UserTransactionDetail:{}
+            UserTransactionDetail:{},
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
         }
     }, 
     created(){
-      this.GetTransactionDetail()
       axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
+      this.GetTransactionDetail()
     },
     methods:{
         GetTransactionDetail : function(params){
-          axios.get('GetTransactionDetail', {}, {headers}
+          axios.get('GetTransactionDetail', {}, this.headers
           ).then(response => {
             if(response.data.ResponseCode == "0"){
               this.UserTransactionDetail = response.data.UserTransactionDetail

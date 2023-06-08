@@ -129,6 +129,9 @@ export default {
             startDate :null,
             format:"yyyy-MM-dd",
             loading : false,
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
         }
     }, 
     created(){
@@ -140,7 +143,7 @@ export default {
     },
     methods:{
             getProfile : function(params){
-                axios.get( 'GetUserProfile', {}, {headers}
+                axios.get( 'GetUserProfile', {}, this.headers
                 ).then(response => {
                   if(response.data.ResponseCode == "0"){
                     this.memProfile = response.data.UserDetail
@@ -161,7 +164,7 @@ export default {
                 this.loading = true
                 axios.post( 'UpdateUserDetails', {
                    BirthDate: dob
-                }, { headers } ).then(response => {
+                }, this.headers ).then(response => {
                   if(response.data.ResponseCode == "0"){
                     this.afterResult = true
                     this.getProfile()

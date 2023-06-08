@@ -31,7 +31,7 @@
             <div class="row gx-5">
                 <div class="col-lg-6" v-for="(itemPromotion,index) of filteredArticles" :key="index">
                     <div class="position-relative mb-5 gameClick">
-                        <img class="img-fluid rounded-3 mb-3" :src="itemPromotion.Image " alt="{{ itemPromotion.Title }}" />
+                       <v-lazy-image class="img-fluid rounded-3 mb-3" :src="itemPromotion.Image " alt="{{ itemPromotion.Title }}" />
                     </div>
                 </div>
             </div>
@@ -45,7 +45,8 @@
     import axios from 'axios';
     import { useI18n } from 'vue-i18n'
     import CryptoJS from 'crypto-js'
-    
+    import VLazyImage from "v-lazy-image";
+
     let headers = { 
        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
     };
@@ -63,9 +64,9 @@
             }
         }, 
         created(){
+           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
            this.getPromotion()
            this.getPromotionCategoryList()
-           axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
         },
         methods:{
                 getPromotion : function(params){
@@ -127,7 +128,9 @@
               return data;
             }
         },
-        components:{}
+        components:{
+          VLazyImage
+        }
     }
     </script>
 

@@ -66,10 +66,6 @@
         import CryptoJS from 'crypto-js'
         import Loading from '../components/Loading.vue'
         
-        let headers = { 
-                    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'], 
-        };
-    
         export default {
             data(){
                 return{
@@ -81,6 +77,9 @@
                     bank_code_selected : "",
                     bankCodeResult: false,
                     loading : false,
+                    headers : { 
+                        "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+                    }
                 }
             }, 
             created(){
@@ -91,7 +90,7 @@
             methods:{
                 //GET /api/v1/GetDepositDetails
                 GetDepositDetails : function(params){
-                    axios.get('GetPGDepositDetails', {}, {headers} ).then(response => {
+                    axios.get('GetPGDepositDetails', {}, this.headers ).then(response => {
                         if(response.data.ResponseCode == "0"){
                            // console.log(response.data);
                            this.operatorBankAccountList = response.data.OperatorBankAccountList
@@ -131,7 +130,7 @@
                         PromotionId       : "",
                         PromotionCode     : "",
                         SwiftCode : bank_selected2[0].SwiftCode
-                    }, {headers})
+                    }, this.headers )
                     .then(response => {
                         this.bankCodeList = []
                         if(response.data.ResponseCode == "0"){
@@ -172,7 +171,7 @@
                         ProductPromotionId: "",
                         PromotionId       : this.promotion_selected,
                         PromotionCode     : ""
-                    }, { headers } ).then(response => {
+                    }, this.headers ).then(response => {
                         console.log(response.data)
                         if(response.data.ResponseCode == "0"){
                             alert(response.data.ResponseMessage)
@@ -209,6 +208,20 @@
         background-color: transparent;
         color: #fff;
         margin: 0px 0px 20px 0px;
+    }
+
+    .form-control2 {
+        min-height: 50px;
+        border: 1px solid rgba(15, 14, 14, 0.3);
+        padding: 10px 15px;
+        background-color: transparent;
+        color: black;
+        width: 100%;
+        margin: 0px 0px 30px 0px;
+    }
+    
+    .card{
+        width:20%;
     }
     
     .form-group{

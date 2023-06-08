@@ -78,10 +78,6 @@ import Header from '../components/header.vue'
 import CryptoJS from 'crypto-js'
 import Loading from '../components/Loading.vue'
 
-let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-};
-
 export default {
     data(){
         return{
@@ -100,6 +96,9 @@ export default {
                     ],
             show:false,
             loading : false,
+            headers2 : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
         }
     }, 
     created(){
@@ -114,7 +113,7 @@ export default {
     methods:{
             getMemberBank : function(params){
                 this.memberBankList = []
-                axios.get('GetMemberBankAccountList', {}, { headers } ).then(response => {
+                axios.get('GetMemberBankAccountList', {}, this.headers2 ).then(response => {
                     this.memberBankList = response.data.MemberBankDetails
                     this.show = true
                 })
@@ -123,7 +122,7 @@ export default {
                 });
             },
             getAllBankList(){
-                axios.get( 'GetAllBankList', {}, { headers } ).then(response => {
+                axios.get( 'GetAllBankList', {}, this.headers2 ).then(response => {
                     this.allBankList = response.data.AllBankList
                 })
                 .catch(error => {
@@ -143,7 +142,7 @@ export default {
                   //BankBranch: "123",
                   //IsVerified: true,
                   //allowDuplicate: true
-                }, { headers }).then(response => {
+                }, this.headers2 ).then(response => {
                     if(response.data.ResponseCode == "0"){
                         this.afterResult = true
                         this.getMemberBank()
@@ -181,4 +180,29 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.form-control2{
+        min-height: 50px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 10px 15px;
+        background-color: transparent;
+        color: #fff;
+        margin: 0px 0px 20px 0px;
+    }
+
+    .form-control2 {
+        min-height: 50px;
+        border: 1px solid rgba(15, 14, 14, 0.3);
+        padding: 10px 15px;
+        background-color: transparent;
+        color: black;
+        width: 100%;
+        margin: 0px 0px 30px 0px;
+    }
+    
+    .card{
+        width:20%;
+    }
+</style>

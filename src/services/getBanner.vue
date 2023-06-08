@@ -16,7 +16,10 @@
  export default{
       data(){
          return{
-          bannerList:[]
+          bannerList:[],
+          headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
          }
       },
       created(){
@@ -30,10 +33,7 @@
             axios.defaults.headers.common['Language'] = "en-US";
             axios.defaults.headers.common['Authorization'] = sessionStorage.getItem("tokenLogin");
 
-           axios.get( 'GetBanner', { } , { 
-            "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-
-           } ).then(response => {
+           axios.get( 'GetBanner', { } , this.headers ).then(response => {
               this.bannerList = response.data.BannerList;
            })
            .catch(error => {

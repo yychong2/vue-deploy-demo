@@ -6,14 +6,13 @@
  import CryptoJS from 'crypto-js'
  import 'vueperslides/dist/vueperslides.css'
 
-  let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details'],
-  };
-
  export default{
        data(){
           return{
-           popupAnnouncementList:[]
+           popupAnnouncementList:[],
+           headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
           }
        },
        created(){
@@ -22,7 +21,7 @@
        },
        methods:{
             getPopupAnnoncement : function(params){
-                axios.get('GetPopupAnnouncement', { } , {headers} ).then(response => {
+                axios.get('GetPopupAnnouncement', { } , this.headers ).then(response => {
                   this.popupAnnouncementList = response.data.PopupAnnouncementList;
                   console.log(response.data.PopupAnnouncementList);
                 })

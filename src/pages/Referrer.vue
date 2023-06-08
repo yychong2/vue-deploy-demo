@@ -56,10 +56,6 @@ import CryptoJS from 'crypto-js'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 
-const headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-};
-
 export default {
     data(){
         return{
@@ -70,6 +66,9 @@ export default {
             startDate :null,
             endDate : null,            
             format:"yyyy-MM-dd",
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
         }
     }, 
     created(){
@@ -82,7 +81,7 @@ export default {
     },
     methods:{
         getReferrerList : function(params){
-                axios.get('GetReferrerList', {}, {headers} ).then(response => {
+                axios.get('GetReferrerList', {}, this.headers ).then(response => {
                     if(response.data.ResponseCode == "0"){
                         console.log(response.data)
                     }
@@ -92,7 +91,7 @@ export default {
                 });
         },
         getReferrerRebateQRDetails : function(params){
-                axios.get('GetReferrerRebateQRDetails', {}, {headers} ).then(response => {
+                axios.get('GetReferrerRebateQRDetails', {}, this.headers ).then(response => {
                     if(response.data.ResponseCode == "0"){
                         this.referrar_link = response.data.QrCodeLink
                         this.qr_code = "data:image/png;base64,"+ response.data.QrCodeImageBase64
@@ -110,7 +109,7 @@ export default {
             axios.post( 'GetReferrerRebateReport', {
                   FromDate: this.startDate,
                   ToDate: this.endDate
-            }, { headers } ).then(response => {
+            }, this.headers ).then(response => {
                 console.log(response.data)
               if(response.data.ResponseCode == "0"){
                 //   if(this.report_type == "DEP"){

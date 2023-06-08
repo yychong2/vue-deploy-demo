@@ -128,9 +128,6 @@
   import CryptoJS from 'crypto-js'
   import Loading from '../components/Loading.vue'
   import VLazyImage from "v-lazy-image";
-  let headers = { 
-    "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-  };
 
   export default{
         data(){
@@ -150,7 +147,10 @@
             gameUrl: "",
             product_code : "",
             loading : false,
-            activeName:"SL"
+            activeName:"SL",
+            headers : { 
+                "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
+            }
            }
         },
         created(){
@@ -249,17 +249,11 @@
                     return alert('Transfer Amount is required');
                 }
 
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
-                let headers = { 
-                  "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-                };
-
                 axios.post('Transfer', {
                     TransferFrom : "main" ,
                     TransferTo : this.product_code ,
                     TransferAmount : this.transferAmount,
-                }, {headers})
+                }, this.headers )
                 .then(response => {
                     if(response.data.ResponseCode == "0"){
                         alert(response.data.ResponseMessage);
@@ -271,13 +265,7 @@
             },
             async getBalance(productCode , isSeamless , isMaintenance){
 
-                axios.defaults.headers.common['X-Member-Details'] = CryptoJS.AES.decrypt(sessionStorage.getItem("memDetail"), this.aesKey).toString(CryptoJS.enc.Utf8);
-
-                let headers = { 
-                  "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
-                };
-
-                const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },{ headers })
+                const response = await axios.post( 'GetBalance?productCode='+productCode+'&isSeamless='+isSeamless+'&isMaintenance='+isMaintenance, {  },this.headers)
                 if(response.data == '9999' || response.data == 'null' ){
                     return "Error"
                 }
@@ -297,7 +285,7 @@
     }
 </script>
 
-<style>
+<style >
 
 .form-control2 {
     min-height: 50px;
@@ -311,5 +299,14 @@
 
 .card{
     width:20%;
+}
+
+.v-lazy-image {
+  filter: blur(20px);
+  transition: filter 0.7s;
+}
+
+.v-lazy-image-loaded {
+  filter: blur(0);
 }
 </style>
