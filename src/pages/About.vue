@@ -49,17 +49,25 @@
 
     export default{
         data(){
+            return{}
+        //     const { t } = useI18n()
+        //    return{
+        //     title : t("title.about"),
+        //             description : t("title.about_description"),
+        //    }
+        },
+        methods:{
+            
+        },
+        components:{
+            Header
+        },
+        setup(){
            const { t } = useI18n()
-
            return{
             title : t("title.about"),
             description : t("title.about_description"),
            }
-        },
-        methods:{
-        },
-        components:{
-            Header
         }
     }
 </script>

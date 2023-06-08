@@ -17,7 +17,7 @@ export default{
             title:{
                 type: [String,Number,Array,Object],
                 //必选项
-                required:true
+                required:true,
             },
             description:{
                 type: [String,Number,Array,Object],

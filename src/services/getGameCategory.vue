@@ -41,7 +41,7 @@
             <div class="row gx-5">
                 <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
                     <div class="position-relative mb-5 gameClick">
-                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <v-lazy-image class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
                     </div>
                 </div>
@@ -54,7 +54,8 @@
             <div class="row gx-5">
                 <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
                     <div class="position-relative mb-5 gameClick">
-                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <v-lazy-image class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <!-- <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" /> -->
                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
                     </div>
                 </div>
@@ -66,7 +67,7 @@
             <div class="row gx-5">
                 <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
                     <div class="position-relative mb-5 gameClick">
-                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <v-lazy-image class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
                     </div>
                 </div>
@@ -78,7 +79,7 @@
             <div class="row gx-5">
                 <div class="col-lg-6" v-for="(item,index) of gameList" :key="index">
                     <div class="position-relative mb-5 gameClick">
-                        <img class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
+                        <v-lazy-image class="img-fluid rounded-3 mb-3" :src="item.Image2 " alt="{{ item.ProductName }}" />
                         <a class="h3 fw-bolder text-decoration-none link-dark stretched-link" @click="LaunchGame(item.ProductCode , item.ProductType)">{{ item.ProductName }}</a>
                     </div>
                 </div>
@@ -126,7 +127,7 @@
   import axios from 'axios';
   import CryptoJS from 'crypto-js'
   import Loading from '../components/Loading.vue'
-
+  import VLazyImage from "v-lazy-image";
   let headers = { 
     "X-Member-Details" : axios.defaults.headers.common['X-Member-Details']
   };
@@ -291,7 +292,7 @@
             }
         },
         components:{
-            Loading
+            Loading , VLazyImage
         }
     }
 </script>
