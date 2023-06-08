@@ -5,7 +5,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'deposit'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="../src/assets/img/9.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="../src/assets/img/9.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.pay")  }}</a>
                      </RouterLink>
                  </div>
@@ -14,7 +14,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'depositpg'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="../src/assets/img/1.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="../src/assets/img/1.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.pay")  }} PG</a>
                      </RouterLink>
                  </div>
@@ -23,7 +23,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'withdrawal'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="../src/assets/img/5.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="../src/assets/img/5.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.receive")  }}</a>
                      </RouterLink>
                  </div>
@@ -32,7 +32,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'transfer'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/8.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/8.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.transfer")  }}</a>
                      </RouterLink>
                  </div>
@@ -41,7 +41,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'bank'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/4.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/4.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.bank")  }}</a>
                      </RouterLink>
                  </div>
@@ -50,7 +50,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'password'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/3.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/3.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.password")  }}</a>
                      </RouterLink>
                  </div>
@@ -59,7 +59,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'history'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/2.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/2.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.history")  }}</a>
                      </RouterLink>
                  </div>
@@ -70,7 +70,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'voucher'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/6.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/6.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.voucher")  }}</a>
                      </RouterLink>
                  </div>
@@ -79,7 +79,7 @@
              <div class="col-lg-4">
                  <div class="position-relative mb-5 gameClick">
                      <RouterLink :to="Tr.i18nRoute({name:'referrer'})">
-                         <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/7.png"  />
+                         <!-- <v-lazy-image class="img-fluid rounded-3 mb-3" src="/src/assets/img/7.png"  /> -->
                          <a class="h3 fw-bolder text-decoration-none link-dark stretched-link">{{ $t("nav.referrer")  }}</a>
                      </RouterLink>
                  </div>
